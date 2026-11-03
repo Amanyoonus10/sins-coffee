@@ -1,0 +1,7 @@
+# Ignore huge zip archives and development scripts
+*.zip
+*.tar.gz
+*.log
+serve.py
+preview-builder.py
+.git
