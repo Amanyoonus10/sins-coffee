@@ -93,13 +93,83 @@ img, video {
     background-position: center center !important;
   }
 
-  /* Header */
+  /* --------------------------------------------------------------------------
+     ANNOUNCEMENT BAR & HEADER (Zero Overlap, Clean & Sticky)
+     -------------------------------------------------------------------------- */
+  .sins-announcement-bar {
+    position: relative;
+    z-index: 1002;
+    padding: 0.35rem 0;
+    font-size: 0.65rem;
+    line-height: 1.3;
+    background: #141311;
+    border-bottom: 1px solid rgba(198, 163, 107, 0.18);
+  }
+
+  .sins-announcement-bar__inner {
+    justify-content: center;
+    padding: 0 0.75rem;
+  }
+
+  .sins-announcement-bar__content {
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    max-width: 95vw;
+  }
+
+  .sins-announcement-bar__pill {
+    font-size: 0.55rem;
+    padding: 0.12rem 0.45rem;
+    flex-shrink: 0;
+  }
+
+  .sins-announcement-bar__text {
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+  }
+
+  .sins-announcement-bar__link,
+  .sins-announcement-bar__heritage {
+    display: none !important;
+  }
+
+  /* Header Mobile */
   .sins-header {
-    padding: 0.9rem 0;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 0.75rem 0;
+    background: rgba(14, 13, 11, 0.94);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(198, 163, 107, 0.18);
+  }
+
+  .sins-header__inner {
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .sins-header__logo-wrap {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .sins-header__logo {
-    max-height: 38px;
+    max-height: 34px;
     width: auto;
   }
 
@@ -109,7 +179,17 @@ img, video {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
     cursor: pointer;
+    z-index: 2;
+  }
+
+  .sins-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-left: auto;
+    z-index: 2;
   }
 
   .sins-header__action-btn {
@@ -120,77 +200,128 @@ img, video {
     justify-content: center;
   }
 
-  /* Section 01: Hero Section */
+  /* --------------------------------------------------------------------------
+     HERO SECTION (Flawlessly Proportionate, Full Visibility on Phone)
+     -------------------------------------------------------------------------- */
   .sins-hero {
-    min-height: 100svh;
-    height: 100svh;
-    max-height: 850px;
+    min-height: calc(100svh - 45px);
+    height: auto;
+    padding: 3rem 1rem 4rem 1rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
+    overflow: hidden;
+  }
+
+  .sins-hero__video-wrap {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .sins-hero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .sins-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at center, rgba(14, 13, 11, 0.45) 0%, rgba(10, 9, 8, 0.85) 100%),
+      linear-gradient(180deg, rgba(10, 9, 8, 0.75) 0%, rgba(14, 13, 11, 0.25) 40%, rgba(10, 9, 8, 0.85) 100%);
+    z-index: 2;
   }
 
   .sins-hero__content-container {
-    padding-top: 4.5rem;
-    padding-bottom: 3.5rem;
+    position: relative;
+    z-index: 3;
     width: 100%;
+    padding: 0;
   }
 
   .sins-hero__content {
-    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
   }
 
   .sins-hero__brand-pill {
-    max-width: 95%;
-    white-space: normal;
-    text-align: center;
-    padding: 0.35rem 0.85rem;
-    font-size: 0.62rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.58rem;
     letter-spacing: 0.16em;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.15rem;
+    background: rgba(14, 13, 11, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(198, 163, 107, 0.35);
+    border-radius: 30px;
+    max-width: 95%;
+  }
+
+  .sins-hero__brand-pill .pill-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .sins-hero__headline {
-    font-size: clamp(2.3rem, 8.5vw, 3.4rem);
-    line-height: 1.12;
-    margin-bottom: 1.25rem;
+    font-size: clamp(1.9rem, 7.5vw, 2.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.85rem;
+    text-transform: uppercase;
+  }
+
+  .sins-hero__headline .title-line {
+    display: block;
   }
 
   .sins-hero__subtext {
-    font-size: 0.95rem;
-    line-height: 1.65;
-    max-width: 90%;
-    margin: 0 auto 2rem auto;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    max-width: 310px;
+    margin: 0 auto 1.4rem auto;
+    color: rgba(245, 239, 230, 0.85);
   }
 
   .sins-hero__cta-group {
+    display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 320px;
+    max-width: 290px;
     margin: 0 auto;
-    gap: 0.85rem;
+    gap: 0.7rem;
   }
 
   .sins-hero__cta-group .sins-btn {
     width: 100%;
-    min-height: 48px;
+    min-height: 46px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.95rem 1.5rem;
-    font-size: 0.72rem;
+    padding: 0.8rem 1.25rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    border-radius: 3px;
   }
 
   .sins-hero__scroll-indicator {
-    bottom: 1.5rem;
-  }
-
-  @media (max-height: 650px) {
-    .sins-hero__scroll-indicator {
-      display: none;
-    }
+    display: none !important;
   }
 
   /* Section 02: Brand Intro */

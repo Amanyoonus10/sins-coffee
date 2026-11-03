@@ -62,16 +62,21 @@ def build_preview():
     }
     @media screen and (max-width: 768px) {
       .sins-preview-switcher {
-        width: calc(100vw - 1.5rem);
-        max-width: calc(100vw - 1.5rem);
-        bottom: 0.75rem;
-        padding: 0.35rem 0.6rem;
+        width: auto;
+        max-width: calc(100vw - 1rem);
+        bottom: 0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.25rem 0.5rem;
         overflow-x: auto;
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        gap: 0.4rem;
+        gap: 0.35rem;
         justify-content: flex-start;
+        background: rgba(14, 13, 11, 0.94);
+        border: 1px solid rgba(198, 163, 107, 0.45);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.92);
       }
       .sins-preview-switcher::-webkit-scrollbar {
         display: none;
@@ -80,9 +85,10 @@ def build_preview():
         display: none;
       }
       .sins-preview-btn {
-        padding: 0.35rem 0.65rem;
-        font-size: 0.65rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.62rem;
         flex-shrink: 0;
+        border-radius: 12px;
       }
     }
     .page-view {

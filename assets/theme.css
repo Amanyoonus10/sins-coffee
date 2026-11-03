@@ -289,31 +289,36 @@ ul, ol {
 }
 
 /* ==========================================================================
-   LUXURY FLOATING HEADER
+   LUXURY STICKY HEADER
    ========================================================================== */
 
 .sins-header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  padding: 1.5rem 0;
+  padding: 1.15rem 0;
   transition: padding 0.5s var(--ease-luxury), background 0.5s var(--ease-luxury), border 0.5s var(--ease-luxury);
-  border-bottom: 1px solid rgba(198, 163, 107, 0.1);
+  border-bottom: 1px solid rgba(198, 163, 107, 0.15);
+  background: rgba(14, 13, 11, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .sins-header--floating {
-  background: linear-gradient(180deg, rgba(16, 16, 16, 0.8) 0%, rgba(16, 16, 16, 0) 100%);
-  backdrop-filter: blur(4px);
+  background: rgba(14, 13, 11, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
 .sins-header--scrolled {
-  padding: 0.9rem 0;
-  background: rgba(16, 16, 16, 0.94);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(198, 163, 107, 0.25);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  padding: 0.85rem 0;
+  background: rgba(10, 9, 8, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(198, 163, 107, 0.28);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
 }
 
 .sins-header__inner {
