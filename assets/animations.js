@@ -9,11 +9,40 @@
   document.addEventListener('DOMContentLoaded', initAnimations);
 
   function initAnimations() {
+    initHeroVideoSlowMotion();
     initCinematicVideoIntro();
     initHeaderScroll();
     initScrollVideo();
     initScrollReveals();
     initParallax();
+  }
+
+  // 0. Slow-Motion Background Hero Video (Unhurried Cinematic Luxury Pace)
+  function initHeroVideoSlowMotion() {
+    const heroVideos = document.querySelectorAll('#sinsHeroVideo, .sins-hero__video');
+    if (!heroVideos.length) return;
+
+    const SLOW_RATE = 0.65; // ~35% slower for a relaxed, velvety, high-end editorial feel
+
+    heroVideos.forEach(video => {
+      const applyRate = () => {
+        try {
+          video.playbackRate = SLOW_RATE;
+          video.defaultPlaybackRate = SLOW_RATE;
+        } catch (e) {}
+      };
+
+      applyRate();
+      video.addEventListener('loadedmetadata', applyRate);
+      video.addEventListener('canplay', applyRate);
+      video.addEventListener('play', applyRate);
+      video.addEventListener('playing', applyRate);
+      video.addEventListener('ratechange', () => {
+        if (video.playbackRate !== SLOW_RATE && !video.paused) {
+          applyRate();
+        }
+      });
+    });
   }
 
   // 1. Cinematic Video Intro Controller (Plays before website starts)
@@ -27,8 +56,12 @@
     // Lock page scrolling while intro is active
     document.body.style.overflow = 'hidden';
 
-    // Auto-play video
+    // Auto-play intro video smoothly
     introVideo.muted = true;
+    try {
+      introVideo.playbackRate = 0.85;
+      introVideo.defaultPlaybackRate = 0.85;
+    } catch (e) {}
     const playPromise = introVideo.play();
     if (playPromise !== undefined) {
       playPromise.catch(() => {});
@@ -44,6 +77,10 @@
 
       const heroVideo = document.getElementById('sinsHeroVideo') || document.querySelector('.sins-hero__video');
       if (heroVideo) {
+        try {
+          heroVideo.playbackRate = 0.65;
+          heroVideo.defaultPlaybackRate = 0.65;
+        } catch (e) {}
         heroVideo.play().catch(e => console.log('Hero autoplay:', e));
       }
 

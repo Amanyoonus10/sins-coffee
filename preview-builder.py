@@ -216,6 +216,8 @@ def build_preview():
             playsinline 
             webkit-playsinline
             preload="auto"
+            onloadedmetadata="this.playbackRate = 0.65;"
+            onplay="this.playbackRate = 0.65;"
             poster="../assets/intro-video-poster.jpg"
           >
             <source src="../assets/sins-coffee-intro-video.mp4" type="video/mp4">
@@ -1581,10 +1583,27 @@ def build_preview():
         introModal.classList.remove('dismissed');
         document.body.style.overflow = 'hidden';
         introVideo.currentTime = 0;
+        try { introVideo.playbackRate = 0.85; } catch (e) {}
         introVideo.play();
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
+
+    // Set slow-motion playback on background hero video
+    document.addEventListener('DOMContentLoaded', function () {
+      const heroVideo = document.getElementById('sinsHeroVideo');
+      if (heroVideo) {
+        const setRate = () => {
+          try {
+            heroVideo.playbackRate = 0.65;
+            heroVideo.defaultPlaybackRate = 0.65;
+          } catch (e) {}
+        };
+        setRate();
+        heroVideo.addEventListener('play', setRate);
+        heroVideo.addEventListener('loadedmetadata', setRate);
+      }
+    });
   </script>
 </body>
 </html>

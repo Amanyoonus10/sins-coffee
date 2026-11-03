@@ -14,6 +14,8 @@
       playsinline 
       webkit-playsinline
       preload="auto"
+      onloadedmetadata="this.playbackRate = 0.65;"
+      onplay="this.playbackRate = 0.65;"
       poster="{{ section.settings.poster_image | default: 'intro-video-poster.jpg' | asset_url }}"
     >
       <source src="{{ section.settings.video_url | default: 'sins-coffee-intro-video.mp4' | asset_url }}" type="video/mp4">
