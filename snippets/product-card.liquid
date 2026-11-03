@@ -1,0 +1,85 @@
+{% comment %}
+  SIN'S COFFEE - Luxury Editorial Product Card
+{% endcomment %}
+
+{%- liquid
+  assign title = product.title | default: mock_title | default: "Monsoon Malabar Reserve No. 1"
+  assign origin = product.metafields.custom.origin | default: mock_origin | default: "Baba Budangiri, Karnataka"
+  assign roast = product.metafields.custom.roast_profile | default: mock_roast | default: "Medium-Dark Roast"
+  assign notes = product.metafields.custom.tasting_notes | default: mock_notes | default: "Dark Cocoa • Cardamom • Spiced Honey"
+  assign price = product.price | default: mock_price | default: 1800
+  assign price_formatted = price | money
+  assign image_url = product.featured_image | image_url: width: 800
+  if image_url == blank
+    assign image_url = mock_image | default: 'coffee-tin-monsoon.jpg' | asset_url
+  endif
+  assign product_url = product.url | default: mock_url | default: '/products/monsoon-malabar-reserve'
+  assign first_variant_id = product.selected_or_first_available_variant.id | default: mock_variant_id | default: 'demo-variant-1'
+-%}
+
+<div class="sins-product-card" data-product-id="{{ product.id | default: 'mock-id' }}" data-variant-id="{{ first_variant_id }}">
+  <div class="sins-product-card__media-wrap">
+    <a href="{{ product_url }}" class="sins-product-card__link" aria-label="{{ title }}">
+      <div class="sins-product-card__image-container">
+        <img 
+          src="{{ image_url }}" 
+          alt="{{ title | escape }}" 
+          class="sins-product-card__image"
+          loading="lazy"
+          width="600"
+          height="750"
+        >
+        <div class="sins-product-card__overlay"></div>
+      </div>
+    </a>
+
+    {%- if mock_badge or product.tags contains 'Reserve' or product.tags contains 'Monsooned' -%}
+      <div class="sins-product-badge">
+        <span>{{ mock_badge | default: 'ATELIER RESERVE' }}</span>
+      </div>
+    {%- endif -%}
+
+    <div class="sins-product-card__quick-actions">
+      <button 
+        type="button" 
+        class="sins-btn-quick-add" 
+        data-action="quick-add"
+        data-variant-id="{{ first_variant_id }}"
+        data-product-title="{{ title | escape }}"
+        data-product-price="{{ price }}"
+        data-product-image="{{ image_url }}"
+      >
+        <span class="btn-text">ADD TO BAG</span>
+        <span class="btn-icon">{% render 'icon', icon: 'bag' %}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="sins-product-card__content">
+    <div class="sins-product-card__meta-origin">
+      <span class="sins-origin-tag">{{ origin }}</span>
+      <span class="sins-dot">•</span>
+      <span class="sins-roast-tag">{{ roast }}</span>
+    </div>
+
+    <h3 class="sins-product-card__title">
+      <a href="{{ product_url }}">{{ title }}</a>
+    </h3>
+
+    <div class="sins-product-card__notes">
+      <span class="notes-label">Notes:</span> {{ notes }}
+    </div>
+
+    <div class="sins-product-card__footer">
+      <div class="sins-product-card__weights">
+        <span class="weight-pill active">250g</span>
+        <span class="weight-pill">500g</span>
+        <span class="weight-pill">1kg</span>
+      </div>
+      <div class="sins-product-card__price">
+        <span class="price-amount">{{ price_formatted }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,81 @@
+{% comment %}
+  SIN'S COFFEE - Section 08: Full-Screen Brand Statement
+  Features fixed / still parallax background image while scrolling.
+{% endcomment %}
+
+<section 
+  class="sins-brand-statement" 
+  id="statement" 
+  data-section-id="{{ section.id }}"
+  style="background-image: url('{{ section.settings.bg_image | default: 'brand-statement-bg.png' | asset_url }}');"
+>
+  <div class="sins-brand-statement__overlay"></div>
+  
+  <div class="sins-container sins-brand-statement__inner">
+    <div class="sins-brand-statement__content" data-reveal="scale-up">
+      
+      <!-- Top Decorative Animated Gold Filigree -->
+      <div class="sins-statement-filigree sins-statement-filigree--top">
+        <span class="filigree-line filigree-line--left"></span>
+        <span class="filigree-diamond">✦</span>
+        <span class="filigree-line filigree-line--right"></span>
+      </div>
+
+      <!-- Golden Coffee Emblem Graphic -->
+      <div class="sins-statement-bean-wrap">
+        <img src="{{ 'sins-coffee-emblem.png' | asset_url }}" alt="SIN'S COFFEE Emblem" class="sins-statement-bean" width="90" height="90">
+      </div>
+
+      <!-- The Core Centered Statement -->
+      <h2 class="sins-brand-statement__title">
+        <span class="statement-line statement-line--gold">{{ section.settings.statement_line_1 | default: 'INDIAN COFFEE HERITAGE.' }}</span>
+        <span class="statement-line statement-line--champagne">{{ section.settings.statement_line_2 | default: 'BRITISH EXCELLENCE.' }}</span>
+      </h2>
+
+      <!-- Bottom Animated Gold Line with Bean Graphic Divider -->
+      <div class="sins-statement-filigree sins-statement-filigree--bottom">
+        <span class="filigree-line filigree-line--left"></span>
+        <div class="filigree-bean-center">
+          {% render 'icon', icon: 'coffee-bean' %}
+        </div>
+        <span class="filigree-line filigree-line--right"></span>
+      </div>
+
+      <p class="sins-statement-sub">
+        SIN’S COFFEE is dedicated to preserving four centuries of Indian coffee tradition while orchestrating the apex of contemporary British luxury hospitality.
+      </p>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Statement",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Still Background Image"
+    },
+    {
+      "type": "text",
+      "id": "statement_line_1",
+      "label": "Statement Line 1",
+      "default": "INDIAN COFFEE HERITAGE."
+    },
+    {
+      "type": "text",
+      "id": "statement_line_2",
+      "label": "Statement Line 2",
+      "default": "BRITISH EXCELLENCE."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Statement",
+      "category": "Brand"
+    }
+  ]
+}
+{% endschema %}

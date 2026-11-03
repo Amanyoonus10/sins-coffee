@@ -1,0 +1,93 @@
+{% comment %}
+  SIN'S COFFEE - Dedicated Main Cart Page
+{% endcomment %}
+
+<section class="sins-cart-page" data-section-id="{{ section.id }}">
+  <div class="sins-container">
+    
+    <div class="sins-cart-page__header">
+      <span class="cart-tag">YOUR RESERVATION</span>
+      <h1 class="cart-title">SHOPPING BAG</h1>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="/cart" method="post" class="sins-cart-form" id="sinsCartPageForm">
+        <div class="sins-cart-table-wrap">
+          <table class="sins-cart-table">
+            <thead>
+              <tr>
+                <th class="th-product">SELECTION</th>
+                <th class="th-price">PRICE</th>
+                <th class="th-qty">QUANTITY</th>
+                <th class="th-total">TOTAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%- for item in cart.items -%}
+                <tr class="cart-row">
+                  <td class="td-product">
+                    <div class="item-meta-wrap">
+                      <img src="{{ item.image | image_url: width: 140 }}" alt="{{ item.title | escape }}" class="item-img" width="70" height="90">
+                      <div class="item-details">
+                        <a href="{{ item.url }}" class="item-title">{{ item.product.title }}</a>
+                        {%- if item.variant.title != 'Default Title' -%}
+                          <div class="item-variant">{{ item.variant.title }}</div>
+                        {%- endif -%}
+                        <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="item-remove">Remove Selection</a>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="td-price">{{ item.final_price | money }}</td>
+                  <td class="td-qty">
+                    <div class="sins-qty-control">
+                      <input type="number" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0" class="qty-field">
+                    </div>
+                  </td>
+                  <td class="td-total">{{ item.final_line_price | money }}</td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sins-cart-page-footer">
+          <div class="footer-left">
+            <label for="CartPageNote" class="note-label">Order Tasting Note or Gift Message:</label>
+            <textarea name="note" id="CartPageNote" class="sins-textarea-note" rows="3" placeholder="Special delivery instructions or personal gift card note...">{{ cart.note }}</textarea>
+          </div>
+
+          <div class="footer-right">
+            <div class="subtotal-box">
+              <div class="subtotal-line">
+                <span>SUBTOTAL</span>
+                <span class="subtotal-val">{{ cart.total_price | money }}</span>
+              </div>
+              <p class="vat-info">Taxes, duties and shipping calculated at checkout. Complimentary UK delivery on qualifying orders.</p>
+              
+              <div class="cart-page-buttons">
+                <button type="submit" name="update" class="sins-btn sins-btn--outline">UPDATE BAG</button>
+                <button type="submit" name="checkout" class="sins-btn sins-btn--gold">PROCEED TO SECURE CHECKOUT →</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="sins-cart-empty-page">
+        <div class="empty-icon">{% render 'icon', icon: 'coffee-bean' %}</div>
+        <h2>YOUR SELECTION IS CURRENTLY EMPTY</h2>
+        <p>Explore our heritage single origins and artisanal roasts.</p>
+        <a href="/collections/all" class="sins-btn sins-btn--gold">EXPLORE SIGNATURE COLLECTION</a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": []
+}
+{% endschema %}
+

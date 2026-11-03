@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main_product": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "product_recommendations": {
+      "type": "signature-collection",
+      "settings": {
+        "eyebrow": "COMPLEMENTARY ROASTS",
+        "products_to_show": 3
+      }
+    }
+  },
+  "order": [
+    "main_product",
+    "product_recommendations"
+  ]
+}
+

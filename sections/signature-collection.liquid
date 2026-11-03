@@ -1,0 +1,176 @@
+{% comment %}
+  SIN'S COFFEE - Section 04: The Signature Collection
+{% endcomment %}
+
+<section class="sins-signature-collection" id="collection" data-section-id="{{ section.id }}">
+  <div class="sins-container">
+    
+    <!-- Editorial Section Header -->
+    <div class="sins-signature-collection__header">
+      <div class="header-left" data-reveal="fade-up">
+        <span class="sins-tag-eyebrow">{{ section.settings.eyebrow | default: 'THE CELLAR & CURATIONS' }}</span>
+        <h2 class="sins-signature-collection__title">
+          <span>THE SIGNATURE</span>
+          <span class="italic-serif">COLLECTION</span>
+        </h2>
+      </div>
+
+      <div class="header-right" data-reveal="fade-up" data-delay="100">
+        <p class="sins-collection-intro">
+          Single-origin micro-lots and legendary monsooned vintages from Karnataka’s premier heritage estates, small-batch roasted in London.
+        </p>
+        
+        <!-- Category Filter Tabs -->
+        <div class="sins-category-tabs" role="tablist">
+          <button type="button" class="sins-cat-tab active" data-filter="all" role="tab">ALL RESERVES</button>
+          <button type="button" class="sins-cat-tab" data-filter="beans" role="tab">WHOLE BEANS</button>
+          <button type="button" class="sins-cat-tab" data-filter="ground" role="tab">ARTISAN GROUND</button>
+          <button type="button" class="sins-cat-tab" data-filter="specialty" role="tab">LIMITED EDITIONS</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Horizontal Product Exploration Showcase Slider -->
+    <div class="sins-product-slider-wrapper">
+      <div class="sins-product-slider" id="sinsProductTrack" data-slider>
+        
+        {%- assign collection = collections[section.settings.collection] -%}
+        
+        {%- if collection != blank and collection.products.size > 0 -%}
+          {%- for product in collection.products limit: section.settings.products_to_show -%}
+            <div class="sins-slider-item" data-category="{{ product.type | handle | default: 'beans' }}">
+              {% render 'product-card', product: product %}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <!-- Luxury Editorial Showcase Fallback Items (Ready for Shopify Store Initial Launch) -->
+          <div class="sins-slider-item" data-category="beans">
+            {% render 'product-card',
+              mock_title: "Monsoon Malabar Reserve No. 1",
+              mock_origin: "Western Ghats, Malabar Coast",
+              mock_roast: "Velvety Medium-Dark",
+              mock_notes: "Dark Cocoa • Cardamom • Monsooned Spice • Roasted Almond",
+              mock_price: 1800,
+              mock_badge: "MONSOONED MALABAR AA",
+              mock_image: 'coffee-tin-monsoon.jpg',
+              mock_url: "/collections/all",
+              mock_variant_id: "variant_sins_01"
+            %}
+          </div>
+
+          <div class="sins-slider-item" data-category="beans">
+            {% render 'product-card',
+              mock_title: "Mysore Nuggets Extra Bold",
+              mock_origin: "Chikmagalur Highlands • 1,450m",
+              mock_roast: "Full-Bodied Dark Roast",
+              mock_notes: "Caramelized Brown Sugar • Clove • Dark Chocolate • Cedar",
+              mock_price: 2200,
+              mock_badge: "EXTRA BOLD SIEVE 19",
+              mock_image: 'coffee-tin-mysore.jpg',
+              mock_url: "/collections/all",
+              mock_variant_id: "variant_sins_02"
+            %}
+          </div>
+
+          <div class="sins-slider-item" data-category="ground">
+            {% render 'product-card',
+              mock_title: "Coorg High Altitude Peaberry",
+              mock_origin: "Madikeri Valley, Coorg",
+              mock_roast: "Refined Medium Roast",
+              mock_notes: "Ripe Stone Fruit • Honey Blossom • Nutmeg • Bright Crema",
+              mock_price: 1950,
+              mock_badge: "RARE SINGLE PEABERRY",
+              mock_image: 'coffee-tin-coorg.jpg',
+              mock_url: "/collections/all",
+              mock_variant_id: "variant_sins_03"
+            %}
+          </div>
+
+          <div class="sins-slider-item" data-category="specialty">
+            {% render 'product-card',
+              mock_title: "Baba Budan 1670 Heritage Blend",
+              mock_origin: "Historic Baba Budangiri Hills",
+              mock_roast: "Master Roaster Reserve",
+              mock_notes: "Toasted Fig • Molasses • Ceylon Cinnamon • Silky Body",
+              mock_price: 2600,
+              mock_badge: "LIMITED HARVEST 2026",
+              mock_image: 'roasted-coffee-beans.jpg',
+              mock_url: "/collections/all",
+              mock_variant_id: "variant_sins_04"
+            %}
+          </div>
+        {%- endif -%}
+
+      </div>
+
+      <!-- Navigation Arrows & Progress Bar -->
+      <div class="sins-slider-controls">
+        <div class="sins-slider-progress-bar">
+          <div class="sins-slider-progress-fill" id="sliderProgressFill"></div>
+        </div>
+        <div class="sins-slider-arrows">
+          <button type="button" class="sins-arrow-btn" id="sliderPrev" aria-label="Previous reserve">
+            {% render 'icon', icon: 'arrow-left' %}
+          </button>
+          <button type="button" class="sins-arrow-btn" id="sliderNext" aria-label="Next reserve">
+            {% render 'icon', icon: 'arrow-right' %}
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Collection Footer CTA -->
+    <div class="sins-signature-collection__footer" data-reveal="fade-up">
+      <div class="sins-footer-cta-text">
+        <span>CURATED FOR CONNOISSEURS AND DISCERNING BRITISH ATELIERS</span>
+      </div>
+      <a href="{{ section.settings.view_all_url | default: '/collections/all' }}" class="sins-btn sins-btn--outline-gold">
+        <span>VIEW COMPLETE PRODUCT CATALOGUE</span>
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Signature Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow tag",
+      "default": "THE CELLAR & CURATIONS"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Featured Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 6
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "View All Link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Signature Collection",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}
+

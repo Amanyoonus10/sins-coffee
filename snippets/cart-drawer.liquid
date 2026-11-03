@@ -1,0 +1,110 @@
+<div id="sins-cart-drawer" class="sins-drawer sins-cart-drawer" aria-hidden="true" role="dialog" aria-label="Shopping Bag">
+  <div class="sins-drawer__backdrop" data-drawer-close></div>
+
+  <div class="sins-drawer__panel">
+    <!-- Header -->
+    <div class="sins-drawer__header">
+      <div class="sins-drawer__title-wrap">
+        <h2 class="sins-drawer__title">YOUR SELECTION</h2>
+        <span class="sins-drawer__count">(<span data-cart-count>{{ cart.item_count | default: 0 }}</span>)</span>
+      </div>
+      <button type="button" class="sins-drawer__close-btn" data-drawer-close aria-label="Close Bag">
+        {% render 'icon', icon: 'close' %}
+      </button>
+    </div>
+
+    <!-- Free Delivery Threshold -->
+    <div class="sins-drawer__shipping-bar" data-shipping-threshold="{{ settings.free_shipping_threshold | default: 45 }}">
+      <div class="shipping-bar-text" data-shipping-text>
+        {%- assign threshold_cents = settings.free_shipping_threshold | default: 45 | times: 100 -%}
+        {%- if cart.total_price >= threshold_cents -%}
+          <span class="unlocked">✓ COMPLIMENTARY UK COURIER DELIVERY UNLOCKED</span>
+        {%- else -%}
+          {%- assign remaining = threshold_cents | minus: cart.total_price -%}
+          <span>ADD <strong data-shipping-remaining>{{ remaining | money }}</strong> MORE FOR COMPLIMENTARY UK DELIVERY</span>
+        {%- endif -%}
+      </div>
+      <div class="shipping-bar-progress">
+        <div class="shipping-bar-fill" data-shipping-progress style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Items List -->
+    <div class="sins-drawer__body" data-cart-items-container>
+      {%- if cart.item_count > 0 -%}
+        <div class="sins-cart-items">
+          {%- for item in cart.items -%}
+            <div class="sins-cart-item" data-line-item-key="{{ item.key }}" data-line-item-id="{{ item.id }}">
+              <div class="sins-cart-item__image">
+                <img src="{{ item.image | image_url: width: 180 }}" alt="{{ item.title | escape }}" width="80" height="100">
+              </div>
+              <div class="sins-cart-item__info">
+                <div class="sins-cart-item__header">
+                  <h4 class="sins-cart-item__title">{{ item.product.title }}</h4>
+                  <button type="button" class="sins-cart-item__remove" data-action="remove-item" data-key="{{ item.key }}">
+                    {% render 'icon', icon: 'trash' %}
+                  </button>
+                </div>
+                {%- if item.variant.title != 'Default Title' -%}
+                  <div class="sins-cart-item__variant">{{ item.variant.title }}</div>
+                {%- endif -%}
+                <div class="sins-cart-item__price">{{ item.final_line_price | money }}</div>
+                
+                <div class="sins-cart-item__qty-row">
+                  <div class="sins-qty-control">
+                    <button type="button" class="sins-qty-btn" data-action="decrease-qty" data-key="{{ item.key }}">−</button>
+                    <span class="sins-qty-val">{{ item.quantity }}</span>
+                    <button type="button" class="sins-qty-btn" data-action="increase-qty" data-key="{{ item.key }}">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="sins-cart-empty">
+          <div class="sins-cart-empty__icon">
+            {% render 'icon', icon: 'coffee-bean' %}
+          </div>
+          <h3 class="sins-cart-empty__title">YOUR SELECTION IS EMPTY</h3>
+          <p class="sins-cart-empty__text">Explore our signature Indian coffee heritage beans and artisan roasts.</p>
+          <a href="/collections/all" class="sins-btn sins-btn--gold" data-drawer-close>
+            EXPLORE THE COLLECTION
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Footer -->
+    <div class="sins-drawer__footer" data-cart-footer {% if cart.item_count == 0 %}style="display:none;"{% endif %}>
+      {%- if settings.enable_cart_notes -%}
+        <div class="sins-drawer__note-toggle">
+          <details>
+            <summary>+ Add Gift Note or Custom Grind Instructions</summary>
+            <textarea name="note" placeholder="Personal message or custom requirements..." class="sins-input-note">{{ cart.note }}</textarea>
+          </details>
+        </div>
+      {%- endif -%}
+
+      <div class="sins-drawer__subtotal-row">
+        <span class="subtotal-label">SUBTOTAL</span>
+        <span class="subtotal-amount" data-cart-subtotal>{{ cart.total_price | money }}</span>
+      </div>
+
+      <p class="sins-drawer__tax-note">Taxes and duty calculated at checkout. Complimentary UK shipping applied automatically.</p>
+
+      <form action="/checkout" method="post" class="sins-drawer__checkout-form">
+        <button type="submit" name="checkout" class="sins-btn sins-btn--checkout">
+          <span class="btn-lock-icon">🔒</span>
+          <span>PROCEED TO SECURE CHECKOUT</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </form>
+
+      <div class="sins-drawer__trust-badges">
+        <span>AUTHENTIC INDIAN ESTATE HARVEST</span> • <span>BRITISH ATELIER ROASTED</span>
+      </div>
+    </div>
+  </div>
+</div>
+

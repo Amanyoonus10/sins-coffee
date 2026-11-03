@@ -1,0 +1,162 @@
+{% comment %}
+  SIN'S COFFEE - Luxury Floating Header
+{% endcomment %}
+
+<header class="sins-header sins-header--floating" id="sins-site-header" data-header>
+  <div class="sins-container sins-header__inner">
+    
+    <!-- Mobile Hamburger Toggle -->
+    <button type="button" class="sins-header__mobile-toggle" data-mobile-menu-open aria-label="Open Navigation Menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+    <!-- Desktop Primary Navigation (Left) -->
+    <nav class="sins-header__nav sins-header__nav--left" aria-label="Primary Navigation">
+      <ul class="sins-nav-list">
+        {%- for link in linklists[section.settings.menu].links limit: 3 -%}
+          <li class="sins-nav-item">
+            <a href="{{ link.url }}" class="sins-nav-link {% if link.active %}active{% endif %}">
+              <span>{{ link.title | upcase }}</span>
+            </a>
+          </li>
+        {%- else -%}
+          <li class="sins-nav-item"><a href="/collections/all" class="sins-nav-link"><span>COLLECTION</span></a></li>
+          <li class="sins-nav-item"><a href="/pages/our-story" class="sins-nav-link"><span>OUR HERITAGE</span></a></li>
+          <li class="sins-nav-item"><a href="#process" class="sins-nav-link"><span>THE ART OF COFFEE</span></a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <!-- Brand Identity Logo (Center) -->
+    <div class="sins-header__logo-wrap">
+      <a href="/" class="sins-header__logo-link" aria-label="SIN'S COFFEE Home">
+        {%- if section.settings.logo != blank -%}
+          <img 
+            src="{{ section.settings.logo | image_url: width: 320 }}" 
+            alt="SIN'S COFFEE" 
+            class="sins-header__logo"
+            width="{{ section.settings.logo_width | default: 160 }}"
+            height="auto"
+          >
+        {%- else -%}
+          <img 
+            src="{{ 'sins-coffee-logo-clean.png' | asset_url }}" 
+            alt="SIN'S COFFEE" 
+            class="sins-header__logo"
+            width="{{ section.settings.logo_width | default: 150 }}"
+            height="50"
+          >
+        {%- endif -%}
+      </a>
+    </div>
+
+    <!-- Desktop Secondary Navigation (Right) & Actions -->
+    <div class="sins-header__right-wrap">
+      <nav class="sins-header__nav sins-header__nav--right" aria-label="Secondary Navigation">
+        <ul class="sins-nav-list">
+          {%- for link in linklists[section.settings.menu].links offset: 3 -%}
+            <li class="sins-nav-item">
+              <a href="{{ link.url }}" class="sins-nav-link {% if link.active %}active{% endif %}">
+                <span>{{ link.title | upcase }}</span>
+              </a>
+            </li>
+          {%- else -%}
+            <li class="sins-nav-item"><a href="#tasting" class="sins-nav-link"><span>TASTING NOTES</span></a></li>
+            <li class="sins-nav-item"><a href="/pages/contact" class="sins-nav-link"><span>CONCIERGE</span></a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+
+      <!-- Action Utilities -->
+      <div class="sins-header__actions">
+        <!-- Search Trigger -->
+        <button type="button" class="sins-action-btn" data-search-open aria-label="Search Collection">
+          {% render 'icon', icon: 'search' %}
+        </button>
+
+        <!-- Shopping Bag Trigger -->
+        <button type="button" class="sins-action-btn sins-bag-btn" data-drawer-open="sins-cart-drawer" aria-label="Open Shopping Bag">
+          {% render 'icon', icon: 'bag' %}
+          <span class="sins-bag-count" data-cart-count>{{ cart.item_count | default: 0 }}</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div id="sins-mobile-menu" class="sins-mobile-menu" aria-hidden="true">
+  <div class="sins-mobile-menu__backdrop" data-mobile-menu-close></div>
+  <div class="sins-mobile-menu__panel">
+    <div class="sins-mobile-menu__header">
+      <img src="{{ 'sins-coffee-logo-clean.png' | asset_url }}" alt="SIN'S COFFEE" class="sins-mobile-logo" width="130" height="40">
+      <button type="button" class="sins-mobile-menu__close" data-mobile-menu-close aria-label="Close menu">
+        {% render 'icon', icon: 'close' %}
+      </button>
+    </div>
+
+    <div class="sins-mobile-menu__tagline">
+      <span>INDIAN COFFEE HERITAGE. BRITISH EXCELLENCE.</span>
+    </div>
+
+    <nav class="sins-mobile-nav">
+      <ul class="sins-mobile-nav-list">
+        <li><a href="/collections/all" class="sins-mobile-link"><span>THE SIGNATURE COLLECTION</span></a></li>
+        <li><a href="/pages/our-story" class="sins-mobile-link"><span>OUR HERITAGE & ORIGINS</span></a></li>
+        <li><a href="#process" class="sins-mobile-link"><span>THE ART OF COFFEE</span></a></li>
+        <li><a href="#tasting" class="sins-mobile-link"><span>TASTING EXPERIENCES</span></a></li>
+        <li><a href="/pages/contact" class="sins-mobile-link"><span>LONDON CONCIERGE</span></a></li>
+      </ul>
+    </nav>
+
+    <div class="sins-mobile-menu__footer">
+      <div class="sins-mobile-contact">
+        <span class="label">Client Inquiries</span>
+        <a href="mailto:concierge@sinscoffee.co.uk">concierge@sinscoffee.co.uk</a>
+      </div>
+      <div class="sins-mobile-social">
+        <a href="https://instagram.com/sinscoffee.uk" target="_blank" rel="noopener">
+          {% render 'icon', icon: 'instagram' %} <span>@sinscoffee.uk</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Luxury Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Custom Brand Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 100,
+      "max": 240,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo Width",
+      "default": 160
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Header Navigation Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "Enable Sticky Luxury Header",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+

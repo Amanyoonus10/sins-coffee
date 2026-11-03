@@ -1,0 +1,162 @@
+{% comment %}
+  SIN'S COFFEE - Section 10: Luxury Footer
+{% endcomment %}
+
+<footer class="sins-footer" id="sins-footer" data-section-id="{{ section.id }}">
+  <div class="sins-container">
+    
+    <!-- Newsletter Dispatch Atelier Block -->
+    <div class="sins-footer__newsletter" data-reveal="fade-up">
+      <div class="newsletter-content">
+        <span class="newsletter-tag">EXCLUSIVE HARVEST ALLOCATIONS</span>
+        <h3 class="newsletter-title">THE ATELIER DISPATCH</h3>
+        <p class="newsletter-sub">
+          Receive private cupping invitations, rare single-origin micro-lot releases, and cultural chronicles from our London roastery.
+        </p>
+      </div>
+
+      <div class="newsletter-form-wrap">
+        {% form 'customer', class: 'sins-newsletter-form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter,atelier_dispatch">
+          
+          {%- if form.posted_successfully? -%}
+            <div class="sins-newsletter-success">
+              <span class="success-icon">✓</span>
+              <span>Your invitation request has been received. Welcome to SIN’S COFFEE.</span>
+            </div>
+          {%- else -%}
+            <div class="sins-input-group">
+              <input 
+                type="email" 
+                name="contact[email]" 
+                class="sins-newsletter-input" 
+                placeholder="Enter your email address"
+                required
+                aria-label="Email address for newsletter"
+              >
+              <button type="submit" class="sins-newsletter-btn">
+                <span>REQUEST ACCESS</span>
+                <span class="arrow">→</span>
+              </button>
+            </div>
+            {%- if form.errors -%}
+              <div class="sins-newsletter-error">
+                {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {% endform %}
+      </div>
+    </div>
+
+    <!-- Main Footer Grid -->
+    <div class="sins-footer__main">
+      
+      <!-- Col 1: Brand & Logo -->
+      <div class="sins-footer__col sins-footer__col--brand">
+        <a href="/" class="sins-footer__logo-link">
+          <img 
+            src="{{ 'sins-coffee-logo-clean.png' | asset_url }}" 
+            alt="SIN'S COFFEE" 
+            class="sins-footer__logo"
+            width="170"
+            height="55"
+          >
+        </a>
+        <p class="sins-footer__statement">
+          INDIAN COFFEE HERITAGE.<br>BRITISH EXCELLENCE.
+        </p>
+        <p class="sins-footer__desc">
+          Crafting exceptional specialty coffee from ancestral estates in the Western Ghats for the modern British coffee connoisseur.
+        </p>
+        <div class="sins-footer__social-links">
+          <a href="{{ settings.social_instagram_link | default: 'https://instagram.com/sinscoffee.uk' }}" target="_blank" rel="noopener" aria-label="Instagram">
+            {% render 'icon', icon: 'instagram' %}
+          </a>
+        </div>
+      </div>
+
+      <!-- Col 2: Explore -->
+      <div class="sins-footer__col">
+        <h4 class="sins-footer__col-heading">EXPLORE</h4>
+        <ul class="sins-footer__links">
+          <li><a href="/collections/all">The Signature Collection</a></li>
+          <li><a href="/collections/all">Monsoon Malabar AA</a></li>
+          <li><a href="/collections/all">Mysore Nuggets Extra Bold</a></li>
+          <li><a href="/collections/all">Coorg Peaberry Selection</a></li>
+          <li><a href="/collections/all">Coffee Subscriptions</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Heritage & Atelier -->
+      <div class="sins-footer__col">
+        <h4 class="sins-footer__col-heading">OUR HERITAGE</h4>
+        <ul class="sins-footer__links">
+          <li><a href="/pages/our-story">The 1670 Provenance</a></li>
+          <li><a href="/pages/our-story#estates">Western Ghats Terroir</a></li>
+          <li><a href="#process">The 5-Stage Craft</a></li>
+          <li><a href="#tasting">Cupping Notes & Matrix</a></li>
+          <li><a href="/pages/our-story#sustainability">Biodiverse Shade Forestry</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Concierge & Client Service -->
+      <div class="sins-footer__col">
+        <h4 class="sins-footer__col-heading">CONCIERGE</h4>
+        <ul class="sins-footer__links">
+          <li><a href="/pages/contact">London Concierge Desk</a></li>
+          <li><a href="/pages/contact#shipping">UK Courier Shipping</a></li>
+          <li><a href="/pages/contact#returns">Returns & Guarantee</a></li>
+          <li><a href="/pages/contact#wholesale">Trade & Hospitality Accounts</a></li>
+          <li><a href="/pages/contact#faq">Atelier FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 5: Legal & Ethics -->
+      <div class="sins-footer__col">
+        <h4 class="sins-footer__col-heading">LEGAL</h4>
+        <ul class="sins-footer__links">
+          <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/policies/terms-of-service">Terms & Conditions</a></li>
+          <li><a href="/policies/shipping-policy">Shipping & Delivery</a></li>
+          <li><a href="/policies/refund-policy">Refund Policy</a></li>
+          <li><a href="/pages/contact">Ethical Trade Statement</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Gold Accent Line -->
+    <div class="sins-footer__divider">
+      <div class="divider-gem"></div>
+    </div>
+
+    <!-- Bottom Credits & Closing Statement -->
+    <div class="sins-footer__bottom">
+      <div class="sins-footer__closing">
+        <span>CRAFTED WITH HERITAGE. SERVED WITH DISTINCTION.</span>
+      </div>
+
+      <div class="sins-footer__copyright">
+        <span>© {{ 'now' | date: '%Y' }} SIN'S COFFEE LTD (sinscoffee.co.uk). Registered in the United Kingdom.</span>
+      </div>
+
+      <div class="sins-footer__payment-badges">
+        <span class="payment-badge">Shopify Secure Checkout</span>
+        <span class="payment-badge">Apple Pay</span>
+        <span class="payment-badge">Visa</span>
+        <span class="payment-badge">Mastercard</span>
+        <span class="payment-badge">American Express</span>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Luxury Footer",
+  "settings": []
+}
+{% endschema %}
+

@@ -1,0 +1,86 @@
+{
+  "sections": {
+    "cinematic_hero": {
+      "type": "cinematic-hero",
+      "settings": {
+        "eyebrow": "PREMIUM INDIAN COFFEE • BRITISH EXPERIENCE",
+        "headline_1": "BEYOND COFFEE.",
+        "headline_2": "AN EXPERIENCE.",
+        "subtext": "Discover the richness of Indian coffee heritage, refined for the modern British palate.",
+        "cta_1_text": "EXPLORE OUR COLLECTION",
+        "cta_1_url": "/collections/all",
+        "cta_2_text": "DISCOVER OUR HERITAGE",
+        "cta_2_url": "/pages/our-story"
+      }
+    },
+    "brand_introduction": {
+      "type": "brand-introduction",
+      "settings": {
+        "eyebrow": "THE UNION OF TWO WORLDS",
+        "title_1": "INDIAN ROOTS.",
+        "title_2": "BRITISH REFINEMENT.",
+        "body": "Born from India’s extraordinary coffee-growing heritage and inspired by Britain’s timeless appreciation for refinement, SIN’S COFFEE brings two worlds together.",
+        "link_text": "EXPLORE OUR DUAL HERITAGE",
+        "link_url": "/pages/our-story"
+      }
+    },
+    "origin_story": {
+      "type": "origin-story",
+      "settings": {}
+    },
+    "signature_collection": {
+      "type": "signature-collection",
+      "settings": {
+        "eyebrow": "THE CELLAR & CURATIONS",
+        "products_to_show": 6,
+        "view_all_url": "/collections/all"
+      }
+    },
+    "coffee_process": {
+      "type": "coffee-process",
+      "settings": {
+        "eyebrow": "THE SACRED CRAFTSMANSHIP"
+      }
+    },
+    "tasting_experience": {
+      "type": "tasting-experience",
+      "settings": {
+        "eyebrow": "SENSORY PROFILE & CUPPING MATRIX"
+      }
+    },
+    "brand_philosophy": {
+      "type": "brand-philosophy",
+      "settings": {
+        "eyebrow": "THE PRINCIPLES OF SIN’S COFFEE",
+        "copy": "Every detail matters. From carefully sourced Indian coffee to the final experience in your cup, our philosophy is rooted in quality, authenticity and refinement."
+      }
+    },
+    "brand_statement": {
+      "type": "brand-statement",
+      "settings": {
+        "statement_line_1": "INDIAN COFFEE HERITAGE.",
+        "statement_line_2": "BRITISH EXCELLENCE."
+      }
+    },
+    "instagram_gallery": {
+      "type": "instagram-gallery",
+      "settings": {
+        "eyebrow": "THE VISUAL DISPATCH",
+        "cta_text": "FOLLOW OUR JOURNEY",
+        "instagram_handle": "@sinscoffee.uk",
+        "instagram_link": "https://instagram.com/sinscoffee.uk"
+      }
+    }
+  },
+  "order": [
+    "cinematic_hero",
+    "brand_introduction",
+    "origin_story",
+    "signature_collection",
+    "coffee_process",
+    "tasting_experience",
+    "brand_philosophy",
+    "brand_statement",
+    "instagram_gallery"
+  ]
+}

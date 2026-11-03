@@ -1,0 +1,135 @@
+{% comment %}
+  SIN'S COFFEE - Story & Heritage Editorial Section
+{% endcomment %}
+
+<article class="sins-story-page" data-section-id="{{ section.id }}">
+  
+  <!-- Story Hero Banner -->
+  <header class="sins-story-hero">
+    <div class="sins-story-hero__bg">
+      <img 
+        src="{{ 'plantation-western-ghats.jpg' | asset_url }}" 
+        alt="Western Ghats Rainforest Coffee Estate" 
+        class="sins-story-hero__img"
+        loading="eager"
+        width="1920"
+        height="1080"
+      >
+      <div class="sins-story-hero__overlay"></div>
+    </div>
+    <div class="sins-container sins-story-hero__content">
+      <span class="story-tag sins-anim-fade-up">OUR PROVENANCE & CALLING</span>
+      <h1 class="story-headline sins-anim-title">
+        <span>FOUR CENTURIES OF HERITAGE.</span>
+        <span class="italic-gold">ORCHESTRATED IN LONDON.</span>
+      </h1>
+      <p class="story-lead sins-anim-subtext">
+        SIN’S COFFEE was founded with a singular conviction: that the world's most evocative, nuanced, and velvet coffee beans originate from India’s ancient Western Ghats, deserving a place among the world’s grandest luxury maisons.
+      </p>
+    </div>
+  </header>
+
+  <!-- Editorial Chapter 1: The Legend of 1670 -->
+  <section class="sins-story-chapter sins-story-chapter--split">
+    <div class="sins-container sins-chapter-grid">
+      <div class="chapter-text-col" data-reveal="fade-up">
+        <span class="chapter-num">CHAPTER I</span>
+        <h2 class="chapter-title">The Seven Sacred Beans of Baba Budan</h2>
+        <div class="chapter-gold-divider"></div>
+        <p class="chapter-para">
+          In 1670, long before coffee became a global commodity, an Indian Sufi mystic named Baba Budan undertook a sacred pilgrimage. While returning from Yemen, he defied a royal decree banning the export of viable coffee beans by strapping seven raw green coffee seeds to his chest.
+        </p>
+        <p class="chapter-para">
+          He planted those seven beans on the cloud-kissed volcanic slopes of the Chandragiri Hills in Chikmagalur, Karnataka. Those original seeds flourished, taking root in deep forest soil and giving birth to the legendary heritage of Indian shade-grown coffee.
+        </p>
+        <blockquote class="chapter-quote">
+          “Seven seeds planted in reverence became the bedrock of an empire of flavour.”
+        </blockquote>
+      </div>
+
+      <div class="chapter-media-col" data-reveal="fade-in-right">
+        <div class="chapter-frame">
+          <img 
+            src="{{ 'coffee-cherries-harvest.jpg' | asset_url }}" 
+            alt="Sacred Coffee Cherries in Chikmagalur" 
+            loading="lazy"
+            width="700"
+            height="900"
+          >
+          <div class="frame-tag">CHIKMAGALUR HIGHLANDS • 1,450M</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Chapter 2: The Two Tier Canopy (Full Width Cinematic Break) -->
+  <section class="sins-story-break">
+    <div class="break-bg">
+      <img src="{{ 'plantation-western-ghats.jpg' | asset_url }}" alt="Rainforest Canopy" width="1920" height="800">
+      <div class="break-overlay"></div>
+    </div>
+    <div class="sins-container break-content" data-reveal="fade-up">
+      <span class="break-tag">ECOLOGICAL STEWARDSHIP</span>
+      <h2 class="break-title">100% Shade-Grown Beneath Rainforest Trees</h2>
+      <p class="break-body">
+        Unlike sun-scorched mass plantations, our estates nestle beneath a bi-level canopy of native teak, rosewood, silver oak, and wild jackfruit. This natural shelter preserves bird sanctuaries, mitigates temperature fluctuations, and allows coffee cherries to ripen at half their normal pace—infusing each bean with complex, dense carbohydrates and sublime aromatic depth.
+      </p>
+    </div>
+  </section>
+
+  <!-- Editorial Chapter 3: The British Atelier -->
+  <section class="sins-story-chapter sins-story-chapter--split sins-story-chapter--reverse">
+    <div class="sins-container sins-chapter-grid">
+      <div class="chapter-media-col" data-reveal="fade-in-left">
+        <div class="chapter-frame">
+          <img 
+            src="{{ 'luxury-cup-editorial.jpg' | asset_url }}" 
+            alt="British Coffee Refinement" 
+            loading="lazy"
+            width="700"
+            height="900"
+          >
+          <div class="frame-tag">LONDON ROASTING ATELIER</div>
+        </div>
+      </div>
+
+      <div class="chapter-text-col" data-reveal="fade-up">
+        <span class="chapter-num">CHAPTER II</span>
+        <h2 class="chapter-title">The British Palate & Modern Refinement</h2>
+        <div class="chapter-gold-divider"></div>
+        <p class="chapter-para">
+          Britain possesses a centuries-old tradition of connoisseurship—from fine tailoring on Savile Row to bespoke horology and single-malt curation. At SIN’S COFFEE, we apply this exact standard of discernment to the coffee cup.
+        </p>
+        <p class="chapter-para">
+          In our London atelier, we hand-profile every single shipment. By calibrating the thermal convection of our cast-iron roasters to match the specific moisture content of our Indian beans, we eliminate harsh acidity and highlight natural sweetness, roasted spices, and velvety golden crema.
+        </p>
+        <div class="chapter-mission-box">
+          <h4>OUR DUAL PROMISE</h4>
+          <p>“Unflinching respect for Indian estate origin. Impeccable British execution in every pour.”</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final Call to Action -->
+  <section class="sins-story-cta" data-reveal="fade-up">
+    <div class="sins-container">
+      <img src="{{ 'sins-coffee-logo-clean.png' | asset_url }}" alt="SIN'S COFFEE" class="story-cta-logo" width="140" height="45">
+      <h2 class="story-cta-title">EXPERIENCE THE DISTINCTION</h2>
+      <p class="story-cta-sub">Join us on this voyage of taste, terroir, and timeless refinement.</p>
+      <div class="story-cta-buttons">
+        <a href="/collections/all" class="sins-btn sins-btn--gold">EXPLORE SIGNATURE RESERVES</a>
+        <a href="/pages/contact" class="sins-btn sins-btn--outline">SPEAK WITH CONCIERGE</a>
+      </div>
+    </div>
+  </section>
+
+</article>
+
+{% schema %}
+{
+  "name": "Story & Heritage",
+  "settings": []
+}
+{% endschema %}
+

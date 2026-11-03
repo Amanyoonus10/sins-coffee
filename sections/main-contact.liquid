@@ -1,0 +1,132 @@
+{% comment %}
+  SIN'S COFFEE - Main Contact Section
+{% endcomment %}
+
+<section class="sins-contact-page" data-section-id="{{ section.id }}">
+  <div class="sins-container">
+    
+    <!-- Header -->
+    <div class="sins-contact-header" data-reveal="fade-up">
+      <span class="contact-eyebrow">CLIENT CONCIERGE & ATELIER DESK</span>
+      <h1 class="contact-title">
+        <span>CONNECT WITH</span>
+        <span class="italic-serif">SIN’S COFFEE.</span>
+      </h1>
+      <p class="contact-lead">
+        Whether inquiring about private harvest allocations, bespoke corporate gifts, luxury hospitality wholesale, or order concierge, our London desk awaits your communication.
+      </p>
+    </div>
+
+    <div class="sins-contact-grid">
+      
+      <!-- Left Column: Form -->
+      <div class="sins-contact-form-wrap" data-reveal="fade-up">
+        <h3 class="form-heading">TRANSMIT AN INQUIRY</h3>
+        
+        {% form 'contact', class: 'sins-contact-form' %}
+          {%- if form.posted_successfully? -%}
+            <div class="contact-success-banner">
+              <span class="check-icon">✓</span>
+              <div>
+                <strong>Thank you for contacting SIN’S COFFEE.</strong>
+                <p>A member of our London concierge will reply within one business day.</p>
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- if form.errors -%}
+            <div class="contact-error-banner">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="ContactFormName" class="field-label">FULL NAME *</label>
+              <input type="text" id="ContactFormName" name="contact[name]" class="sins-input" placeholder="e.g. Lord Alistair Vance" required>
+            </div>
+            <div class="form-field">
+              <label for="ContactFormEmail" class="field-label">EMAIL ADDRESS *</label>
+              <input type="email" id="ContactFormEmail" name="contact[email]" class="sins-input" placeholder="e.g. alistair@domain.co.uk" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="ContactFormPhone" class="field-label">TELEPHONE</label>
+              <input type="tel" id="ContactFormPhone" name="contact[phone]" class="sins-input" placeholder="+44 20 ...">
+            </div>
+            <div class="form-field">
+              <label for="ContactFormSubject" class="field-label">NATURE OF INQUIRY</label>
+              <select id="ContactFormSubject" name="contact[subject]" class="sins-select">
+                <option value="Private Client Concierge">Private Client Concierge</option>
+                <option value="Luxury Hospitality & Wholesale">Luxury Hospitality & Wholesale</option>
+                <option value="Corporate Atelier Gifting">Corporate Atelier Gifting</option>
+                <option value="Press & Cultural Inquiries">Press & Cultural Inquiries</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="ContactFormMessage" class="field-label">MESSAGE *</label>
+            <textarea id="ContactFormMessage" name="contact[body]" rows="5" class="sins-textarea" placeholder="How may our atelier assist your coffee experience?" required></textarea>
+          </div>
+
+          <button type="submit" class="sins-btn sins-btn--gold">
+            <span>TRANSMIT MESSAGE</span>
+            <span class="arrow">→</span>
+          </button>
+        {% endform %}
+      </div>
+
+      <!-- Right Column: Concierge Details & Hours -->
+      <div class="sins-contact-info-wrap" data-reveal="fade-in-right">
+        
+        <div class="info-card">
+          <span class="info-tag">LONDON HEADQUARTERS</span>
+          <h4 class="info-title">Atelier & Roastery</h4>
+          <address class="info-address">
+            SIN'S COFFEE LTD<br>
+            Berkeley Square House, Mayfair<br>
+            London W1J 6BD<br>
+            United Kingdom
+          </address>
+        </div>
+
+        <div class="info-card">
+          <span class="info-tag">DIRECT LINES</span>
+          <div class="info-contact-line">
+            <span class="label">Concierge Email:</span>
+            <a href="mailto:concierge@sinscoffee.co.uk">concierge@sinscoffee.co.uk</a>
+          </div>
+          <div class="info-contact-line">
+            <span class="label">Desk Telephone:</span>
+            <a href="tel:+442079460892">+44 (0) 20 7946 0892</a>
+          </div>
+          <div class="info-contact-line">
+            <span class="label">Instagram:</span>
+            <a href="https://instagram.com/sinscoffee.uk" target="_blank" rel="noopener">@sinscoffee.uk</a>
+          </div>
+        </div>
+
+        <div class="info-card info-card--hours">
+          <span class="info-tag">HOURS OF OPERATION</span>
+          <p>Monday – Friday: 08:30 – 18:00 GMT</p>
+          <p>Saturday: 10:00 – 16:00 GMT</p>
+          <p>Sunday: Atelier Closed (Roasting & Degassing)</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Page",
+  "settings": []
+}
+{% endschema %}
+

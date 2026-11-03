@@ -1,0 +1,28 @@
+{% comment %}
+  SIN'S COFFEE — Clean Fullscreen Video Intro (Plays before site starts)
+  Uncompressed 4K cinematic prologue (Coffee Beans, Liquid Splash & Heritage Emblem).
+  Auto-advances when finished, or smoothly skips on click/tap/scroll.
+{% endcomment %}
+
+<div id="sins-video-intro" class="sins-video-intro" role="dialog" aria-modal="true" aria-label="Cinematic Video Intro">
+  <div class="sins-video-intro__media">
+    <video 
+      id="sinsIntroVideo" 
+      class="sins-video-intro__video" 
+      autoplay 
+      muted 
+      playsinline 
+      webkit-playsinline
+      preload="auto"
+      poster="{{ 'scroll-video-poster.jpg' | asset_url }}"
+    >
+      <source src="{{ 'sins-coffee-scroll-video.mp4' | asset_url }}" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Minimal Discreet Skip Action -->
+  <button type="button" class="sins-video-intro__skip-hint" id="introSkipBtn" aria-label="Skip video intro">
+    <span>SKIP INTRO</span>
+    <span class="arrow">→</span>
+  </button>
+</div>

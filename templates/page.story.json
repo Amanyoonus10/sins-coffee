@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "story_heritage": {
+      "type": "story-heritage",
+      "settings": {}
+    }
+  },
+  "order": [
+    "story_heritage"
+  ]
+}
+

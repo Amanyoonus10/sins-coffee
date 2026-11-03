@@ -1,0 +1,56 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "close": "Close",
+    "search": "Search our atelier...",
+    "share": "Share",
+    "brand_tagline": "INDIAN COFFEE HERITAGE. BRITISH EXCELLENCE."
+  },
+  "sections": {
+    "hero": {
+      "explore": "EXPLORE OUR COLLECTION",
+      "heritage": "DISCOVER OUR HERITAGE",
+      "scroll": "Scroll to discover"
+    },
+    "cart": {
+      "title": "Your Selection",
+      "empty": "Your selection is currently empty",
+      "continue_shopping": "Explore Signature Coffees",
+      "subtotal": "Subtotal",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes calculated at checkout. Complimentary UK delivery above £45.",
+      "checkout": "Proceed to Checkout",
+      "note": "Gift Message or Tasting Note",
+      "free_shipping_reached": "You have unlocked complimentary UK delivery.",
+      "free_shipping_remaining": "Add {{ amount }} more for complimentary UK delivery."
+    },
+    "featured_collection": {
+      "view_all": "View Full Collection"
+    },
+    "footer": {
+      "newsletter_title": "THE ATELIER DISPATCH",
+      "newsletter_subtext": "Receive private release allocations, harvest announcements, and tasting invitations.",
+      "newsletter_placeholder": "Enter your email address",
+      "newsletter_submit": "Request Allocation",
+      "copyright": "SIN'S COFFEE LTD. All Rights Reserved."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Bag",
+      "sold_out": "Reserve Allocation Closed",
+      "unavailable": "Unavailable",
+      "price": "Price",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "quantity": "Quantity",
+      "weight": "Weight",
+      "grind": "Grind Selection",
+      "tasting_notes": "Tasting Notes",
+      "origin": "Terroir & Origin",
+      "roast_level": "Roast Profile",
+      "altitude": "Altitude",
+      "brew_guide": "Recommended Brewing"
+    }
+  }
+}
+

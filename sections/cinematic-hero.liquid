@@ -1,0 +1,148 @@
+{% comment %}
+  SIN'S COFFEE - Section 01: Full-Screen Cinematic Hero
+{% endcomment %}
+
+<section class="sins-hero sins-hero--cinematic" id="sins-hero" data-section-id="{{ section.id }}">
+  <!-- Background Video Container -->
+  <div class="sins-hero__video-wrap">
+    <video 
+      id="sinsHeroVideo"
+      class="sins-hero__video sins-hero__video--desktop" 
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      webkit-playsinline
+      preload="auto"
+      poster="{{ section.settings.poster_image | default: 'intro-video-poster.jpg' | asset_url }}"
+    >
+      <source src="{{ section.settings.video_url | default: 'sins-coffee-intro-video.mp4' | asset_url }}" type="video/mp4">
+      Your browser does not support high-definition video playback.
+    </video>
+
+    <!-- Mobile Optimized Fallback Image / Video -->
+    <div class="sins-hero__mobile-fallback" style="background-image: url('{{ section.settings.mobile_poster | default: 'roasted-coffee-beans.jpg' | asset_url }}');"></div>
+
+    <!-- Luxury Dark Matte Overlay with Champagne Specular Gradient -->
+    <div class="sins-hero__overlay"></div>
+  </div>
+
+  <!-- Hero Content Centerpiece -->
+  <div class="sins-hero__content-container">
+    <div class="sins-container">
+      <div class="sins-hero__content">
+        
+        <!-- Subtle Brand Monogram Pill -->
+        <div class="sins-hero__brand-pill sins-anim-fade-up">
+          <span class="pill-dot"></span>
+          <span class="pill-text">{{ section.settings.eyebrow | default: 'PREMIUM INDIAN COFFEE • BRITISH EXPERIENCE' }}</span>
+          <span class="pill-dot"></span>
+        </div>
+
+        <!-- Oversized Editorial Headline -->
+        <h1 class="sins-hero__headline sins-anim-title">
+          <span class="title-line">{{ section.settings.headline_1 | default: 'BEYOND COFFEE.' }}</span>
+          <span class="title-line title-line--italic">{{ section.settings.headline_2 | default: 'AN EXPERIENCE.' }}</span>
+        </h1>
+
+        <!-- Supporting Editorial Text -->
+        <p class="sins-hero__subtext sins-anim-subtext">
+          {{ section.settings.subtext | default: 'Discover the richness of Indian coffee heritage, refined for the modern British palate.' }}
+        </p>
+
+        <!-- CTAs -->
+        <div class="sins-hero__cta-group sins-anim-cta">
+          <a href="{{ section.settings.cta_1_url | default: '/collections/all' }}" class="sins-btn sins-btn--gold">
+            <span>{{ section.settings.cta_1_text | default: 'EXPLORE OUR COLLECTION' }}</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="{{ section.settings.cta_2_url | default: '/pages/our-story' }}" class="sins-btn sins-btn--outline">
+            <span>{{ section.settings.cta_2_text | default: 'DISCOVER OUR HERITAGE' }}</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Minimal Animated Scroll Indicator -->
+  <a href="#brand-intro" class="sins-hero__scroll-indicator" aria-label="Scroll to discover">
+    <span class="scroll-label">DISCOVER</span>
+    <div class="scroll-track">
+      <div class="scroll-pulse"></div>
+    </div>
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "Cinematic Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow tag",
+      "default": "PREMIUM INDIAN COFFEE • BRITISH EXPERIENCE"
+    },
+    {
+      "type": "text",
+      "id": "headline_1",
+      "label": "Headline Line 1",
+      "default": "BEYOND COFFEE."
+    },
+    {
+      "type": "text",
+      "id": "headline_2",
+      "label": "Headline Line 2",
+      "default": "AN EXPERIENCE."
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Supporting text",
+      "default": "Discover the richness of Indian coffee heritage, refined for the modern British palate."
+    },
+    {
+      "type": "text",
+      "id": "cta_1_text",
+      "label": "Primary CTA text",
+      "default": "EXPLORE OUR COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "cta_1_url",
+      "label": "Primary CTA link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "cta_2_text",
+      "label": "Secondary CTA text",
+      "default": "DISCOVER OUR HERITAGE"
+    },
+    {
+      "type": "url",
+      "id": "cta_2_url",
+      "label": "Secondary CTA link",
+      "default": "/pages/our-story"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Desktop Poster Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_poster",
+      "label": "Mobile Fallback Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cinematic Hero",
+      "category": "Hero"
+    }
+  ]
+}
+{% endschema %}
+

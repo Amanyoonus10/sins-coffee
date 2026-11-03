@@ -1,0 +1,96 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#101010">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Google Luxury Editorial Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Brand Favicon -->
+    <link rel="icon" type="image/png" href="{{ 'favicon.png' | asset_url }}">
+    <link rel="apple-touch-icon" href="{{ 'favicon.png' | asset_url }}">
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains "SIN'S COFFEE" %} &ndash; SIN'S COFFEE | Indian Coffee Heritage. British Excellence.{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% else %}
+      <meta name="description" content="SIN'S COFFEE — Premium Indian Coffee. British Experience. Exceptional specialty single origins, monsooned beans and artisan roasts.">
+    {% endif %}
+
+    {{ content_for_header }}
+
+    <!-- Theme Stylesheets -->
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ 'responsive.css' | asset_url | stylesheet_tag }}
+
+    <!-- Dynamic Theme Settings as CSS Variables -->
+    <style>
+      :root {
+        --color-matte-black: {{ settings.color_bg_matte_black | default: '#101010' }};
+        --color-champagne-gold: {{ settings.color_gold_champagne | default: '#C6A36B' }};
+        --color-champagne-light: {{ settings.color_gold_light | default: '#DFC597' }};
+        --color-warm-ivory: {{ settings.color_ivory_warm | default: '#F3EBDD' }};
+        --color-deep-coffee: {{ settings.color_deep_coffee | default: '#5A3929' }};
+        --color-muted-sand: {{ settings.color_muted_sand | default: '#B5A58C' }};
+        --color-charcoal: {{ settings.color_charcoal | default: '#292723' }};
+        --color-text-light: {{ settings.color_text_light | default: '#F8F5EE' }};
+        --color-text-muted: {{ settings.color_text_muted | default: '#A0988B' }};
+        
+        --font-headline: '{{ settings.font_headline | default: "Cormorant Garamond" }}', Georgia, serif;
+        --font-body: '{{ settings.font_body | default: "Manrope" }}', -apple-system, BlinkMacSystemFont, sans-serif;
+        --base-font-size: {{ settings.type_base_size | default: 16 }}px;
+      }
+    </style>
+  </head>
+
+  <body class="sins-theme template-{{ template.name | handle }} {% if template.suffix %}template-suffix-{{ template.suffix | handle }}{% endif %}">
+    
+    <!-- Cinematic Fullscreen Video Intro (Plays before site starts) -->
+    {% render 'cinematic-video-intro' %}
+
+    <!-- Skip Link for Accessibility -->
+    <a class="skip-to-content-link" href="#MainContent">
+      {{ 'general.skip_to_content' | t | default: 'Skip to content' }}
+    </a>
+
+    <!-- Global Header Section -->
+    {% section 'announcement-bar' %}
+    {% section 'luxury-header' %}
+
+    <!-- Main Content Container -->
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    <!-- Global Footer Section -->
+    {% section 'luxury-footer' %}
+
+    <!-- Slide-Out Luxury Cart Drawer -->
+    {% render 'cart-drawer' %}
+
+    <!-- Luxury Predictive Search Modal -->
+    {% render 'search-modal' %}
+
+    <!-- GSAP for Ultra-Smooth Luxury Scroll & Transitions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+    <!-- Theme JS & Motion Controller -->
+    <script src="{{ 'animations.js' | asset_url }}" defer></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+  </body>
+</html>
+

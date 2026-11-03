@@ -1,0 +1,157 @@
+{% comment %}
+  SIN'S COFFEE - Section 03: The Origin of Our Coffee
+{% endcomment %}
+
+<section class="sins-origin-story" id="origin" data-section-id="{{ section.id }}">
+  <div class="sins-origin-story__backdrop">
+    <img 
+      src="{{ section.settings.bg_image | default: 'plantation-western-ghats.jpg' | asset_url }}" 
+      alt="Western Ghats Mist Covered Coffee Estate" 
+      class="sins-origin-story__bg-img sins-parallax-bg"
+      loading="lazy"
+      width="1920"
+      height="1080"
+    >
+    <div class="sins-origin-story__overlay"></div>
+  </div>
+
+  <div class="sins-container sins-origin-story__content">
+    
+    <!-- Top Editorial Header -->
+    <div class="sins-origin-story__header" data-reveal="fade-up">
+      <span class="sins-origin-story__tag">TERROIR & PROVENANCE</span>
+      <h2 class="sins-origin-story__headline">
+        <span>ROOTED IN INDIA.</span>
+        <span class="italic-serif">CRAFTED FOR THE WORLD.</span>
+      </h2>
+      <p class="sins-origin-story__subhead">
+        High above the misty rainforest canopies of Karnataka’s Western Ghats — a UNESCO World Heritage biodiversity hotspot — our beans are hand-cultivated under two tiers of native shade trees.
+      </p>
+    </div>
+
+    <!-- Asymmetrical Story Mosaic Grid -->
+    <div class="sins-origin-mosaic">
+      
+      <!-- Mosaic Item 1: Western Ghats Terroir -->
+      <div class="sins-mosaic-card sins-mosaic-card--large" data-reveal="fade-up">
+        <div class="sins-mosaic-card__media">
+          <img 
+            src="{{ section.settings.img_1 | default: 'plantation-western-ghats.jpg' | asset_url }}" 
+            alt="Karnataka Mist Canopy" 
+            loading="lazy"
+            width="800"
+            height="550"
+          >
+        </div>
+        <div class="sins-mosaic-card__caption">
+          <span class="caption-region">BABA BUDANGIRI & CHIKMAGALUR</span>
+          <h3 class="caption-title">The Cradle of Indian Coffee</h3>
+          <p class="caption-desc">
+            Legend recounts that in 1670, Sufi saint Baba Budan smuggled seven magical beans from Yemen to these very slopes. Today, this altitude yields incomparable density and nuanced complexity.
+          </p>
+        </div>
+      </div>
+
+      <!-- Mosaic Item 2: Hand Harvest -->
+      <div class="sins-mosaic-card sins-mosaic-card--tall" data-reveal="fade-up" data-delay="150">
+        <div class="sins-mosaic-card__media">
+          <img 
+            src="{{ section.settings.img_2 | default: 'coffee-cherries-harvest.jpg' | asset_url }}" 
+            alt="Handpicked Ruby Arabica Cherries" 
+            loading="lazy"
+            width="600"
+            height="800"
+          >
+        </div>
+        <div class="sins-mosaic-card__caption">
+          <span class="caption-region">OCTOBER — FEBRUARY HARVEST</span>
+          <h3 class="caption-title">Selective Ruby Picking</h3>
+          <p class="caption-desc">
+            Only fully ripe, deep crimson cherries are gathered by third-generation estate pickers, preserving natural sugar concentration and delicate floral aromatics.
+          </p>
+        </div>
+      </div>
+
+      <!-- Mosaic Item 3: Monsooned Process -->
+      <div class="sins-mosaic-card sins-mosaic-card--wide" data-reveal="fade-up" data-delay="300">
+        <div class="sins-mosaic-card__media">
+          <img 
+            src="{{ section.settings.img_3 | default: 'roasted-coffee-beans.jpg' | asset_url }}" 
+            alt="Monsooned Malabar Processing" 
+            loading="lazy"
+            width="750"
+            height="500"
+          >
+        </div>
+        <div class="sins-mosaic-card__caption">
+          <span class="caption-region">ARABIAN SEA WIND CURATION</span>
+          <h3 class="caption-title">The Alchemy of Monsooning</h3>
+          <p class="caption-desc">
+            Exposed to damp southwest monsoon winds on open brick yards, the green beans swell and mature to golden ivory, creating a world-renowned mellow acidity and heavy velvet body.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Origin Milestone Counter -->
+    <div class="sins-origin-stats" data-reveal="fade-up">
+      <div class="stat-box">
+        <span class="stat-number">350+</span>
+        <span class="stat-title">Years of Heritage</span>
+        <span class="stat-detail">Dating back to the earliest coffee voyages</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">100%</span>
+        <span class="stat-title">Shade Grown</span>
+        <span class="stat-detail">Beneath fig, rosewood & silver oak trees</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">Grade AAA</span>
+        <span class="stat-title">Extra Bold Sieve 19</span>
+        <span class="stat-detail">Top 2% cherry density classification</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number">Zero</span>
+        <span class="stat-title">Compromise</span>
+        <span class="stat-detail">Small-batch roasted in our British atelier</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The Origin Story",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Parallax Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_1",
+      "label": "Mosaic Image 1 (Estate)"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_2",
+      "label": "Mosaic Image 2 (Cherries)"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_3",
+      "label": "Mosaic Image 3 (Monsooned)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "The Origin Story",
+      "category": "Story"
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,150 @@
+{% comment %}
+  SIN'S COFFEE - Section 06: A Taste of Distinction (Warm Ivory Editorial)
+  Features fixed / still parallax background image while scrolling.
+{% endcomment %}
+
+<section 
+  class="sins-tasting-experience" 
+  id="tasting" 
+  data-section-id="{{ section.id }}"
+  style="background-image: url('{{ section.settings.bg_image | default: 'tasting-bg.png' | asset_url }}');"
+>
+  <div class="sins-tasting-experience__overlay"></div>
+  <div class="sins-container sins-tasting-experience__inner">
+    
+    <!-- Warm Ivory Section Editorial Header -->
+    <div class="sins-tasting-experience__header" data-reveal="fade-up">
+      <span class="ivory-tag">{{ section.settings.eyebrow | default: 'SENSORY PROFILE & CUPPING MATRIX' }}</span>
+      <h2 class="sins-tasting-experience__title">
+        <span>A TASTE OF</span>
+        <span class="italic-serif">DISTINCTION.</span>
+      </h2>
+      <p class="sins-tasting-experience__lead">
+        Characterized by low natural acidity, rich unctuous body, and intoxicating notes of toasted spice, fine Indian specialty coffees represent one of the world's best kept luxury secrets.
+      </p>
+    </div>
+
+    <!-- Tasting Matrix Grid -->
+    <div class="sins-tasting-grid">
+      
+      <!-- Characteristic 1: Aroma -->
+      <div class="sins-tasting-card" data-reveal="fade-up">
+        <div class="tasting-card-top">
+          <span class="tasting-card-num">01</span>
+          <span class="tasting-card-icon">✧</span>
+        </div>
+        <h3 class="tasting-card-title">Aroma</h3>
+        <p class="tasting-card-text">
+          Intense and aromatic. Fragrant top notes of freshly crushed green cardamom, roasted hazelnut, warm sandalwood and delicate wildflower honey.
+        </p>
+        <div class="tasting-card-bar">
+          <div class="bar-fill" style="width: 95%;"></div>
+        </div>
+        <span class="bar-label">Intensity: Extraordinary (9.5/10)</span>
+      </div>
+
+      <!-- Characteristic 2: Body -->
+      <div class="sins-tasting-card" data-reveal="fade-up" data-delay="100">
+        <div class="tasting-card-top">
+          <span class="tasting-card-num">02</span>
+          <span class="tasting-card-icon">◈</span>
+        </div>
+        <h3 class="tasting-card-title">Body</h3>
+        <p class="tasting-card-text">
+          Dense, syrupy and lavish. A substantial coating mouthfeel that envelops the palate with buttery velvet smoothness and zero astringency.
+        </p>
+        <div class="tasting-card-bar">
+          <div class="bar-fill" style="width: 98%;"></div>
+        </div>
+        <span class="bar-label">Texture: Full Velvet (9.8/10)</span>
+      </div>
+
+      <!-- Characteristic 3: Flavour -->
+      <div class="sins-tasting-card" data-reveal="fade-up" data-delay="200">
+        <div class="tasting-card-top">
+          <span class="tasting-card-num">03</span>
+          <span class="tasting-card-icon">✦</span>
+        </div>
+        <h3 class="tasting-card-title">Flavour</h3>
+        <p class="tasting-card-text">
+          Complex layers of 85% single-origin dark cocoa, caramelized jaggery, sun-dried mission fig, subtle black pepper and roasted cashew butter.
+        </p>
+        <div class="tasting-card-bar">
+          <div class="bar-fill" style="width: 92%;"></div>
+        </div>
+        <span class="bar-label">Complexity: Layered & Nuanced (9.2/10)</span>
+      </div>
+
+      <!-- Characteristic 4: Roast Profile -->
+      <div class="sins-tasting-card" data-reveal="fade-up" data-delay="300">
+        <div class="tasting-card-top">
+          <span class="tasting-card-num">04</span>
+          <span class="tasting-card-icon">❖</span>
+        </div>
+        <h3 class="tasting-card-title">Roast Profile</h3>
+        <p class="tasting-card-text">
+          Carefully tailored medium to medium-dark profiles. Roasted in slow cast-iron batches in London to caramelize sugars without imparting smoky charcoal.
+        </p>
+        <div class="tasting-card-bar">
+          <div class="bar-fill" style="width: 88%;"></div>
+        </div>
+        <span class="bar-label">Development: Master Roast (8.8/10)</span>
+      </div>
+
+      <!-- Characteristic 5: Terroir & Origin -->
+      <div class="sins-tasting-card sins-tasting-card--wide" data-reveal="fade-up" data-delay="400">
+        <div class="tasting-card-top">
+          <span class="tasting-card-num">05</span>
+          <span class="tasting-card-icon">⚚</span>
+        </div>
+        <h3 class="tasting-card-title">Terroir & Origin</h3>
+        <p class="tasting-card-text">
+          Protected geographical origin from Karnataka’s Chikmagalur and Malabar Coast. Volcanic-rich humus soil, heavy monsoon rains, and shaded biodiversity yield beans of peerless density and equilibrium.
+        </p>
+        <div class="tasting-attributes-tags">
+          <span class="attr-pill">Western Ghats</span>
+          <span class="attr-pill">Monsooned Malabar AA</span>
+          <span class="attr-pill">Mysore Nuggets Extra Bold</span>
+          <span class="attr-pill">Coorg Peaberry</span>
+          <span class="attr-pill">1,400m+ Altitude</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Editorial Quote in Ivory Container -->
+    <div class="sins-tasting-quote" data-reveal="fade-up">
+      <blockquote class="tasting-quote-text">
+        “Indian shade-grown coffee possesses an aristocratic velvet composure that modern high-acid beans simply cannot emulate.”
+      </blockquote>
+      <cite class="tasting-quote-author">— SIN’S COFFEE ATELIER NOTES, LONDON</cite>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "A Taste of Distinction",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Still Background Image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow tag",
+      "default": "SENSORY PROFILE & CUPPING MATRIX"
+    }
+  ],
+  "presets": [
+    {
+      "name": "A Taste of Distinction",
+      "category": "Experience"
+    }
+  ]
+}
+{% endschema %}
+

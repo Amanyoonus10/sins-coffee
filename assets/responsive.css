@@ -1,0 +1,386 @@
+/* ==========================================================================
+   SIN'S COFFEE — LUXURY RESPONSIVE ART DIRECTION
+   Dedicated styling for Tablet, Mobile, and Ultra-wide screens
+   ========================================================================== */
+
+/* Tablet & Smaller Desktops (<= 1100px) */
+@media screen and (max-width: 1100px) {
+  .sins-header__nav {
+    display: none;
+  }
+
+  .sins-header__mobile-toggle {
+    display: flex;
+  }
+
+  .sins-footer__main {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .sins-footer__col--brand {
+    grid-column: 1 / -1;
+  }
+
+  .sins-tasting-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sins-tasting-card--wide {
+    grid-column: span 2;
+  }
+
+  .sins-philosophy__pillars {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .sins-origin-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablet & Mobile (<= 860px) */
+@media screen and (max-width: 860px) {
+  :root {
+    --container-gutter: 1.25rem;
+  }
+
+  /* Header */
+  .sins-header {
+    padding: 1.1rem 0;
+  }
+
+  .sins-header__logo {
+    max-height: 40px;
+  }
+
+  /* Hero Section */
+  .sins-hero {
+    min-height: 600px;
+    height: 92vh;
+  }
+
+  .sins-hero__content-container {
+    padding-top: 2rem;
+  }
+
+  .sins-hero__headline {
+    font-size: 2.75rem;
+    line-height: 1.1;
+  }
+
+  .sins-hero__subtext {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  .sins-hero__cta-group {
+    flex-direction: column;
+    width: 100%;
+    max-width: 340px;
+    gap: 1rem;
+  }
+
+  .sins-hero__cta-group .sins-btn {
+    width: 100%;
+    padding: 1rem 1.5rem;
+  }
+
+  /* Split screen brand intro */
+  .sins-brand-intro__grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .sins-image-card--primary {
+    width: 100%;
+  }
+
+  .sins-image-card--floating {
+    width: 55%;
+    bottom: -8%;
+    right: 0;
+  }
+
+  /* Origin Section */
+  .sins-origin-mosaic {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sins-mosaic-card--large,
+  .sins-mosaic-card--tall,
+  .sins-mosaic-card--wide {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .sins-mosaic-card--tall .sins-mosaic-card__media {
+    aspect-ratio: 16/10;
+  }
+
+  .sins-origin-stats {
+    grid-template-columns: 1fr 1fr;
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+
+  /* Coffee Process 5-Step */
+  .sins-process-steps-nav {
+    display: flex;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .sins-step-tab {
+    flex-shrink: 0;
+    padding: 0.6rem 1rem;
+  }
+
+  .sins-stage-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* Tasting Matrix */
+  .sins-tasting-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sins-tasting-card--wide {
+    grid-column: span 1;
+    padding: 2rem 1.5rem;
+  }
+
+  /* Instagram Grid */
+  .sins-insta-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .sins-insta-card--tall {
+    grid-column: 1 / -1;
+    aspect-ratio: 16/11;
+  }
+
+  .sins-insta-card--wide {
+    grid-column: 1 / -1;
+    aspect-ratio: 16/10;
+  }
+
+  /* Footer Newsletter */
+  .sins-footer__newsletter {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-bottom: 3.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .sins-footer__main {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sins-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  /* PDP */
+  .sins-pdp-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  /* Story Page */
+  .sins-chapter-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .sins-story-chapter--reverse .chapter-media-col {
+    order: 2;
+  }
+  .sins-story-chapter--reverse .chapter-text-col {
+    order: 1;
+  }
+
+  /* Contact Page */
+  .sins-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .sins-contact-form-wrap {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Collections */
+  .sins-collection-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* Cart Page */
+  .sins-cart-page-footer {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sins-cart-table thead {
+    display: none;
+  }
+
+  .sins-cart-table td {
+    display: block;
+    padding: 0.75rem 0;
+  }
+
+  .sins-cart-table td.td-price::before {
+    content: "Price: ";
+    color: var(--color-muted-sand);
+    font-size: 0.8rem;
+  }
+
+  .sins-cart-table td.td-total::before {
+    content: "Total: ";
+    color: var(--color-muted-sand);
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Navigation Drawer */
+.sins-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  visibility: hidden;
+  transition: visibility 0.4s ease;
+}
+
+.sins-mobile-menu.active {
+  visibility: visible;
+}
+
+.sins-mobile-menu__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.sins-mobile-menu.active .sins-mobile-menu__backdrop {
+  opacity: 1;
+}
+
+.sins-mobile-menu__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 85%;
+  max-width: 360px;
+  height: 100%;
+  background: #111111;
+  border-right: 1px solid var(--color-border-dark);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.45s var(--ease-luxury);
+  box-shadow: 15px 0 40px rgba(0,0,0,0.9);
+}
+
+.sins-mobile-menu.active .sins-mobile-menu__panel {
+  transform: translateX(0);
+}
+
+.sins-mobile-menu__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.sins-mobile-menu__close {
+  color: var(--color-text-light);
+  padding: 0.5rem;
+}
+
+.sins-mobile-menu__tagline {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  color: var(--color-champagne-gold);
+  margin-bottom: 2.5rem;
+}
+
+.sins-mobile-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sins-mobile-link {
+  font-family: var(--font-headline);
+  font-size: 1.45rem;
+  color: var(--color-text-light);
+  display: block;
+}
+
+.sins-mobile-link:hover {
+  color: var(--color-champagne-gold);
+  padding-left: 8px;
+}
+
+.sins-mobile-menu__footer {
+  margin-top: auto;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sins-mobile-contact .label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--color-muted-sand);
+  margin-bottom: 0.25rem;
+}
+
+.sins-mobile-contact a {
+  font-size: 0.85rem;
+  color: var(--color-champagne-light);
+}
+
+.sins-mobile-social a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.82rem;
+  color: var(--color-muted-sand);
+}
+
+/* Reduced Motion Support (Accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

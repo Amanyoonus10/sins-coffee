@@ -1,0 +1,1511 @@
+import os, re
+
+def build_preview():
+    # Read css and js asset references
+    # Let's build a unified interactive HTML demo in preview/index.html
+    html_content = """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#101010">
+  <title>SIN'S COFFEE — Indian Coffee Heritage. British Excellence. | Luxury Atelier Preview</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  
+  <!-- Google Luxury Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="stylesheet" href="../assets/responsive.css">
+
+  <style>
+    /* Demo Navigation Bar at Top for Preview Mode */
+    .sins-preview-switcher {
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99999;
+      background: rgba(16, 16, 16, 0.94);
+      border: 1px solid var(--color-champagne-gold);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .sins-preview-switcher span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--color-champagne-light);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .sins-preview-btn {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted-sand);
+      padding: 0.35rem 0.8rem;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.05);
+    }
+    .sins-preview-btn:hover, .sins-preview-btn.active {
+      color: var(--color-matte-black);
+      background: var(--color-champagne-gold);
+      font-weight: 600;
+    }
+    .page-view {
+      display: none;
+    }
+    .page-view.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="sins-theme template-index">
+
+  <!-- Clean Fullscreen Cinematic Video Intro (Plays before site starts) -->
+  <div id="sins-video-intro" class="sins-video-intro" role="dialog" aria-modal="true" aria-label="Cinematic Video Intro">
+    <div class="sins-video-intro__media">
+      <video id="sinsIntroVideo" class="sins-video-intro__video" autoplay muted playsinline webkit-playsinline preload="auto" poster="../assets/scroll-video-poster.jpg">
+        <source src="../assets/sins-coffee-scroll-video.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Minimal Discreet Skip Action -->
+    <button type="button" class="sins-video-intro__skip-hint" id="introSkipBtn" aria-label="Skip video intro">
+      <span>SKIP INTRO</span>
+      <span>→</span>
+    </button>
+  </div>
+
+  <!-- Announcement Bar -->
+  <div class="sins-announcement-bar" style="background-color: #181818; color: #C6A36B;">
+    <div class="sins-container sins-announcement-bar__inner">
+      <div class="sins-announcement-bar__content">
+        <span class="sins-announcement-bar__pill">COMPLIMENTARY DELIVERY</span>
+        <span class="sins-announcement-bar__text">Complimentary UK courier delivery on all orders exceeding £45 • Freshly roasted weekly in London</span>
+        <a href="#collection" class="sins-announcement-bar__link">EXPLORE ALLOCATIONS →</a>
+      </div>
+      <div class="sins-announcement-bar__heritage">
+        <span>LONDON • BENGALURU</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Luxury Floating Header -->
+  <header class="sins-header sins-header--floating" id="sins-site-header" data-header>
+    <div class="sins-container sins-header__inner">
+      
+      <!-- Mobile Toggle -->
+      <button type="button" class="sins-header__mobile-toggle" data-mobile-menu-open aria-label="Open Navigation Menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+
+      <!-- Nav Left -->
+      <nav class="sins-header__nav sins-header__nav--left" aria-label="Primary Navigation">
+        <ul class="sins-nav-list">
+          <li class="sins-nav-item"><a href="#" class="sins-nav-link" onclick="switchView('collection'); return false;"><span>COLLECTION</span></a></li>
+          <li class="sins-nav-item"><a href="#" class="sins-nav-link" onclick="switchView('story'); return false;"><span>OUR HERITAGE</span></a></li>
+          <li class="sins-nav-item"><a href="#process" class="sins-nav-link"><span>THE ART OF COFFEE</span></a></li>
+        </ul>
+      </nav>
+
+      <!-- Center Logo -->
+      <div class="sins-header__logo-wrap">
+        <a href="#" class="sins-header__logo-link" onclick="switchView('home'); return false;" aria-label="SIN'S COFFEE Home">
+          <img src="../assets/sins-coffee-logo-clean.png" alt="SIN'S COFFEE" class="sins-header__logo" width="160" height="50">
+        </a>
+      </div>
+
+      <!-- Nav Right & Actions -->
+      <div class="sins-header__right-wrap">
+        <nav class="sins-header__nav sins-header__nav--right" aria-label="Secondary Navigation">
+          <ul class="sins-nav-list">
+            <li class="sins-nav-item"><a href="#tasting" class="sins-nav-link"><span>TASTING NOTES</span></a></li>
+            <li class="sins-nav-item"><a href="#" class="sins-nav-link" onclick="switchView('contact'); return false;"><span>CONCIERGE</span></a></li>
+          </ul>
+        </nav>
+
+        <div class="sins-header__actions">
+          <button type="button" class="sins-action-btn" data-search-open aria-label="Search Collection">
+            <svg class="icon icon-search" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+
+          <button type="button" class="sins-action-btn sins-bag-btn" data-drawer-open="sins-cart-drawer" aria-label="Open Shopping Bag">
+            <svg class="icon icon-bag" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span class="sins-bag-count" data-cart-count>0</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="sins-mobile-menu" class="sins-mobile-menu" aria-hidden="true">
+    <div class="sins-mobile-menu__backdrop" data-mobile-menu-close></div>
+    <div class="sins-mobile-menu__panel">
+      <div class="sins-mobile-menu__header">
+        <img src="../assets/sins-coffee-logo-clean.png" alt="SIN'S COFFEE" class="sins-mobile-logo" width="130" height="40">
+        <button type="button" class="sins-mobile-menu__close" data-mobile-menu-close aria-label="Close menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="sins-mobile-menu__tagline">
+        <span>INDIAN COFFEE HERITAGE. BRITISH EXCELLENCE.</span>
+      </div>
+
+      <nav class="sins-mobile-nav">
+        <ul class="sins-mobile-nav-list">
+          <li><a href="#" onclick="switchView('collection'); closeMobileMenu(); return false;" class="sins-mobile-link"><span>THE SIGNATURE COLLECTION</span></a></li>
+          <li><a href="#" onclick="switchView('story'); closeMobileMenu(); return false;" class="sins-mobile-link"><span>OUR HERITAGE & ORIGINS</span></a></li>
+          <li><a href="#process" onclick="closeMobileMenu();" class="sins-mobile-link"><span>THE ART OF COFFEE</span></a></li>
+          <li><a href="#tasting" onclick="closeMobileMenu();" class="sins-mobile-link"><span>TASTING EXPERIENCES</span></a></li>
+          <li><a href="#" onclick="switchView('contact'); closeMobileMenu(); return false;" class="sins-mobile-link"><span>LONDON CONCIERGE</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="sins-mobile-menu__footer">
+        <div class="sins-mobile-contact">
+          <span class="label">Client Inquiries</span>
+          <a href="mailto:concierge@sinscoffee.co.uk">concierge@sinscoffee.co.uk</a>
+        </div>
+        <div class="sins-mobile-social">
+          <a href="https://instagram.com/sinscoffee.uk" target="_blank" rel="noopener">
+            <span>@sinscoffee.uk</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER WITH MULTI-PAGE VIEWS -->
+  <main id="MainContent" role="main">
+    
+    <!-- ================= VIEW 1: HOMEPAGE ================= -->
+    <div id="view-home" class="page-view active">
+      
+      <!-- Section 01: Full-Screen Cinematic Autoplay Hero -->
+      <section class="sins-hero sins-hero--cinematic" id="sins-hero">
+        <div class="sins-hero__video-wrap">
+          <video 
+            id="sinsHeroVideo" 
+            class="sins-hero__video sins-hero__video--desktop" 
+            autoplay 
+            muted 
+            loop 
+            playsinline 
+            webkit-playsinline
+            preload="auto"
+            poster="../assets/intro-video-poster.jpg"
+          >
+            <source src="../assets/sins-coffee-intro-video.mp4" type="video/mp4">
+            Your browser does not support high-definition video playback.
+          </video>
+          <div class="sins-hero__overlay"></div>
+        </div>
+
+        <div class="sins-hero__content-container">
+          <div class="sins-container">
+            <div class="sins-hero__content">
+              
+              <div class="sins-hero__brand-pill sins-anim-fade-up">
+                <span class="pill-dot"></span>
+                <span class="pill-text">PREMIUM INDIAN COFFEE • BRITISH EXPERIENCE</span>
+                <span class="pill-dot"></span>
+              </div>
+
+              <h1 class="sins-hero__headline sins-anim-title">
+                <span class="title-line">BEYOND COFFEE.</span>
+                <span class="title-line title-line--italic">AN EXPERIENCE.</span>
+              </h1>
+
+              <p class="sins-hero__subtext sins-anim-subtext">
+                Discover the richness of Indian coffee heritage, refined for the modern British palate.
+              </p>
+
+              <div class="sins-hero__cta-group sins-anim-cta">
+                <a href="#collection" class="sins-btn sins-btn--gold" onclick="switchView('collection'); return false;">
+                  <span>EXPLORE OUR COLLECTION</span>
+                  <span class="btn-arrow">→</span>
+                </a>
+                <a href="#heritage" class="sins-btn sins-btn--outline" onclick="switchView('story'); return false;">
+                  <span>DISCOVER OUR HERITAGE</span>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <a href="#brand-intro" class="sins-hero__scroll-indicator" aria-label="Scroll to discover">
+          <span class="scroll-label">DISCOVER</span>
+          <div class="scroll-track">
+            <div class="scroll-pulse"></div>
+          </div>
+        </a>
+      </section>
+
+      <!-- Section 02: Brand Intro (Still Background) -->
+      <section class="sins-brand-intro" id="brand-intro" style="background-image: url('../assets/brand-intro-bg.png');">
+        <div class="sins-brand-intro__overlay"></div>
+        <div class="sins-container sins-brand-intro__inner">
+          <div class="sins-brand-intro__grid">
+            <div class="sins-brand-intro__text-col" data-reveal="fade-up">
+              <div class="sins-section-subhead">
+                <span class="subhead-gold-line"></span>
+                <span class="subhead-text">THE UNION OF TWO WORLDS</span>
+              </div>
+              <h2 class="sins-brand-intro__headline">
+                <span class="reveal-word">INDIAN ROOTS.</span>
+                <span class="reveal-word reveal-word--accent">BRITISH REFINEMENT.</span>
+              </h2>
+              <div class="sins-brand-intro__divider"><span class="divider-gem"></span></div>
+              <p class="sins-brand-intro__copy">
+                Born from India’s extraordinary coffee-growing heritage and inspired by Britain’s timeless appreciation for refinement, SIN’S COFFEE brings two worlds together.
+              </p>
+              <div class="sins-brand-intro__credentials">
+                <div class="cred-item">
+                  <span class="cred-num">1,400M+</span>
+                  <span class="cred-label">Western Ghats Shade Altitude</span>
+                </div>
+                <div class="cred-separator"></div>
+                <div class="cred-item">
+                  <span class="cred-num">100%</span>
+                  <span class="cred-label">Handpicked Specialty Arabica</span>
+                </div>
+                <div class="cred-separator"></div>
+                <div class="cred-item">
+                  <span class="cred-num">LONDON</span>
+                  <span class="cred-label">Artisan Micro-Roasting</span>
+                </div>
+              </div>
+              <div class="sins-brand-intro__link-wrap">
+                <a href="#" onclick="switchView('story'); return false;" class="sins-link-arrow">
+                  <span>EXPLORE OUR DUAL HERITAGE</span>
+                  <span class="arrow">→</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="sins-brand-intro__media-col" data-reveal="fade-in-right">
+              <div class="sins-brand-intro__glass-stage">
+                <div class="sins-glass-badge">
+                  <div class="sins-glass-badge__header">
+                    <span class="badge-gem">✦</span>
+                    <span class="badge-label">ATELIER CRAFTSMANSHIP</span>
+                  </div>
+                  <div class="sins-glass-badge__stat">
+                    <span class="stat-value">9 BAR</span>
+                    <span class="stat-desc">PRECISION EXTRACTION</span>
+                  </div>
+                  <p class="sins-glass-badge__text">
+                    Master-extracted tiger-stripe crema, balancing intense dark cocoa with wild Malabar cardamom notes.
+                  </p>
+                  <div class="sins-glass-badge__meta">
+                    <span>MAYFAIR, LONDON</span> • <span>EST. 2024</span>
+                  </div>
+                </div>
+
+                <div class="sins-floating-seal sins-floating-seal--intro">
+                  <span class="seal-inner">
+                    <svg viewBox="0 0 100 100" class="rotating-text-svg">
+                      <path id="sealPathIntro" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent"/>
+                      <text><textPath xlink:href="#sealPathIntro">SIN'S COFFEE • HERITAGE •</textPath></text>
+                    </svg>
+                    <span class="seal-center-emblem">☕</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 03: Origin Story -->
+      <section class="sins-origin-story" id="origin">
+        <div class="sins-origin-story__backdrop">
+          <img src="../assets/plantation-western-ghats.jpg" alt="Western Ghats Mist" class="sins-origin-story__bg-img sins-parallax-bg" width="1920" height="1080">
+          <div class="sins-origin-story__overlay"></div>
+        </div>
+        <div class="sins-container sins-origin-story__content">
+          <div class="sins-origin-story__header" data-reveal="fade-up">
+            <span class="sins-origin-story__tag">TERROIR & PROVENANCE</span>
+            <h2 class="sins-origin-story__headline">
+              <span>ROOTED IN INDIA.</span>
+              <span class="italic-serif">CRAFTED FOR THE WORLD.</span>
+            </h2>
+            <p class="sins-origin-story__subhead">
+              High above the misty rainforest canopies of Karnataka’s Western Ghats — a UNESCO World Heritage biodiversity hotspot — our beans are hand-cultivated under two tiers of native shade trees.
+            </p>
+          </div>
+
+          <div class="sins-origin-mosaic">
+            <div class="sins-mosaic-card sins-mosaic-card--large" data-reveal="fade-up">
+              <div class="sins-mosaic-card__media">
+                <img src="../assets/plantation-western-ghats.jpg" alt="Karnataka Mist Canopy" width="800" height="550">
+              </div>
+              <div class="sins-mosaic-card__caption">
+                <span class="caption-region">BABA BUDANGIRI & CHIKMAGALUR</span>
+                <h3 class="caption-title">The Cradle of Indian Coffee</h3>
+                <p class="caption-desc">Legend recounts that in 1670, Sufi saint Baba Budan brought seven magical beans to these very slopes. Today, this altitude yields incomparable bean density and nuanced complexity.</p>
+              </div>
+            </div>
+
+            <div class="sins-mosaic-card sins-mosaic-card--tall" data-reveal="fade-up" data-delay="150">
+              <div class="sins-mosaic-card__media">
+                <img src="../assets/coffee-cherries-harvest.jpg" alt="Ruby Arabica Cherries" width="600" height="800">
+              </div>
+              <div class="sins-mosaic-card__caption">
+                <span class="caption-region">OCTOBER — FEBRUARY HARVEST</span>
+                <h3 class="caption-title">Selective Ruby Picking</h3>
+                <p class="caption-desc">Only fully ripe, deep crimson cherries are gathered by generational estate pickers, preserving natural sugar concentration and delicate botanical aromatics.</p>
+              </div>
+            </div>
+
+            <div class="sins-mosaic-card sins-mosaic-card--wide" data-reveal="fade-up" data-delay="300">
+              <div class="sins-mosaic-card__media">
+                <img src="../assets/roasted-coffee-beans.jpg" alt="Monsooned Malabar Processing" width="750" height="500">
+              </div>
+              <div class="sins-mosaic-card__caption">
+                <span class="caption-region">ARABIAN SEA WIND CURATION</span>
+                <h3 class="caption-title">The Alchemy of Monsooning</h3>
+                <p class="caption-desc">Exposed to damp southwest monsoon winds on open brick yards, the green beans swell and mature to golden ivory, creating a world-renowned mellow acidity and heavy velvet body.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sins-origin-stats" data-reveal="fade-up">
+            <div class="stat-box">
+              <span class="stat-number">350+</span>
+              <span class="stat-title">Years of Heritage</span>
+              <span class="stat-detail">Dating back to the earliest coffee voyages</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">100%</span>
+              <span class="stat-title">Shade Grown</span>
+              <span class="stat-detail">Beneath fig, rosewood & silver oak trees</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">Grade AAA</span>
+              <span class="stat-title">Extra Bold Sieve 19</span>
+              <span class="stat-detail">Top 2% cherry density classification</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">Zero</span>
+              <span class="stat-title">Compromise</span>
+              <span class="stat-detail">Small-batch roasted in our British atelier</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 04: The Signature Collection -->
+      <section class="sins-signature-collection" id="collection">
+        <div class="sins-container">
+          <div class="sins-signature-collection__header">
+            <div class="header-left" data-reveal="fade-up">
+              <span class="sins-tag-eyebrow">THE CELLAR & CURATIONS</span>
+              <h2 class="sins-signature-collection__title">
+                <span>THE SIGNATURE</span>
+                <span class="italic-serif">COLLECTION</span>
+              </h2>
+            </div>
+            <div class="header-right" data-reveal="fade-up" data-delay="100">
+              <p class="sins-collection-intro">
+                Single-origin micro-lots and legendary monsooned vintages from Karnataka’s premier heritage estates, small-batch roasted in London.
+              </p>
+              <div class="sins-category-tabs" role="tablist">
+                <button type="button" class="sins-cat-tab active" data-filter="all" role="tab">ALL RESERVES</button>
+                <button type="button" class="sins-cat-tab" data-filter="beans" role="tab">WHOLE BEANS</button>
+                <button type="button" class="sins-cat-tab" data-filter="ground" role="tab">ARTISAN GROUND</button>
+                <button type="button" class="sins-cat-tab" data-filter="specialty" role="tab">LIMITED EDITIONS</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product Exploration Slider -->
+          <div class="sins-product-slider-wrapper">
+            <div class="sins-product-slider" id="sinsProductTrack">
+              
+              <!-- Card 1 -->
+              <div class="sins-slider-item" data-category="beans">
+                <div class="sins-product-card">
+                  <div class="sins-product-card__media-wrap">
+                    <a href="#" onclick="switchView('product'); return false;">
+                      <div class="sins-product-card__image-container">
+                        <img src="../assets/coffee-tin-monsoon.jpg" alt="Monsoon Malabar Reserve No. 1" class="sins-product-card__image" width="600" height="750">
+                        <div class="sins-product-card__overlay"></div>
+                      </div>
+                    </a>
+                    <div class="sins-product-badge"><span>MONSOONED MALABAR AA</span></div>
+                    <div class="sins-product-card__quick-actions">
+                      <button type="button" class="sins-btn-quick-add" data-action="quick-add" data-variant-id="var_01" data-product-title="Monsoon Malabar Reserve No. 1" data-product-price="1800" data-product-image="../assets/coffee-tin-monsoon.jpg">
+                        <span class="btn-text">ADD TO BAG</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="sins-product-card__content">
+                    <div class="sins-product-card__meta-origin">
+                      <span>Malabar Coast, Karnataka</span> • <span>Velvety Medium-Dark</span>
+                    </div>
+                    <h3 class="sins-product-card__title"><a href="#" onclick="switchView('product'); return false;">Monsoon Malabar Reserve No. 1</a></h3>
+                    <div class="sins-product-card__notes"><span class="notes-label">Notes:</span> Dark Cocoa • Cardamom • Spiced Honey • Roasted Almond</div>
+                    <div class="sins-product-card__footer">
+                      <div class="sins-product-card__weights">
+                        <span class="weight-pill active">250g</span><span class="weight-pill">500g</span><span class="weight-pill">1kg</span>
+                      </div>
+                      <div class="sins-product-card__price">£18.00</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2 -->
+              <div class="sins-slider-item" data-category="beans">
+                <div class="sins-product-card">
+                  <div class="sins-product-card__media-wrap">
+                    <a href="#" onclick="switchView('product'); return false;">
+                      <div class="sins-product-card__image-container">
+                        <img src="../assets/coffee-tin-mysore.jpg" alt="Mysore Nuggets Extra Bold" class="sins-product-card__image" width="600" height="750">
+                        <div class="sins-product-card__overlay"></div>
+                      </div>
+                    </a>
+                    <div class="sins-product-badge"><span>EXTRA BOLD SIEVE 19</span></div>
+                    <div class="sins-product-card__quick-actions">
+                      <button type="button" class="sins-btn-quick-add" data-action="quick-add" data-variant-id="var_02" data-product-title="Mysore Nuggets Extra Bold" data-product-price="2200" data-product-image="../assets/coffee-tin-mysore.jpg">
+                        <span class="btn-text">ADD TO BAG</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="sins-product-card__content">
+                    <div class="sins-product-card__meta-origin">
+                      <span>Chikmagalur Highlands • 1,450m</span> • <span>Full-Bodied Dark</span>
+                    </div>
+                    <h3 class="sins-product-card__title"><a href="#" onclick="switchView('product'); return false;">Mysore Nuggets Extra Bold</a></h3>
+                    <div class="sins-product-card__notes"><span class="notes-label">Notes:</span> Caramelized Brown Sugar • Clove • Dark Chocolate • Cedar</div>
+                    <div class="sins-product-card__footer">
+                      <div class="sins-product-card__weights">
+                        <span class="weight-pill active">250g</span><span class="weight-pill">500g</span><span class="weight-pill">1kg</span>
+                      </div>
+                      <div class="sins-product-card__price">£22.00</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 3 -->
+              <div class="sins-slider-item" data-category="ground">
+                <div class="sins-product-card">
+                  <div class="sins-product-card__media-wrap">
+                    <a href="#" onclick="switchView('product'); return false;">
+                      <div class="sins-product-card__image-container">
+                        <img src="../assets/coffee-tin-coorg.jpg" alt="Coorg High Altitude Peaberry" class="sins-product-card__image" width="600" height="750">
+                        <div class="sins-product-card__overlay"></div>
+                      </div>
+                    </a>
+                    <div class="sins-product-badge"><span>RARE SINGLE PEABERRY</span></div>
+                    <div class="sins-product-card__quick-actions">
+                      <button type="button" class="sins-btn-quick-add" data-action="quick-add" data-variant-id="var_03" data-product-title="Coorg High Altitude Peaberry" data-product-price="1950" data-product-image="../assets/coffee-tin-coorg.jpg">
+                        <span class="btn-text">ADD TO BAG</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="sins-product-card__content">
+                    <div class="sins-product-card__meta-origin">
+                      <span>Madikeri Valley, Coorg</span> • <span>Refined Medium Roast</span>
+                    </div>
+                    <h3 class="sins-product-card__title"><a href="#" onclick="switchView('product'); return false;">Coorg High Altitude Peaberry</a></h3>
+                    <div class="sins-product-card__notes"><span class="notes-label">Notes:</span> Ripe Stone Fruit • Honey Blossom • Nutmeg • Bright Crema</div>
+                    <div class="sins-product-card__footer">
+                      <div class="sins-product-card__weights">
+                        <span class="weight-pill active">250g</span><span class="weight-pill">500g</span><span class="weight-pill">1kg</span>
+                      </div>
+                      <div class="sins-product-card__price">£19.50</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 4 -->
+              <div class="sins-slider-item" data-category="specialty">
+                <div class="sins-product-card">
+                  <div class="sins-product-card__media-wrap">
+                    <a href="#" onclick="switchView('product'); return false;">
+                      <div class="sins-product-card__image-container">
+                        <img src="../assets/roasted-coffee-beans.jpg" alt="Baba Budan 1670 Heritage Blend" class="sins-product-card__image" width="600" height="750">
+                        <div class="sins-product-card__overlay"></div>
+                      </div>
+                    </a>
+                    <div class="sins-product-badge"><span>LIMITED HARVEST 2026</span></div>
+                    <div class="sins-product-card__quick-actions">
+                      <button type="button" class="sins-btn-quick-add" data-action="quick-add" data-variant-id="var_04" data-product-title="Baba Budan 1670 Heritage Blend" data-product-price="2600" data-product-image="../assets/roasted-coffee-beans.jpg">
+                        <span class="btn-text">ADD TO BAG</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="sins-product-card__content">
+                    <div class="sins-product-card__meta-origin">
+                      <span>Historic Baba Budangiri Hills</span> • <span>Master Roaster Reserve</span>
+                    </div>
+                    <h3 class="sins-product-card__title"><a href="#" onclick="switchView('product'); return false;">Baba Budan 1670 Heritage Blend</a></h3>
+                    <div class="sins-product-card__notes"><span class="notes-label">Notes:</span> Toasted Fig • Molasses • Ceylon Cinnamon • Silky Body</div>
+                    <div class="sins-product-card__footer">
+                      <div class="sins-product-card__weights">
+                        <span class="weight-pill active">250g</span><span class="weight-pill">500g</span><span class="weight-pill">1kg</span>
+                      </div>
+                      <div class="sins-product-card__price">£26.00</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Controls -->
+            <div class="sins-slider-controls">
+              <div class="sins-slider-progress-bar">
+                <div class="sins-slider-progress-fill" id="sliderProgressFill"></div>
+              </div>
+              <div class="sins-slider-arrows">
+                <button type="button" class="sins-arrow-btn" id="sliderPrev" aria-label="Previous">←</button>
+                <button type="button" class="sins-arrow-btn" id="sliderNext" aria-label="Next">→</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="sins-signature-collection__footer" data-reveal="fade-up">
+            <div class="sins-footer-cta-text">CURATED FOR CONNOISSEURS AND DISCERNING BRITISH ATELIERS</div>
+            <a href="#" onclick="switchView('collection'); return false;" class="sins-btn sins-btn--outline-gold">
+              <span>VIEW COMPLETE PRODUCT CATALOGUE</span>
+              <span class="btn-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 05: The Art of Coffee (Fixed Still Background) -->
+      <section class="sins-coffee-process" id="process" style="background-image: url('../assets/process-bg.png');">
+        <div class="sins-coffee-process__overlay"></div>
+        <div class="sins-container sins-coffee-process__inner">
+          <div class="sins-coffee-process__header" data-reveal="fade-up">
+            <span class="sins-process-eyebrow">THE SACRED CRAFTSMANSHIP</span>
+            <h2 class="sins-coffee-process__headline">
+              <span>EVERY BEAN</span>
+              <span class="italic-serif">HAS A STORY.</span>
+            </h2>
+            <p class="sins-coffee-process__subtext">
+              From the mist-draped hillsides of Karnataka to the discerning cups of London, each stage is performed with unhurried precision.
+            </p>
+          </div>
+
+          <div class="sins-process-steps-nav" role="tablist">
+            <button type="button" class="sins-step-tab active" data-step="1" role="tab"><span class="step-num">01</span><span class="step-name">SELECTION</span></button>
+            <div class="step-line"></div>
+            <button type="button" class="sins-step-tab" data-step="2" role="tab"><span class="step-num">02</span><span class="step-name">ROASTING</span></button>
+            <div class="step-line"></div>
+            <button type="button" class="sins-step-tab" data-step="3" role="tab"><span class="step-num">03</span><span class="step-name">GRINDING</span></button>
+            <div class="step-line"></div>
+            <button type="button" class="sins-step-tab" data-step="4" role="tab"><span class="step-num">04</span><span class="step-name">BREWING</span></button>
+            <div class="step-line"></div>
+            <button type="button" class="sins-step-tab" data-step="5" role="tab"><span class="step-num">05</span><span class="step-name">POURING</span></button>
+          </div>
+
+          <div class="sins-process-stage-viewport">
+            <!-- Stage 1 -->
+            <div class="sins-stage-panel active" data-stage="1">
+              <div class="sins-stage-grid">
+                <div class="sins-stage-media">
+                  <img src="../assets/process-01-selection.jpg" alt="Selection" class="sins-stage-img" width="800" height="600">
+                  <div class="sins-stage-badge">01 / SELECTION</div>
+                </div>
+                <div class="sins-stage-info">
+                  <span class="stage-tag">STAGE 01 • BABA BUDANGIRI HILLS</span>
+                  <h3 class="stage-title">Hand-Harvested Shade Cherries</h3>
+                  <p class="stage-description">Our master pickers selectively harvest only optimum deep-purple cherries. High altitude shade decelerates ripening, accumulating rich sugars and intricate botanical nuances that define the signature SIN’S COFFEE profile.</p>
+                  <ul class="stage-bullets">
+                    <li><strong>Altitude:</strong> 1,200m – 1,550m above sea level</li>
+                    <li><strong>Shade Canopy:</strong> Indigenous Rosewood & Jackfruit</li>
+                    <li><strong>Sorting:</strong> Density floatation & optical hand-culling</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage 2 -->
+            <div class="sins-stage-panel" data-stage="2">
+              <div class="sins-stage-grid">
+                <div class="sins-stage-media">
+                  <img src="../assets/process-02-roasting.jpg" alt="Roasting" class="sins-stage-img" width="800" height="600">
+                  <div class="sins-stage-badge">02 / ROASTING</div>
+                </div>
+                <div class="sins-stage-info">
+                  <span class="stage-tag">STAGE 02 • BRITISH ATELIER ROASTERY</span>
+                  <h3 class="stage-title">Cast-Iron Drum Micro-Batches</h3>
+                  <p class="stage-description">In London, our head roasters monitor bean temperature and development time to the second. By tailoring individual roast curves to each micro-lot, we accentuate natural sweetness, deep cocoa undertones, and toasted spice notes without bitterness.</p>
+                  <ul class="stage-bullets">
+                    <li><strong>Batch Size:</strong> Limited 12kg drums for uniform heat</li>
+                    <li><strong>Profile:</strong> Slow caramelization of natural fructose</li>
+                    <li><strong>Cooling:</strong> Rapid ambient air cooling preserves volatile oils</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage 3 -->
+            <div class="sins-stage-panel" data-stage="3">
+              <div class="sins-stage-grid">
+                <div class="sins-stage-media">
+                  <img src="../assets/process-03-grinding.jpg" alt="Grinding" class="sins-stage-img" width="800" height="600">
+                  <div class="sins-stage-badge">03 / GRINDING</div>
+                </div>
+                <div class="sins-stage-info">
+                  <span class="stage-tag">STAGE 03 • MICRON PRECISION</span>
+                  <h3 class="stage-title">Bimodal Particle Uniformity</h3>
+                  <p class="stage-description">Whether destined for an espresso machine, manual pour-over, or French press, each grind profile is calibrated down to the micron using flat titanium burrs to minimize friction heat and prevent micro-fines.</p>
+                  <ul class="stage-bullets">
+                    <li><strong>Burr Material:</strong> Titanium-coated hardened steel</li>
+                    <li><strong>Grind Profiles:</strong> Whole Bean, Cafetière, Espresso, V60, Chemex</li>
+                    <li><strong>Aroma Preservation:</strong> Ground fresh upon order dispatch</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage 4 -->
+            <div class="sins-stage-panel" data-stage="4">
+              <div class="sins-stage-grid">
+                <div class="sins-stage-media">
+                  <img src="../assets/process-04-brewing.jpg" alt="Brewing" class="sins-stage-img" width="800" height="600">
+                  <div class="sins-stage-badge">04 / BREWING</div>
+                </div>
+                <div class="sins-stage-info">
+                  <span class="stage-tag">STAGE 04 • EXTRACTION SCIENCE</span>
+                  <h3 class="stage-title">Balanced Thermal Extraction</h3>
+                  <p class="stage-description">Water temperature at precisely 93.5°C interacts with the coffee bed, dissolving vibrant aromatic acids first, followed by decadent cocoa compounds and lingering floral oils, achieving a balanced 19.5% extraction yield.</p>
+                  <ul class="stage-bullets">
+                    <li><strong>Water Purity:</strong> Mineralized soft water (60-80 ppm)</li>
+                    <li><strong>Ratio:</strong> 1:16 brew formula for harmonious balance</li>
+                    <li><strong>Bloom:</strong> 45-second gentle degassing release</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stage 5 -->
+            <div class="sins-stage-panel" data-stage="5">
+              <div class="sins-stage-grid">
+                <div class="sins-stage-media">
+                  <img src="../assets/process-05-pouring.jpg" alt="Pouring" class="sins-stage-img" width="800" height="600">
+                  <div class="sins-stage-badge">05 / POURING</div>
+                </div>
+                <div class="sins-stage-info">
+                  <span class="stage-tag">STAGE 05 • THE MOMENT OF TRANSCENDENCE</span>
+                  <h3 class="stage-title">Velvety Crema & Lingering Finish</h3>
+                  <p class="stage-description">The climax of the experience. Cascading into fine porcelain, crowned with dense, golden-hued tiger-stripe crema. An intoxicating bouquet fills the room, delivering a luxurious, full-bodied mouthfeel that lingers with distinction.</p>
+                  <ul class="stage-bullets">
+                    <li><strong>Mouthfeel:</strong> Heavy, syrupy, velvet texture</li>
+                    <li><strong>Crema:</strong> Dense hazelnut and gold marbling</li>
+                    <li><strong>Aftertaste:</strong> Enduring notes of roasted cardamom and dark chocolate</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 06: A Taste of Distinction (Fixed Still Background - Warm Ivory) -->
+      <section class="sins-tasting-experience" id="tasting" style="background-image: url('../assets/tasting-bg.png');">
+        <div class="sins-tasting-experience__overlay"></div>
+        <div class="sins-container sins-tasting-experience__inner">
+          <div class="sins-tasting-experience__header" data-reveal="fade-up">
+            <span class="ivory-tag">SENSORY PROFILE & CUPPING MATRIX</span>
+            <h2 class="sins-tasting-experience__title">
+              <span>A TASTE OF</span>
+              <span class="italic-serif">DISTINCTION.</span>
+            </h2>
+            <p class="sins-tasting-experience__lead">
+              Characterized by low natural acidity, rich unctuous body, and intoxicating notes of toasted spice, fine Indian specialty coffees represent one of the world's best kept luxury secrets.
+            </p>
+          </div>
+
+          <div class="sins-tasting-grid">
+            <div class="sins-tasting-card" data-reveal="fade-up">
+              <div class="tasting-card-top"><span class="tasting-card-num">01</span><span class="tasting-card-icon">✧</span></div>
+              <h3 class="tasting-card-title">Aroma</h3>
+              <p class="tasting-card-text">Intense and fragrant. Top notes of crushed green cardamom, roasted hazelnut, warm sandalwood and wildflower honey.</p>
+              <div class="tasting-card-bar"><div class="bar-fill" style="width: 95%;"></div></div>
+              <span class="bar-label">Intensity: Extraordinary (9.5/10)</span>
+            </div>
+
+            <div class="sins-tasting-card" data-reveal="fade-up" data-delay="100">
+              <div class="tasting-card-top"><span class="tasting-card-num">02</span><span class="tasting-card-icon">◈</span></div>
+              <h3 class="tasting-card-title">Body</h3>
+              <p class="tasting-card-text">Dense, syrupy and lavish. A substantial coating mouthfeel that envelops the palate with buttery velvet smoothness and zero astringency.</p>
+              <div class="tasting-card-bar"><div class="bar-fill" style="width: 98%;"></div></div>
+              <span class="bar-label">Texture: Full Velvet (9.8/10)</span>
+            </div>
+
+            <div class="sins-tasting-card" data-reveal="fade-up" data-delay="200">
+              <div class="tasting-card-top"><span class="tasting-card-num">03</span><span class="tasting-card-icon">✦</span></div>
+              <h3 class="tasting-card-title">Flavour</h3>
+              <p class="tasting-card-text">Complex layers of 85% single-origin dark cocoa, caramelized jaggery, sun-dried mission fig, subtle black pepper and roasted cashew butter.</p>
+              <div class="tasting-card-bar"><div class="bar-fill" style="width: 92%;"></div></div>
+              <span class="bar-label">Complexity: Layered & Nuanced (9.2/10)</span>
+            </div>
+
+            <div class="sins-tasting-card" data-reveal="fade-up" data-delay="300">
+              <div class="tasting-card-top"><span class="tasting-card-num">04</span><span class="tasting-card-icon">❖</span></div>
+              <h3 class="tasting-card-title">Roast Profile</h3>
+              <p class="tasting-card-text">Carefully tailored medium to medium-dark profiles. Roasted in slow cast-iron batches in London to caramelize sugars without imparting smoky charcoal.</p>
+              <div class="tasting-card-bar"><div class="bar-fill" style="width: 88%;"></div></div>
+              <span class="bar-label">Development: Master Roast (8.8/10)</span>
+            </div>
+
+            <div class="sins-tasting-card sins-tasting-card--wide" data-reveal="fade-up" data-delay="400">
+              <div class="tasting-card-top"><span class="tasting-card-num">05</span><span class="tasting-card-icon">⚚</span></div>
+              <h3 class="tasting-card-title">Terroir & Origin</h3>
+              <p class="tasting-card-text">Protected geographical origin from Karnataka’s Chikmagalur and Malabar Coast. Volcanic-rich humus soil, heavy monsoon rains, and shaded biodiversity yield beans of peerless density and equilibrium.</p>
+              <div class="tasting-attributes-tags">
+                <span class="attr-pill">Western Ghats</span>
+                <span class="attr-pill">Monsooned Malabar AA</span>
+                <span class="attr-pill">Mysore Nuggets Extra Bold</span>
+                <span class="attr-pill">Coorg Peaberry</span>
+                <span class="attr-pill">1,400m+ Altitude</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sins-tasting-quote" data-reveal="fade-up">
+            <blockquote class="tasting-quote-text">
+              “Indian shade-grown coffee possesses an aristocratic velvet composure that modern high-acid beans simply cannot emulate.”
+            </blockquote>
+            <cite class="tasting-quote-author">— SIN’S COFFEE ATELIER NOTES, LONDON</cite>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 07: Philosophy -->
+      <section class="sins-philosophy" id="philosophy">
+        <div class="sins-container sins-philosophy__inner">
+          <div class="sins-philosophy__content" data-reveal="fade-up">
+            <div class="sins-philosophy__tag">
+              <span class="tag-line"></span>
+              <span class="tag-text">THE PRINCIPLES OF SIN’S COFFEE</span>
+              <span class="tag-line"></span>
+            </div>
+            <h2 class="sins-philosophy__headline">
+              <span>QUALITY IS NEVER</span>
+              <span class="gold-italic">AN ACCIDENT.</span>
+            </h2>
+            <p class="sins-philosophy__body">
+              Every detail matters. From carefully sourced Indian coffee to the final experience in your cup, our philosophy is rooted in quality, authenticity and refinement.
+            </p>
+            <div class="sins-philosophy__pillars">
+              <div class="pillar-box">
+                <span class="pillar-symbol">✦</span>
+                <h4 class="pillar-title">AUTHENTIC ORIGIN</h4>
+                <p class="pillar-text">Direct partnerships with generational heritage estates across the Western Ghats.</p>
+              </div>
+              <div class="pillar-box">
+                <span class="pillar-symbol">✦</span>
+                <h4 class="pillar-title">UNCOMPROMISING SELECTION</h4>
+                <p class="pillar-text">Strict sorting standards selecting solely the top 2% of the annual harvest.</p>
+              </div>
+              <div class="pillar-box">
+                <span class="pillar-symbol">✦</span>
+                <h4 class="pillar-title">BRITISH REFINEMENT</h4>
+                <p class="pillar-text">Small-batch roasting calibrated for sophisticated European brewing methods.</p>
+              </div>
+            </div>
+            <div class="sins-philosophy__signoff">
+              <img src="../assets/sins-coffee-emblem.png" alt="Emblem" class="philosophy-emblem" width="80" height="80">
+              <span class="signoff-location">MAYFAIR, LONDON • BENGALURU, INDIA</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 08: Brand Statement (Fixed Background) -->
+      <section class="sins-brand-statement" id="statement" style="background-image: url('../assets/brand-statement-bg.png');">
+        <div class="sins-brand-statement__overlay"></div>
+        <div class="sins-container sins-brand-statement__inner">
+          <div class="sins-brand-statement__content" data-reveal="scale-up">
+            <div class="sins-statement-filigree sins-statement-filigree--top">
+              <span class="filigree-line"></span>
+              <span class="filigree-diamond">✦</span>
+              <span class="filigree-line"></span>
+            </div>
+            <div class="sins-statement-bean-wrap">
+              <img src="../assets/sins-coffee-emblem.png" alt="Emblem" class="sins-statement-bean" width="90" height="90">
+            </div>
+            <h2 class="sins-brand-statement__title">
+              <span class="statement-line statement-line--gold">INDIAN COFFEE HERITAGE.</span>
+              <span class="statement-line statement-line--champagne">BRITISH EXCELLENCE.</span>
+            </h2>
+            <div class="sins-statement-filigree sins-statement-filigree--bottom">
+              <span class="filigree-line"></span>
+              <div class="filigree-bean-center">☕</div>
+              <span class="filigree-line"></span>
+            </div>
+            <p class="sins-statement-sub">
+              SIN’S COFFEE is dedicated to preserving four centuries of Indian coffee tradition while orchestrating the apex of contemporary British luxury hospitality.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 09: Instagram Gallery -->
+      <section class="sins-instagram-gallery" id="instagram">
+        <div class="sins-container">
+          <div class="sins-instagram-gallery__header" data-reveal="fade-up">
+            <div class="header-left">
+              <span class="sins-insta-tag">THE VISUAL DISPATCH</span>
+              <h2 class="sins-insta-title">
+                <span>THE CURATED</span>
+                <span class="italic-serif">CHRONICLE</span>
+              </h2>
+            </div>
+            <div class="header-right">
+              <a href="https://instagram.com/sinscoffee.uk" target="_blank" rel="noopener" class="sins-insta-btn">
+                <span>FOLLOW OUR JOURNEY</span>
+                <span class="handle">@sinscoffee.uk</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="sins-insta-grid">
+            <a href="https://instagram.com/sinscoffee.uk" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--tall" data-reveal="fade-up">
+              <img src="../assets/insta-01.jpg" alt="Ritual" width="600" height="800">
+              <div class="sins-insta-overlay"><span class="insta-caption">Morning ritual in Mayfair with Monsoon Malabar AA.</span></div>
+            </a>
+            <a href="https://instagram.com/sinscoffee.uk" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--square" data-reveal="fade-up" data-delay="100">
+              <img src="../assets/insta-02.jpg" alt="Portafilter" width="500" height="500">
+              <div class="sins-insta-overlay"><span class="insta-caption">Extracting golden crema on solid brass portafilters.</span></div>
+            </a>
+            <a href="https://instagram.com/sinscoffee.uk" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--square" data-reveal="fade-up" data-delay="200">
+              <img src="../assets/insta-03.jpg" alt="Harvest" width="500" height="500">
+              <div class="sins-insta-overlay"><span class="insta-caption">Ruby shade cherries hand-inspected in Chikmagalur.</span></div>
+            </a>
+            <a href="https://instagram.com/sinscoffee.uk" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--wide" data-reveal="fade-up" data-delay="300">
+              <img src="../assets/insta-04.jpg" alt="Roast Batches" width="800" height="500">
+              <div class="sins-insta-overlay"><span class="insta-caption">Slow cast-iron drum roast development.</span></div>
+            </a>
+            <a href="https://instagram.com/sinscoffee.uk" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--accent" data-reveal="fade-up" data-delay="400">
+              <img src="../assets/insta-05.jpg" alt="Coffee Service" width="500" height="500">
+              <div class="sins-insta-overlay"><span class="insta-caption">Indian Coffee Heritage. British Excellence.</span></div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /view-home -->
+
+    <!-- ================= VIEW 2: PRODUCT DETAIL PAGE ================= -->
+    <div id="view-product" class="page-view">
+      <section class="sins-product-detail">
+        <div class="sins-container">
+          <div class="sins-breadcrumb">
+            <a href="#" onclick="switchView('home'); return false;">Home</a>
+            <span class="sep">/</span>
+            <a href="#" onclick="switchView('collection'); return false;">Collection</a>
+            <span class="sep">/</span>
+            <span class="current">Monsoon Malabar Reserve No. 1</span>
+          </div>
+
+          <div class="sins-pdp-layout">
+            <div class="sins-pdp-gallery">
+              <div class="sins-pdp-main-image-wrap">
+                <img src="../assets/coffee-tin-monsoon.jpg" alt="Monsoon Malabar" class="sins-pdp-main-image" id="pdpMainImage" width="800" height="1000">
+                <div class="sins-pdp-badge">RESERVE LOT</div>
+              </div>
+              <div class="sins-pdp-thumbs">
+                <button type="button" class="sins-thumb active" data-src="../assets/coffee-tin-monsoon.jpg">
+                  <img src="../assets/coffee-tin-monsoon.jpg" alt="Tin" width="100" height="100">
+                </button>
+                <button type="button" class="sins-thumb" data-src="../assets/roasted-coffee-beans.jpg">
+                  <img src="../assets/roasted-coffee-beans.jpg" alt="Beans" width="100" height="100">
+                </button>
+                <button type="button" class="sins-thumb" data-src="../assets/espresso-crema-pour.jpg">
+                  <img src="../assets/espresso-crema-pour.jpg" alt="Pour" width="100" height="100">
+                </button>
+              </div>
+            </div>
+
+            <div class="sins-pdp-info">
+              <div class="sins-pdp-meta-header">
+                <span class="pdp-origin-pill">Western Ghats, Malabar Coast</span>
+                <span class="pdp-stock-badge"><span class="dot"></span> London Roasted • Limited Reserve</span>
+              </div>
+
+              <h1 class="sins-pdp-title">Monsoon Malabar Reserve No. 1</h1>
+
+              <div class="sins-pdp-price-wrap">
+                <span class="sins-pdp-price" id="pdpPrice">£18.00</span>
+                <span class="sins-pdp-vat-note">Tax included • Free UK delivery on orders £45+</span>
+              </div>
+
+              <div class="sins-pdp-tasting-banner">
+                <span class="banner-title">CUPPING PROFILE</span>
+                <p class="banner-notes">Dark Cocoa • Cardamom • Spiced Honey • Roasted Almond</p>
+              </div>
+
+              <form class="sins-pdp-form" id="sinsProductForm">
+                <input type="hidden" name="id" id="pdpVariantId" value="var_01">
+
+                <div class="sins-pdp-option-group">
+                  <div class="option-header">
+                    <label class="option-label">SELECT WEIGHT</label>
+                    <span class="option-selected-val" id="selectedWeight">250g (Approx. 16 Cups)</span>
+                  </div>
+                  <div class="sins-pill-selector" data-option="weight">
+                    <button type="button" class="sins-pill-btn active" data-value="250g" data-price="1800">250g</button>
+                    <button type="button" class="sins-pill-btn" data-value="500g" data-price="3200">500g (Save 10%)</button>
+                    <button type="button" class="sins-pill-btn" data-value="1kg" data-price="5800">1kg Atelier Tin</button>
+                  </div>
+                </div>
+
+                <div class="sins-pdp-option-group">
+                  <div class="option-header">
+                    <label class="option-label">GRIND PROFILE</label>
+                    <span class="option-selected-val" id="selectedGrind">Whole Bean</span>
+                  </div>
+                  <div class="sins-pill-selector" data-option="grind">
+                    <button type="button" class="sins-pill-btn active" data-value="Whole Bean">Whole Bean</button>
+                    <button type="button" class="sins-pill-btn" data-value="Cafetière / French Press">Cafetière</button>
+                    <button type="button" class="sins-pill-btn" data-value="Espresso">Espresso</button>
+                    <button type="button" class="sins-pill-btn" data-value="Pour-Over / Filter">Pour-Over</button>
+                  </div>
+                </div>
+
+                <div class="sins-pdp-action-row">
+                  <div class="sins-pdp-qty">
+                    <button type="button" class="pdp-qty-btn" id="pdpQtyDec">−</button>
+                    <input type="number" name="quantity" id="pdpQuantity" value="1" min="1" max="99" class="pdp-qty-input" readonly>
+                    <button type="button" class="pdp-qty-btn" id="pdpQtyInc">+</button>
+                  </div>
+                  <button type="submit" class="sins-btn sins-btn--pdp-add" id="pdpAddBtn">
+                    <span>ADD TO SELECTION BAG</span>
+                    <span class="btn-price-summary" id="pdpBtnPrice">£18.00</span>
+                  </button>
+                </div>
+
+                <button type="button" class="sins-btn sins-btn--buy-now" id="pdpBuyNow">
+                  <span>BUY NOW WITH SHOPIFY PAY</span>
+                </button>
+              </form>
+
+              <div class="sins-pdp-perks">
+                <div class="perk-item">
+                  <span class="perk-icon">📦</span>
+                  <div class="perk-info">
+                    <strong>Bespoke Protective Tin</strong>
+                    <span>Aroma-sealed degassing valve preserves volatile oils</span>
+                  </div>
+                </div>
+                <div class="perk-item">
+                  <span class="perk-icon">⚡</span>
+                  <div class="perk-info">
+                    <strong>Royal Mail 24/48 Tracked</strong>
+                    <span>Roasted to order & dispatched within 24 hours</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="sins-accordions">
+                <details class="sins-accordion" open>
+                  <summary class="sins-accordion__trigger">
+                    <span>ESTATE TERROIR & DETAILS</span>
+                    <span class="acc-icon">+</span>
+                  </summary>
+                  <div class="sins-accordion__content">
+                    <dl class="sins-specs-list">
+                      <div class="spec-row"><dt>Estate Region</dt><dd>Western Ghats, Malabar Coast</dd></div>
+                      <div class="spec-row"><dt>Elevation</dt><dd>1,200m – 1,400m</dd></div>
+                      <div class="spec-row"><dt>Processing</dt><dd>Monsooned Wind Curation</dd></div>
+                      <div class="spec-row"><dt>Roast Level</dt><dd>Medium-Dark Roast</dd></div>
+                    </dl>
+                  </div>
+                </details>
+
+                <details class="sins-accordion">
+                  <summary class="sins-accordion__trigger">
+                    <span>RECOMMENDED BREWING GEOMETRY</span>
+                    <span class="acc-icon">+</span>
+                  </summary>
+                  <div class="sins-accordion__content">
+                    <p>Ratio: 1:16 (18g coffee to 290g water) • Water Temp: 93.5°C • 45s bloom • 2m 45s drawdown.</p>
+                  </div>
+                </details>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div><!-- /view-product -->
+
+    <!-- ================= VIEW 3: OUR STORY ================= -->
+    <div id="view-story" class="page-view">
+      <article class="sins-story-page">
+        <header class="sins-story-hero">
+          <div class="sins-story-hero__bg">
+            <img src="../assets/plantation-western-ghats.jpg" alt="Western Ghats Estate" class="sins-story-hero__img" width="1920" height="1080">
+            <div class="sins-story-hero__overlay"></div>
+          </div>
+          <div class="sins-container sins-story-hero__content">
+            <span class="story-tag">OUR PROVENANCE & CALLING</span>
+            <h1 class="story-headline">
+              <span>FOUR CENTURIES OF HERITAGE.</span>
+              <span class="italic-gold">ORCHESTRATED IN LONDON.</span>
+            </h1>
+            <p class="story-lead">
+              SIN’S COFFEE was founded with a singular conviction: that the world's most evocative, nuanced, and velvet coffee beans originate from India’s ancient Western Ghats, deserving a place among the world’s grandest luxury maisons.
+            </p>
+          </div>
+        </header>
+
+        <section class="sins-story-chapter sins-story-chapter--split">
+          <div class="sins-container sins-chapter-grid">
+            <div class="chapter-text-col">
+              <span class="chapter-num">CHAPTER I</span>
+              <h2 class="chapter-title">The Seven Sacred Beans of Baba Budan</h2>
+              <div class="chapter-gold-divider"></div>
+              <p class="chapter-para">In 1670, long before coffee became a global commodity, an Indian Sufi mystic named Baba Budan undertook a sacred pilgrimage. While returning from Yemen, he defied a royal decree banning the export of viable coffee beans by strapping seven raw green coffee seeds to his chest.</p>
+              <p class="chapter-para">He planted those seven beans on the cloud-kissed volcanic slopes of the Chandragiri Hills in Chikmagalur, Karnataka. Those original seeds flourished, taking root in deep forest soil and giving birth to the legendary heritage of Indian shade-grown coffee.</p>
+              <blockquote class="chapter-quote">“Seven seeds planted in reverence became the bedrock of an empire of flavour.”</blockquote>
+            </div>
+            <div class="chapter-media-col">
+              <div class="chapter-frame">
+                <img src="../assets/coffee-cherries-harvest.jpg" alt="Chikmagalur Cherries" width="700" height="900">
+                <div class="frame-tag">CHIKMAGALUR HIGHLANDS • 1,450M</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sins-story-break">
+          <div class="break-bg"><img src="../assets/plantation-western-ghats.jpg" alt="Canopy" width="1920" height="800"><div class="break-overlay"></div></div>
+          <div class="sins-container break-content">
+            <span class="break-tag">ECOLOGICAL STEWARDSHIP</span>
+            <h2 class="break-title">100% Shade-Grown Beneath Rainforest Trees</h2>
+            <p class="break-body">Unlike sun-scorched mass plantations, our estates nestle beneath a bi-level canopy of native teak, rosewood, silver oak, and wild jackfruit. This natural shelter preserves bird sanctuaries, mitigates temperature fluctuations, and allows coffee cherries to ripen at half their normal pace.</p>
+          </div>
+        </section>
+      </article>
+    </div><!-- /view-story -->
+
+    <!-- ================= VIEW 4: COLLECTION PAGE ================= -->
+    <div id="view-collection" class="page-view">
+      <section class="sins-collection-page">
+        <div class="sins-collection-banner">
+          <div class="sins-container">
+            <div class="sins-collection-banner__content">
+              <span class="collection-eyebrow">THE ATELIER CELLAR</span>
+              <h1 class="collection-title">The Signature Reserves</h1>
+              <p class="collection-description">Meticulously sourced from generational estates in Karnataka’s Western Ghats. Roasted in London to reveal profound sweetness, spice and velvet body.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sins-collection-toolbar">
+          <div class="sins-container sins-collection-toolbar__inner">
+            <span class="product-count">Showing <strong>4</strong> Specialty Curations</span>
+            <div class="sins-sort-wrap">
+              <label for="SortBySelect">Sort By:</label>
+              <select id="SortBySelect" class="sins-sort-select">
+                <option>Featured Curations</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="sins-container sins-collection-grid-container">
+          <div class="sins-collection-grid">
+            <!-- Col Item 1 -->
+            <div class="sins-grid-col">
+              <div class="sins-product-card">
+                <div class="sins-product-card__media-wrap">
+                  <a href="#" onclick="switchView('product'); return false;">
+                    <img src="../assets/coffee-tin-monsoon.jpg" alt="Monsoon Malabar" class="sins-product-card__image" width="600" height="750">
+                  </a>
+                  <div class="sins-product-badge"><span>MONSOONED MALABAR AA</span></div>
+                  <div class="sins-product-card__quick-actions">
+                    <button type="button" class="sins-btn-quick-add" data-action="quick-add" data-variant-id="var_01" data-product-title="Monsoon Malabar Reserve No. 1" data-product-price="1800" data-product-image="../assets/coffee-tin-monsoon.jpg">
+                      <span class="btn-text">ADD TO BAG</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="sins-product-card__content">
+                  <div class="sins-product-card__meta-origin"><span>Western Ghats</span> • <span>Velvety Medium-Dark</span></div>
+                  <h3 class="sins-product-card__title"><a href="#" onclick="switchView('product'); return false;">Monsoon Malabar Reserve No. 1</a></h3>
+                  <div class="sins-product-card__notes"><span class="notes-label">Notes:</span> Dark Cocoa • Cardamom • Spiced Honey</div>
+                  <div class="sins-product-card__footer"><span class="sins-product-card__price">£18.00</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col Item 2 -->
+            <div class="sins-grid-col">
+              <div class="sins-product-card">
+                <div class="sins-product-card__media-wrap">
+                  <a href="#" onclick="switchView('product'); return false;">
+                    <img src="../assets/coffee-tin-mysore.jpg" alt="Mysore Nuggets" class="sins-product-card__image" width="600" height="750">
+                  </a>
+                  <div class="sins-product-badge"><span>EXTRA BOLD SIEVE 19</span></div>
+                  <div class="sins-product-card__quick-actions">
+                    <button type="button" class="sins-btn-quick-add" data-action="quick-add" data-variant-id="var_02" data-product-title="Mysore Nuggets Extra Bold" data-product-price="2200" data-product-image="../assets/coffee-tin-mysore.jpg">
+                      <span class="btn-text">ADD TO BAG</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="sins-product-card__content">
+                  <div class="sins-product-card__meta-origin"><span>Chikmagalur • 1,450m</span> • <span>Full-Bodied Dark</span></div>
+                  <h3 class="sins-product-card__title"><a href="#" onclick="switchView('product'); return false;">Mysore Nuggets Extra Bold</a></h3>
+                  <div class="sins-product-card__notes"><span class="notes-label">Notes:</span> Caramelized Brown Sugar • Clove • Dark Chocolate</div>
+                  <div class="sins-product-card__footer"><span class="sins-product-card__price">£22.00</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col Item 3 -->
+            <div class="sins-grid-col">
+              <div class="sins-product-card">
+                <div class="sins-product-card__media-wrap">
+                  <a href="#" onclick="switchView('product'); return false;">
+                    <img src="../assets/coffee-tin-coorg.jpg" alt="Coorg Peaberry" class="sins-product-card__image" width="600" height="750">
+                  </a>
+                  <div class="sins-product-badge"><span>RARE PEABERRY</span></div>
+                  <div class="sins-product-card__quick-actions">
+                    <button type="button" class="sins-btn-quick-add" data-action="quick-add" data-variant-id="var_03" data-product-title="Coorg High Altitude Peaberry" data-product-price="1950" data-product-image="../assets/coffee-tin-coorg.jpg">
+                      <span class="btn-text">ADD TO BAG</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="sins-product-card__content">
+                  <div class="sins-product-card__meta-origin"><span>Coorg</span> • <span>Refined Medium</span></div>
+                  <h3 class="sins-product-card__title"><a href="#" onclick="switchView('product'); return false;">Coorg High Altitude Peaberry</a></h3>
+                  <div class="sins-product-card__notes"><span class="notes-label">Notes:</span> Ripe Stone Fruit • Honey Blossom • Nutmeg</div>
+                  <div class="sins-product-card__footer"><span class="sins-product-card__price">£19.50</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div><!-- /view-collection -->
+
+    <!-- ================= VIEW 5: CONTACT CONCIERGE ================= -->
+    <div id="view-contact" class="page-view">
+      <section class="sins-contact-page">
+        <div class="sins-container">
+          <div class="sins-contact-header">
+            <span class="contact-eyebrow">CLIENT CONCIERGE & ATELIER DESK</span>
+            <h1 class="contact-title">
+              <span>CONNECT WITH</span>
+              <span class="italic-serif">SIN’S COFFEE.</span>
+            </h1>
+            <p class="contact-lead">Whether inquiring about private harvest allocations, bespoke corporate gifts, or order concierge, our London desk awaits your communication.</p>
+          </div>
+
+          <div class="sins-contact-grid">
+            <div class="sins-contact-form-wrap">
+              <h3 class="form-heading">TRANSMIT AN INQUIRY</h3>
+              <form class="sins-contact-form" onsubmit="alert('Thank you. Your message has been received by SIN\'S COFFEE London Concierge.'); return false;">
+                <div class="form-row">
+                  <div class="form-field">
+                    <label class="field-label">FULL NAME *</label>
+                    <input type="text" class="sins-input" placeholder="e.g. Lord Alistair Vance" required>
+                  </div>
+                  <div class="form-field">
+                    <label class="field-label">EMAIL ADDRESS *</label>
+                    <input type="email" class="sins-input" placeholder="e.g. alistair@domain.co.uk" required>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label class="field-label">MESSAGE *</label>
+                  <textarea rows="4" class="sins-textarea" placeholder="How may our atelier assist your coffee experience?" required></textarea>
+                </div>
+                <button type="submit" class="sins-btn sins-btn--gold"><span>TRANSMIT MESSAGE →</span></button>
+              </form>
+            </div>
+
+            <div class="sins-contact-info-wrap">
+              <div class="info-card">
+                <span class="info-tag">LONDON HEADQUARTERS</span>
+                <h4 class="info-title">Atelier & Roastery</h4>
+                <address class="info-address">SIN'S COFFEE LTD<br>Berkeley Square House, Mayfair<br>London W1J 6BD<br>United Kingdom</address>
+              </div>
+              <div class="info-card">
+                <span class="info-tag">DIRECT LINES</span>
+                <div class="info-contact-line"><span>Email:</span><a href="mailto:concierge@sinscoffee.co.uk">concierge@sinscoffee.co.uk</a></div>
+                <div class="info-contact-line"><span>Desk:</span><a href="tel:+442079460892">+44 (0) 20 7946 0892</a></div>
+                <div class="info-contact-line"><span>Instagram:</span><a href="https://instagram.com/sinscoffee.uk">@sinscoffee.uk</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div><!-- /view-contact -->
+
+  </main>
+
+  <!-- Luxury Footer -->
+  <footer class="sins-footer" id="sins-footer">
+    <div class="sins-container">
+      <div class="sins-footer__newsletter">
+        <div class="newsletter-content">
+          <span class="newsletter-tag">EXCLUSIVE HARVEST ALLOCATIONS</span>
+          <h3 class="newsletter-title">THE ATELIER DISPATCH</h3>
+          <p class="newsletter-sub">Receive private cupping invitations, rare single-origin micro-lot releases, and cultural chronicles from our London roastery.</p>
+        </div>
+        <div class="newsletter-form-wrap">
+          <form class="sins-newsletter-form" onsubmit="alert('Welcome to SIN\'S COFFEE. Your invitation request has been recorded.'); return false;">
+            <div class="sins-input-group">
+              <input type="email" class="sins-newsletter-input" placeholder="Enter your email address" required>
+              <button type="submit" class="sins-newsletter-btn"><span>REQUEST ACCESS →</span></button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="sins-footer__main">
+        <div class="sins-footer__col sins-footer__col--brand">
+          <img src="../assets/sins-coffee-logo-clean.png" alt="SIN'S COFFEE" class="sins-footer__logo" width="170" height="55">
+          <p class="sins-footer__statement">INDIAN COFFEE HERITAGE.<br>BRITISH EXCELLENCE.</p>
+          <p class="sins-footer__desc">Crafting exceptional specialty coffee from ancestral estates in the Western Ghats for the modern British coffee connoisseur.</p>
+        </div>
+        <div class="sins-footer__col">
+          <h4 class="sins-footer__col-heading">EXPLORE</h4>
+          <ul class="sins-footer__links">
+            <li><a href="#" onclick="switchView('collection'); return false;">The Signature Collection</a></li>
+            <li><a href="#" onclick="switchView('product'); return false;">Monsoon Malabar AA</a></li>
+            <li><a href="#" onclick="switchView('collection'); return false;">Mysore Nuggets Extra Bold</a></li>
+            <li><a href="#" onclick="switchView('collection'); return false;">Coorg Peaberry Selection</a></li>
+          </ul>
+        </div>
+        <div class="sins-footer__col">
+          <h4 class="sins-footer__col-heading">OUR HERITAGE</h4>
+          <ul class="sins-footer__links">
+            <li><a href="#" onclick="switchView('story'); return false;">The 1670 Provenance</a></li>
+            <li><a href="#" onclick="switchView('story'); return false;">Western Ghats Terroir</a></li>
+            <li><a href="#process">The 5-Stage Craft</a></li>
+            <li><a href="#tasting">Cupping Notes & Matrix</a></li>
+          </ul>
+        </div>
+        <div class="sins-footer__col">
+          <h4 class="sins-footer__col-heading">CONCIERGE</h4>
+          <ul class="sins-footer__links">
+            <li><a href="#" onclick="switchView('contact'); return false;">London Concierge Desk</a></li>
+            <li><a href="#" onclick="switchView('contact'); return false;">UK Courier Shipping</a></li>
+            <li><a href="#" onclick="switchView('contact'); return false;">Wholesale & Hospitality</a></li>
+          </ul>
+        </div>
+        <div class="sins-footer__col">
+          <h4 class="sins-footer__col-heading">LEGAL</h4>
+          <ul class="sins-footer__links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sins-footer__divider"><div class="divider-gem"></div></div>
+
+      <div class="sins-footer__bottom">
+        <div class="sins-footer__closing"><span>CRAFTED WITH HERITAGE. SERVED WITH DISTINCTION.</span></div>
+        <div class="sins-footer__copyright"><span>© 2026 SIN'S COFFEE LTD (sinscoffee.co.uk). Registered in the United Kingdom.</span></div>
+        <div class="sins-footer__payment-badges">
+          <span class="payment-badge">Shopify Secure Checkout</span>
+          <span class="payment-badge">Apple Pay</span>
+          <span class="payment-badge">Visa</span>
+          <span class="payment-badge">Mastercard</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Out Shopping Bag Drawer -->
+  <div id="sins-cart-drawer" class="sins-drawer sins-cart-drawer" aria-hidden="true" role="dialog">
+    <div class="sins-drawer__backdrop" data-drawer-close></div>
+    <div class="sins-drawer__panel">
+      <div class="sins-drawer__header">
+        <div class="sins-drawer__title-wrap">
+          <h2 class="sins-drawer__title">YOUR SELECTION</h2>
+          <span class="sins-drawer__count">(<span data-cart-count>0</span>)</span>
+        </div>
+        <button type="button" class="sins-drawer__close-btn" data-drawer-close aria-label="Close Bag">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="sins-drawer__shipping-bar" data-shipping-threshold="45">
+        <div class="shipping-bar-text" data-shipping-text>
+          ADD <strong>£45.00</strong> MORE FOR COMPLIMENTARY UK DELIVERY
+        </div>
+        <div class="shipping-bar-progress">
+          <div class="shipping-bar-fill" data-shipping-progress style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div class="sins-drawer__body" data-cart-items-container>
+        <div class="sins-cart-empty">
+          <div class="sins-cart-empty__icon">☕</div>
+          <h3 class="sins-cart-empty__title">YOUR SELECTION IS EMPTY</h3>
+          <p class="sins-cart-empty__text">Explore our signature Indian coffee heritage beans and artisan roasts.</p>
+          <a href="#" class="sins-btn sins-btn--gold" data-drawer-close onclick="switchView('collection');">
+            EXPLORE THE COLLECTION
+          </a>
+        </div>
+      </div>
+
+      <div class="sins-drawer__footer" data-cart-footer style="display:none;">
+        <div class="sins-drawer__subtotal-row">
+          <span class="subtotal-label">SUBTOTAL</span>
+          <span class="subtotal-amount" data-cart-subtotal>£0.00</span>
+        </div>
+        <p class="sins-drawer__tax-note">Taxes and duty calculated at checkout. Complimentary UK shipping applied above £45.</p>
+        <button type="button" class="sins-btn sins-btn--checkout" onclick="alert('Redirecting to Shopify Secure Native Checkout at sinscoffee.co.uk/checkout');">
+          <span>PROCEED TO SECURE CHECKOUT →</span>
+        </button>
+        <div class="sins-drawer__trust-badges">
+          <span>AUTHENTIC INDIAN ESTATE HARVEST</span> • <span>BRITISH ATELIER ROASTED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Predictive Search Modal -->
+  <div id="sins-search-modal" class="sins-modal sins-search-modal" aria-hidden="true" role="dialog">
+    <div class="sins-modal__backdrop" data-search-close></div>
+    <div class="sins-modal__panel">
+      <div class="sins-modal__header">
+        <img src="../assets/sins-coffee-logo-clean.png" alt="SIN'S COFFEE" class="sins-search-logo" width="120" height="30">
+        <button type="button" class="sins-modal__close" data-search-close aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <form class="sins-search-form" onsubmit="switchView('collection'); document.getElementById('sins-search-modal').classList.remove('active'); return false;">
+        <div class="sins-search-input-wrap">
+          <input type="search" placeholder="Search single origins, roasts, or tasting notes..." class="sins-search-input">
+          <button type="submit" class="sins-search-submit">SEARCH</button>
+        </div>
+      </form>
+      <div class="sins-search-suggestions">
+        <div class="sins-search-col">
+          <h4 class="sins-search-col-title">POPULAR CURATIONS</h4>
+          <ul class="sins-search-links">
+            <li><a href="#" onclick="switchView('product'); document.getElementById('sins-search-modal').classList.remove('active'); return false;">Monsoon Malabar Special Reserve</a></li>
+            <li><a href="#" onclick="switchView('collection'); document.getElementById('sins-search-modal').classList.remove('active'); return false;">Mysore Nuggets Extra Bold</a></li>
+            <li><a href="#" onclick="switchView('collection'); document.getElementById('sins-search-modal').classList.remove('active'); return false;">Coorg Peaberry Selection</a></li>
+          </ul>
+        </div>
+        <div class="sins-search-col">
+          <h4 class="sins-search-col-title">TASTING PROFILES</h4>
+          <div class="sins-tag-cloud">
+            <span class="sins-tag">Dark Cocoa</span>
+            <span class="sins-tag">Spiced Cardamom</span>
+            <span class="sins-tag">Velvet Crema</span>
+            <span class="sins-tag">Dried Fig</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Demo Switcher Pill -->
+  <div class="sins-preview-switcher">
+    <span>PREVIEW:</span>
+    <button class="sins-preview-btn active" onclick="switchView('home')">Home</button>
+    <button class="sins-preview-btn" onclick="switchView('collection')">Collection</button>
+    <button class="sins-preview-btn" onclick="switchView('product')">Product Page</button>
+    <button class="sins-preview-btn" onclick="switchView('story')">Our Heritage</button>
+    <button class="sins-preview-btn" onclick="switchView('contact')">Concierge</button>
+    <button class="sins-preview-btn" style="border:1px solid var(--color-champagne-gold); color:var(--color-champagne-light);" onclick="replayIntroFilm()">🎬 Replay Intro Film</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="../assets/animations.js"></script>
+  <script src="../assets/theme.js"></script>
+
+  <script>
+    function switchView(viewName) {
+      document.querySelectorAll('.page-view').forEach(el => el.classList.remove('active'));
+      const target = document.getElementById('view-' + viewName);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      document.querySelectorAll('.sins-preview-btn').forEach(btn => {
+        if (btn.textContent.toLowerCase().includes(viewName.replace('home', 'home'))) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
+    function closeMobileMenu() {
+      const mobileMenu = document.getElementById('sins-mobile-menu');
+      if (mobileMenu) {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function replayIntroFilm() {
+      const introModal = document.getElementById('sins-video-intro');
+      const introVideo = document.getElementById('sinsIntroVideo');
+      const heroVideo = document.getElementById('sinsHeroVideo');
+      if (heroVideo) heroVideo.pause();
+      if (introModal && introVideo) {
+        introModal.classList.remove('dismissed');
+        document.body.style.overflow = 'hidden';
+        introVideo.currentTime = 0;
+        introVideo.play();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  </script>
+</body>
+</html>
+"""
+    with open('preview/index.html', 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    print("preview/index.html generated successfully!")
+
+if __name__ == '__main__':
+    build_preview()
+

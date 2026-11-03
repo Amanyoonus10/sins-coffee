@@ -1,0 +1,15 @@
+# OS & System
+.DS_Store
+Thumbs.db
+
+# Build & Archives
+*.zip
+*.tar.gz
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Vercel
+.vercel

@@ -1,0 +1,172 @@
+{% comment %}
+  SIN'S COFFEE - Section 09: Instagram Editorial Gallery
+{% endcomment %}
+
+<section class="sins-instagram-gallery" id="instagram" data-section-id="{{ section.id }}">
+  <div class="sins-container">
+    
+    <!-- Section Top Header -->
+    <div class="sins-instagram-gallery__header" data-reveal="fade-up">
+      <div class="header-left">
+        <span class="sins-insta-tag">{{ section.settings.eyebrow | default: 'THE VISUAL DISPATCH' }}</span>
+        <h2 class="sins-insta-title">
+          <span>THE CURATED</span>
+          <span class="italic-serif">CHRONICLE</span>
+        </h2>
+      </div>
+
+      <div class="header-right">
+        <a href="{{ section.settings.instagram_link | default: 'https://instagram.com/sinscoffee.uk' }}" target="_blank" rel="noopener" class="sins-insta-btn">
+          {% render 'icon', icon: 'instagram' %}
+          <span>{{ section.settings.cta_text | default: 'FOLLOW OUR JOURNEY' }}</span>
+          <span class="handle">{{ section.settings.instagram_handle | default: '@sinscoffee.uk' }}</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Asymmetrical Luxury Editorial Grid -->
+    <div class="sins-insta-grid">
+      
+      <!-- Grid Item 1 (Hero Large) -->
+      <a href="{{ section.settings.instagram_link | default: 'https://instagram.com/sinscoffee.uk' }}" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--tall" data-reveal="fade-up">
+        <img 
+          src="{{ section.settings.img_1 | default: 'insta-01.jpg' | asset_url }}" 
+          alt="SIN'S COFFEE Visual Chronicle" 
+          loading="lazy"
+          width="600"
+          height="800"
+        >
+        <div class="sins-insta-overlay">
+          <span class="insta-icon">{% render 'icon', icon: 'instagram' %}</span>
+          <span class="insta-caption">Morning ritual in Mayfair with Monsoon Malabar AA.</span>
+        </div>
+      </a>
+
+      <!-- Grid Item 2 (Top Small) -->
+      <a href="{{ section.settings.instagram_link | default: 'https://instagram.com/sinscoffee.uk' }}" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--square" data-reveal="fade-up" data-delay="100">
+        <img 
+          src="{{ section.settings.img_2 | default: 'insta-02.jpg' | asset_url }}" 
+          alt="SIN'S COFFEE London Atelier" 
+          loading="lazy"
+          width="500"
+          height="500"
+        >
+        <div class="sins-insta-overlay">
+          <span class="insta-icon">{% render 'icon', icon: 'instagram' %}</span>
+          <span class="insta-caption">Extracting golden crema on solid brass portafilters.</span>
+        </div>
+      </a>
+
+      <!-- Grid Item 3 (Bottom Small) -->
+      <a href="{{ section.settings.instagram_link | default: 'https://instagram.com/sinscoffee.uk' }}" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--square" data-reveal="fade-up" data-delay="200">
+        <img 
+          src="{{ section.settings.img_3 | default: 'insta-03.jpg' | asset_url }}" 
+          alt="Western Ghats Harvest" 
+          loading="lazy"
+          width="500"
+          height="500"
+        >
+        <div class="sins-insta-overlay">
+          <span class="insta-icon">{% render 'icon', icon: 'instagram' %}</span>
+          <span class="insta-caption">Ruby shade cherries hand-inspected in Chikmagalur.</span>
+        </div>
+      </a>
+
+      <!-- Grid Item 4 (Right Wide) -->
+      <a href="{{ section.settings.instagram_link | default: 'https://instagram.com/sinscoffee.uk' }}" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--wide" data-reveal="fade-up" data-delay="300">
+        <img 
+          src="{{ section.settings.img_4 | default: 'insta-04.jpg' | asset_url }}" 
+          alt="Artisan Roasting Batches" 
+          loading="lazy"
+          width="800"
+          height="500"
+        >
+        <div class="sins-insta-overlay">
+          <span class="insta-icon">{% render 'icon', icon: 'instagram' %}</span>
+          <span class="insta-caption">Slow cast-iron drum roast development.</span>
+        </div>
+      </a>
+
+      <!-- Grid Item 5 (Accent) -->
+      <a href="{{ section.settings.instagram_link | default: 'https://instagram.com/sinscoffee.uk' }}" target="_blank" rel="noopener" class="sins-insta-card sins-insta-card--accent" data-reveal="fade-up" data-delay="400">
+        <img 
+          src="{{ section.settings.img_5 | default: 'insta-05.jpg' | asset_url }}" 
+          alt="Artisan Coffee Service" 
+          loading="lazy"
+          width="500"
+          height="500"
+        >
+        <div class="sins-insta-overlay">
+          <span class="insta-icon">{% render 'icon', icon: 'instagram' %}</span>
+          <span class="insta-caption">Indian Coffee Heritage. British Excellence.</span>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram Gallery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow tag",
+      "default": "THE VISUAL DISPATCH"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA text",
+      "default": "FOLLOW OUR JOURNEY"
+    },
+    {
+      "type": "text",
+      "id": "instagram_handle",
+      "label": "Instagram handle",
+      "default": "@sinscoffee.uk"
+    },
+    {
+      "type": "url",
+      "id": "instagram_link",
+      "label": "Instagram profile link",
+      "default": "https://instagram.com/sinscoffee.uk"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_1",
+      "label": "Gallery Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_2",
+      "label": "Gallery Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_3",
+      "label": "Gallery Image 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_4",
+      "label": "Gallery Image 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_5",
+      "label": "Gallery Image 5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram Gallery",
+      "category": "Social"
+    }
+  ]
+}
+{% endschema %}
+

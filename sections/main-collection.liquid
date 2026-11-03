@@ -1,0 +1,131 @@
+{% comment %}
+  SIN'S COFFEE - Main Collection Section
+{% endcomment %}
+
+<section class="sins-collection-page" data-section-id="{{ section.id }}">
+  <!-- Collection Banner Header -->
+  <div class="sins-collection-banner">
+    <div class="sins-container">
+      <div class="sins-collection-banner__content">
+        <span class="collection-eyebrow">THE ATELIER CELLAR</span>
+        <h1 class="collection-title">{{ collection.title | default: 'The Signature Reserves' }}</h1>
+        <p class="collection-description">
+          {{ collection.description | default: 'Meticulously sourced from generational estates in Karnataka’s Western Ghats. Roasted in London to reveal profound sweetness, spice and velvet body.' }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter & Sort Bar -->
+  <div class="sins-collection-toolbar">
+    <div class="sins-container sins-collection-toolbar__inner">
+      <div class="toolbar-left">
+        <span class="product-count">
+          Showing <strong>{{ collection.products_count | default: 4 }}</strong> Specialty Curations
+        </span>
+      </div>
+
+      <div class="toolbar-right">
+        <!-- Sort Dropdown -->
+        <div class="sins-sort-wrap">
+          <label for="SortBy" class="sort-label">Sort By:</label>
+          <select name="sort_by" id="SortBy" class="sins-sort-select">
+            <option value="manual">Featured Curations</option>
+            <option value="price-ascending">Price: Low to High</option>
+            <option value="price-descending">Price: High to Low</option>
+            <option value="title-ascending">Alphabetical A-Z</option>
+            <option value="created-descending">Latest Harvest</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="sins-container sins-collection-grid-container">
+    <div class="sins-collection-grid">
+      {%- if collection.products.size > 0 -%}
+        {%- for product in collection.products -%}
+          <div class="sins-grid-col">
+            {% render 'product-card', product: product %}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Curated Fallback Curations for Shopify Demo & Launch -->
+        <div class="sins-grid-col">
+          {% render 'product-card',
+            mock_title: "Monsoon Malabar Reserve No. 1",
+            mock_origin: "Western Ghats, Malabar Coast",
+            mock_roast: "Velvety Medium-Dark",
+            mock_notes: "Dark Cocoa • Cardamom • Monsooned Spice • Roasted Almond",
+            mock_price: 1800,
+            mock_badge: "MONSOONED MALABAR AA",
+            mock_image: 'coffee-tin-monsoon.jpg',
+            mock_url: "/collections/all",
+            mock_variant_id: "variant_sins_01"
+          %}
+        </div>
+
+        <div class="sins-grid-col">
+          {% render 'product-card',
+            mock_title: "Mysore Nuggets Extra Bold",
+            mock_origin: "Chikmagalur Highlands • 1,450m",
+            mock_roast: "Full-Bodied Dark Roast",
+            mock_notes: "Caramelized Brown Sugar • Clove • Dark Chocolate • Cedar",
+            mock_price: 2200,
+            mock_badge: "EXTRA BOLD SIEVE 19",
+            mock_image: 'coffee-tin-mysore.jpg',
+            mock_url: "/collections/all",
+            mock_variant_id: "variant_sins_02"
+          %}
+        </div>
+
+        <div class="sins-grid-col">
+          {% render 'product-card',
+            mock_title: "Coorg High Altitude Peaberry",
+            mock_origin: "Madikeri Valley, Coorg",
+            mock_roast: "Refined Medium Roast",
+            mock_notes: "Ripe Stone Fruit • Honey Blossom • Nutmeg • Bright Crema",
+            mock_price: 1950,
+            mock_badge: "RARE SINGLE PEABERRY",
+            mock_image: 'coffee-tin-coorg.jpg',
+            mock_url: "/collections/all",
+            mock_variant_id: "variant_sins_03"
+          %}
+        </div>
+
+        <div class="sins-grid-col">
+          {% render 'product-card',
+            mock_title: "Baba Budan 1670 Heritage Blend",
+            mock_origin: "Historic Baba Budangiri Hills",
+            mock_roast: "Master Roaster Reserve",
+            mock_notes: "Toasted Fig • Molasses • Ceylon Cinnamon • Silky Body",
+            mock_price: 2600,
+            mock_badge: "LIMITED HARVEST 2026",
+            mock_image: 'roasted-coffee-beans.jpg',
+            mock_url: "/collections/all",
+            mock_variant_id: "variant_sins_04"
+          %}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 12,
+      "label": "Products per page"
+    }
+  ]
+}
+{% endschema %}
+

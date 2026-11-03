@@ -1,0 +1,52 @@
+<div id="sins-search-modal" class="sins-modal sins-search-modal" aria-hidden="true" role="dialog" aria-label="Search Atelier">
+  <div class="sins-modal__backdrop" data-search-close></div>
+  <div class="sins-modal__panel">
+    <div class="sins-modal__header">
+      <div class="sins-search-brand">
+        <img src="{{ 'sins-coffee-logo-clean.png' | asset_url }}" alt="SIN'S COFFEE" class="sins-search-logo" width="120" height="30">
+      </div>
+      <button type="button" class="sins-modal__close" data-search-close aria-label="Close search">
+        {% render 'icon', icon: 'close' %}
+      </button>
+    </div>
+
+    <form action="/search" method="get" class="sins-search-form" role="search">
+      <div class="sins-search-input-wrap">
+        <input 
+          type="search" 
+          name="q" 
+          id="SearchInput" 
+          placeholder="Search single origins, roasts, or tasting notes..."
+          autocomplete="off"
+          class="sins-search-input"
+        >
+        <button type="submit" class="sins-search-submit" aria-label="Search">
+          {% render 'icon', icon: 'search' %}
+        </button>
+      </div>
+    </form>
+
+    <div class="sins-search-suggestions">
+      <div class="sins-search-col">
+        <h4 class="sins-search-col-title">POPULAR CURATIONS</h4>
+        <ul class="sins-search-links">
+          <li><a href="/collections/all">Monsoon Malabar Special Reserve</a></li>
+          <li><a href="/collections/all">Mysore Nuggets Extra Bold</a></li>
+          <li><a href="/collections/all">Coorg Peaberry Selection</a></li>
+          <li><a href="/collections/all">Western Ghats Shade-Grown Arabica</a></li>
+        </ul>
+      </div>
+      <div class="sins-search-col">
+        <h4 class="sins-search-col-title">TASTING PROFILES</h4>
+        <div class="sins-tag-cloud">
+          <span class="sins-tag">Dark Cocoa</span>
+          <span class="sins-tag">Spiced Cardamom</span>
+          <span class="sins-tag">Velvet Crema</span>
+          <span class="sins-tag">Dried Fig</span>
+          <span class="sins-tag">Toasted Hazelnut</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

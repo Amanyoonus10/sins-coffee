@@ -1,0 +1,164 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "SIN'S COFFEE - Luxury Atelier",
+    "theme_author": "SIN'S COFFEE London & Bengaluru",
+    "theme_version": "2.0.0",
+    "theme_documentation_url": "https://sinscoffee.co.uk",
+    "theme_support_url": "https://sinscoffee.co.uk/pages/contact"
+  },
+  {
+    "name": "Brand Identity & Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Luxury Color Palette"
+      },
+      {
+        "type": "color",
+        "id": "color_bg_matte_black",
+        "label": "Matte Black (Primary Dark)",
+        "default": "#101010"
+      },
+      {
+        "type": "color",
+        "id": "color_gold_champagne",
+        "label": "Champagne Gold (Accent)",
+        "default": "#C6A36B"
+      },
+      {
+        "type": "color",
+        "id": "color_gold_light",
+        "label": "Champagne Gold Light",
+        "default": "#DFC597"
+      },
+      {
+        "type": "color",
+        "id": "color_ivory_warm",
+        "label": "Warm Ivory (Editorial Light)",
+        "default": "#F3EBDD"
+      },
+      {
+        "type": "color",
+        "id": "color_deep_coffee",
+        "label": "Deep Coffee Brown",
+        "default": "#5A3929"
+      },
+      {
+        "type": "color",
+        "id": "color_muted_sand",
+        "label": "Muted Sand",
+        "default": "#B5A58C"
+      },
+      {
+        "type": "color",
+        "id": "color_charcoal",
+        "label": "Charcoal Surface",
+        "default": "#292723"
+      },
+      {
+        "type": "color",
+        "id": "color_text_light",
+        "label": "Primary Text (Light)",
+        "default": "#F8F5EE"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Muted Text",
+        "default": "#A0988B"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Serif & Sans Hierarchy"
+      },
+      {
+        "type": "select",
+        "id": "font_headline",
+        "label": "Editorial Headline Font",
+        "options": [
+          { "value": "Cormorant Garamond", "label": "Cormorant Garamond (Default Luxury)" },
+          { "value": "Bodoni Moda", "label": "Bodoni Moda (High Contrast Haute)" },
+          { "value": "Playfair Display", "label": "Playfair Display (Refined British)" }
+        ],
+        "default": "Cormorant Garamond"
+      },
+      {
+        "type": "select",
+        "id": "font_body",
+        "label": "Modern Body Font",
+        "options": [
+          { "value": "Manrope", "label": "Manrope (Contemporary Clean)" },
+          { "value": "DM Sans", "label": "DM Sans (Geometric Precision)" }
+        ],
+        "default": "Manrope"
+      },
+      {
+        "type": "range",
+        "id": "type_base_size",
+        "min": 14,
+        "max": 18,
+        "step": 1,
+        "unit": "px",
+        "label": "Base Font Size",
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "Cart & Checkout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart Experience",
+        "options": [
+          { "value": "drawer", "label": "Slide-Out Luxury Drawer" },
+          { "value": "page", "label": "Dedicated Cart Page" }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free UK Shipping Threshold (£)",
+        "default": 45
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_cart_notes",
+        "label": "Enable Gift / Order Tasting Note",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social Media & Heritage Links",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_handle",
+        "label": "Instagram Handle",
+        "default": "@sinscoffee.uk"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram URL",
+        "default": "https://instagram.com/sinscoffee.uk"
+      },
+      {
+        "type": "url",
+        "id": "social_contact_email",
+        "label": "Concierge Email",
+        "default": "mailto:concierge@sinscoffee.co.uk"
+      }
+    ]
+  }
+]
+

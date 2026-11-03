@@ -1,0 +1,156 @@
+{% comment %}
+  SIN'S COFFEE - Cinematic 4K Scroll-Driven Video Hero
+  Binds uncompressed 4K video playback smoothly to the user's scroll progression.
+{% endcomment %}
+
+<section 
+  class="sins-scroll-video-section" 
+  id="sins-scroll-video" 
+  data-section-id="{{ section.id }}"
+  data-scroll-height="{{ section.settings.track_height | default: '300vh' }}"
+>
+  <!-- Scroll Track (Creates the vertical scroll distance) -->
+  <div class="sins-scroll-video__track" style="height: {{ section.settings.track_height | default: '300vh' }};">
+    
+    <!-- Sticky Full-Viewport Stage -->
+    <div class="sins-scroll-video__sticky">
+      
+      <!-- 4K Video Element -->
+      <div class="sins-scroll-video__media-wrap">
+        <video 
+          id="sinsScrollVideo" 
+          class="sins-scroll-video__video" 
+          muted 
+          playsinline 
+          webkit-playsinline
+          preload="auto"
+          poster="{{ 'scroll-video-poster.jpg' | asset_url }}"
+        >
+          <source src="{{ 'sins-coffee-scroll-video.mp4' | asset_url }}" type="video/mp4">
+          Your browser does not support high-definition 4K video playback.
+        </video>
+
+        <!-- Subtle Luxury Dark Vignette Overlay -->
+        <div class="sins-scroll-video__overlay"></div>
+      </div>
+
+      <!-- Editorial Hero Narrative Layer (Fades gracefully on scroll to reveal pure 4K cinema) -->
+      <div class="sins-scroll-video__narrative-container">
+        <div class="sins-container">
+          <div class="sins-scroll-hero-content" id="sinsScrollHeroContent">
+            
+            {% if section.settings.tag != blank %}
+              <div class="sins-hero__brand-pill sins-anim-fade-up">
+                <span class="pill-dot"></span>
+                <span class="pill-text">{{ section.settings.tag }}</span>
+                <span class="pill-dot"></span>
+              </div>
+            {% endif %}
+
+            <h1 class="sins-hero__headline">
+              <span class="title-line">{{ section.settings.title | default: 'BEYOND COFFEE.' }}</span>
+              <span class="title-line title-line--italic">{{ section.settings.subtitle | default: 'AN EXPERIENCE.' }}</span>
+            </h1>
+
+            {% if section.settings.desc != blank %}
+              <p class="sins-hero__subtext">
+                {{ section.settings.desc }}
+              </p>
+            {% endif %}
+
+            <div class="sins-hero__cta-group">
+              {% if section.settings.cta_1_text != blank %}
+                <a href="{{ section.settings.cta_1_url | default: '/collections/all' }}" class="sins-btn sins-btn--gold">
+                  <span>{{ section.settings.cta_1_text }}</span>
+                  <span class="btn-arrow">→</span>
+                </a>
+              {% endif %}
+              {% if section.settings.cta_2_text != blank %}
+                <a href="{{ section.settings.cta_2_url | default: '/pages/our-story' }}" class="sins-btn sins-btn--outline">
+                  <span>{{ section.settings.cta_2_text }}</span>
+                </a>
+              {% endif %}
+            </div>
+
+            <div class="sins-scroll-hint">
+              <span class="hint-mouse">
+                <span class="mouse-wheel"></span>
+              </span>
+              <span class="hint-text">SCROLL TO EXPLORE</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cinematic Scroll Video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "track_height",
+      "label": "Scroll Track Height",
+      "default": "300vh"
+    },
+    {
+      "type": "text",
+      "id": "tag",
+      "label": "Tagline Pill",
+      "default": "PREMIUM INDIAN COFFEE • BRITISH EXPERIENCE"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Headline Line 1",
+      "default": "BEYOND COFFEE."
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Headline Line 2 (Italic)",
+      "default": "AN EXPERIENCE."
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Supporting Description",
+      "default": "Discover the richness of Indian coffee heritage, refined for the modern British palate."
+    },
+    {
+      "type": "text",
+      "id": "cta_1_text",
+      "label": "Primary CTA Text",
+      "default": "EXPLORE OUR COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "cta_1_url",
+      "label": "Primary CTA Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "cta_2_text",
+      "label": "Secondary CTA Text",
+      "default": "DISCOVER OUR HERITAGE"
+    },
+    {
+      "type": "url",
+      "id": "cta_2_url",
+      "label": "Secondary CTA Link",
+      "default": "/pages/our-story"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cinematic Scroll Video",
+      "category": "Hero"
+    }
+  ]
+}
+{% endschema %}

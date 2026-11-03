@@ -1,0 +1,230 @@
+{% comment %}
+  SIN'S COFFEE - Main Product Section
+{% endcomment %}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign title = product.title | default: "Monsoon Malabar Reserve No. 1"
+  assign price = current_variant.price | default: product.price | default: 1800
+  assign origin = product.metafields.custom.origin | default: "Western Ghats, Malabar Coast"
+  assign altitude = product.metafields.custom.altitude | default: "1,200m – 1,400m"
+  assign process_type = product.metafields.custom.process | default: "Monsooned Wind Curation"
+  assign roast_level = product.metafields.custom.roast_profile | default: "Medium-Dark Roast"
+  assign tasting_notes = product.metafields.custom.tasting_notes | default: "Dark Cocoa • Cardamom • Spiced Honey • Roasted Almond"
+-%}
+
+<section class="sins-product-detail" data-section-id="{{ section.id }}" data-product-id="{{ product.id | default: 'mock-pdp' }}">
+  <div class="sins-container">
+    
+    <!-- Breadcrumb -->
+    <div class="sins-breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/collections/all">Collection</a>
+      <span class="sep">/</span>
+      <span class="current">{{ title }}</span>
+    </div>
+
+    <div class="sins-pdp-layout">
+      
+      <!-- Left Column: High-Res Editorial Media Gallery -->
+      <div class="sins-pdp-gallery">
+        <div class="sins-pdp-main-image-wrap">
+          {%- if product.featured_image -%}
+            <img 
+              src="{{ product.featured_image | image_url: width: 1000 }}" 
+              alt="{{ title | escape }}" 
+              class="sins-pdp-main-image"
+              id="pdpMainImage"
+              loading="eager"
+              width="800"
+              height="1000"
+            >
+          {%- else -%}
+            <img 
+              src="{{ 'coffee-tin-monsoon.jpg' | asset_url }}" 
+              alt="{{ title | escape }}" 
+              class="sins-pdp-main-image"
+              id="pdpMainImage"
+              loading="eager"
+              width="800"
+              height="1000"
+            >
+          {%- endif -%}
+          <div class="sins-pdp-badge">RESERVE LOT</div>
+        </div>
+
+        <!-- Thumbnails Strip -->
+        <div class="sins-pdp-thumbs">
+          <button type="button" class="sins-thumb active" data-src="{{ 'coffee-tin-monsoon.jpg' | asset_url }}">
+            <img src="{{ 'coffee-tin-monsoon.jpg' | asset_url }}" alt="Packaging" width="100" height="100">
+          </button>
+          <button type="button" class="sins-thumb" data-src="{{ 'roasted-coffee-beans.jpg' | asset_url }}">
+            <img src="{{ 'roasted-coffee-beans.jpg' | asset_url }}" alt="Roasted Beans" width="100" height="100">
+          </button>
+          <button type="button" class="sins-thumb" data-src="{{ 'espresso-crema-pour.jpg' | asset_url }}">
+            <img src="{{ 'espresso-crema-pour.jpg' | asset_url }}" alt="Extraction Crema" width="100" height="100">
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column: Product Narrative & Commerce Form -->
+      <div class="sins-pdp-info">
+        
+        <div class="sins-pdp-meta-header">
+          <span class="pdp-origin-pill">{{ origin }}</span>
+          <span class="pdp-stock-badge">
+            <span class="dot"></span> Micro-Batch Roasted In London • In Stock
+          </span>
+        </div>
+
+        <h1 class="sins-pdp-title">{{ title }}</h1>
+
+        <div class="sins-pdp-price-wrap">
+          <span class="sins-pdp-price" id="pdpPrice">{{ price | money }}</span>
+          <span class="sins-pdp-vat-note">Tax included • Free UK delivery on orders £45+</span>
+        </div>
+
+        <!-- Tasting Notes Summary -->
+        <div class="sins-pdp-tasting-banner">
+          <span class="banner-title">CUPPING PROFILE</span>
+          <p class="banner-notes">{{ tasting_notes }}</p>
+        </div>
+
+        <!-- Product Purchase Form -->
+        {% form 'product', product, id: 'sinsProductForm', class: 'sins-pdp-form' %}
+          <input type="hidden" name="id" id="pdpVariantId" value="{{ current_variant.id | default: 'mock-var-id' }}">
+
+          <!-- Variant Option 1: Weight Selection -->
+          <div class="sins-pdp-option-group">
+            <div class="option-header">
+              <label class="option-label">SELECT WEIGHT</label>
+              <span class="option-selected-val" id="selectedWeight">250g (Approx. 16 Cups)</span>
+            </div>
+            <div class="sins-pill-selector" data-option="weight">
+              <button type="button" class="sins-pill-btn active" data-value="250g" data-price="1800">250g</button>
+              <button type="button" class="sins-pill-btn" data-value="500g" data-price="3200">500g (Save 10%)</button>
+              <button type="button" class="sins-pill-btn" data-value="1kg" data-price="5800">1kg Atelier Tin</button>
+            </div>
+          </div>
+
+          <!-- Variant Option 2: Grind Selection -->
+          <div class="sins-pdp-option-group">
+            <div class="option-header">
+              <label class="option-label">GRIND PROFILE</label>
+              <span class="option-selected-val" id="selectedGrind">Whole Bean</span>
+            </div>
+            <div class="sins-pill-selector" data-option="grind">
+              <button type="button" class="sins-pill-btn active" data-value="Whole Bean">Whole Bean</button>
+              <button type="button" class="sins-pill-btn" data-value="Cafetière / French Press">Cafetière</button>
+              <button type="button" class="sins-pill-btn" data-value="Espresso">Espresso</button>
+              <button type="button" class="sins-pill-btn" data-value="Pour-Over / Filter">Pour-Over</button>
+            </div>
+          </div>
+
+          <!-- Quantity Selector & Action Buttons -->
+          <div class="sins-pdp-action-row">
+            <div class="sins-pdp-qty">
+              <button type="button" class="pdp-qty-btn" id="pdpQtyDec">−</button>
+              <input type="number" name="quantity" id="pdpQuantity" value="1" min="1" max="99" class="pdp-qty-input" readonly>
+              <button type="button" class="pdp-qty-btn" id="pdpQtyInc">+</button>
+            </div>
+
+            <button type="submit" name="add" class="sins-btn sins-btn--pdp-add" id="pdpAddBtn">
+              <span>ADD TO SELECTION BAG</span>
+              <span class="btn-price-summary" id="pdpBtnPrice">{{ price | money }}</span>
+            </button>
+          </div>
+
+          <!-- Direct Buy Button -->
+          <button type="button" class="sins-btn sins-btn--buy-now" id="pdpBuyNow">
+            <span>BUY NOW WITH SHOPIFY PAY</span>
+          </button>
+        {% endform %}
+
+        <!-- Shipping & Authenticity Guarantees -->
+        <div class="sins-pdp-perks">
+          <div class="perk-item">
+            <span class="perk-icon">📦</span>
+            <div class="perk-info">
+              <strong>Bespoke Protective Tin</strong>
+              <span>Aroma-sealed degassing valve preserves volatile oils</span>
+            </div>
+          </div>
+          <div class="perk-item">
+            <span class="perk-icon">⚡</span>
+            <div class="perk-info">
+              <strong>Royal Mail 24/48 Tracked</strong>
+              <span>Roasted to order & dispatched within 24 hours</span>
+            </div>
+          </div>
+          <div class="perk-item">
+            <span class="perk-icon">☕</span>
+            <div class="perk-info">
+              <strong>Guaranteed Single Origin</strong>
+              <span>100% Traceable to Western Ghats estate coordinates</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Editorial Story & Specifications Accordions -->
+        <div class="sins-accordions">
+          
+          <details class="sins-accordion" open>
+            <summary class="sins-accordion__trigger">
+              <span>ESTATE TERROIR & DETAILS</span>
+              <span class="acc-icon">+</span>
+            </summary>
+            <div class="sins-accordion__content">
+              <dl class="sins-specs-list">
+                <div class="spec-row"><dt>Estate Region</dt><dd>{{ origin }}</dd></div>
+                <div class="spec-row"><dt>Elevation</dt><dd>{{ altitude }}</dd></div>
+                <div class="spec-row"><dt>Processing</dt><dd>{{ process_type }}</dd></div>
+                <div class="spec-row"><dt>Roast Level</dt><dd>{{ roast_level }}</dd></div>
+                <div class="spec-row"><dt>Cultivar</dt><dd>S.795 & Selection 9 Arabica</dd></div>
+              </dl>
+            </div>
+          </details>
+
+          <details class="sins-accordion">
+            <summary class="sins-accordion__trigger">
+              <span>RECOMMENDED BREWING GEOMETRY</span>
+              <span class="acc-icon">+</span>
+            </summary>
+            <div class="sins-accordion__content">
+              <p>For the optimal expression of Indian heritage coffee:</p>
+              <ul>
+                <li><strong>Ratio:</strong> 1:16 (18g coffee to 290g water)</li>
+                <li><strong>Water Temp:</strong> 93.5°C (198°F)</li>
+                <li><strong>Pre-infusion / Bloom:</strong> 40 seconds with 50g water</li>
+                <li><strong>Total Drawdown:</strong> 2 minutes 45 seconds</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="sins-accordion">
+            <summary class="sins-accordion__trigger">
+              <span>COMPLIMENTARY UK DELIVERY & RETURNS</span>
+              <span class="acc-icon">+</span>
+            </summary>
+            <div class="sins-accordion__content">
+              <p>All UK mainland orders over £45 enjoy complimentary express delivery. Roasted fresh at our London atelier and delivered in climate-controlled protective packaging. We stand behind our roasts with the SIN'S COFFEE 100% satisfaction guarantee.</p>
+            </div>
+          </details>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Detail",
+  "settings": []
+}
+{% endschema %}
+

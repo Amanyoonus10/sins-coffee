@@ -1,0 +1,23 @@
+{
+  "current": {
+    "color_bg_matte_black": "#101010",
+    "color_gold_champagne": "#C6A36B",
+    "color_gold_light": "#DFC597",
+    "color_ivory_warm": "#F3EBDD",
+    "color_deep_coffee": "#5A3929",
+    "color_muted_sand": "#B5A58C",
+    "color_charcoal": "#292723",
+    "color_text_light": "#F8F5EE",
+    "color_text_muted": "#A0988B",
+    "font_headline": "Cormorant Garamond",
+    "font_body": "Manrope",
+    "type_base_size": 16,
+    "cart_type": "drawer",
+    "free_shipping_threshold": 45,
+    "enable_cart_notes": true,
+    "social_instagram_handle": "@sinscoffee.uk",
+    "social_instagram_link": "https://instagram.com/sinscoffee.uk",
+    "social_contact_email": "mailto:concierge@sinscoffee.co.uk"
+  }
+}
+

@@ -1,0 +1,78 @@
+{% comment %}
+  SIN'S COFFEE - Section 07: Our Philosophy
+{% endcomment %}
+
+<section class="sins-philosophy" id="philosophy" data-section-id="{{ section.id }}">
+  <div class="sins-container sins-philosophy__inner">
+    
+    <div class="sins-philosophy__content" data-reveal="fade-up">
+      <div class="sins-philosophy__tag">
+        <span class="tag-line"></span>
+        <span class="tag-text">{{ section.settings.eyebrow | default: 'THE PRINCIPLES OF SIN’S COFFEE' }}</span>
+        <span class="tag-line"></span>
+      </div>
+
+      <h2 class="sins-philosophy__headline">
+        <span>QUALITY IS NEVER</span>
+        <span class="gold-italic">AN ACCIDENT.</span>
+      </h2>
+
+      <p class="sins-philosophy__body">
+        {{ section.settings.copy | default: 'Every detail matters. From carefully sourced Indian coffee to the final experience in your cup, our philosophy is rooted in quality, authenticity and refinement.' }}
+      </p>
+
+      <div class="sins-philosophy__pillars">
+        <div class="pillar-box">
+          <span class="pillar-symbol">✦</span>
+          <h4 class="pillar-title">AUTHENTIC ORIGIN</h4>
+          <p class="pillar-text">Direct partnerships with generational heritage estates across the Western Ghats.</p>
+        </div>
+        <div class="pillar-box">
+          <span class="pillar-symbol">✦</span>
+          <h4 class="pillar-title">UNCOMPROMISING SELECTION</h4>
+          <p class="pillar-text">Strict sorting standards selecting solely the top 2% of the annual harvest.</p>
+        </div>
+        <div class="pillar-box">
+          <span class="pillar-symbol">✦</span>
+          <h4 class="pillar-title">BRITISH REFINEMENT</h4>
+          <p class="pillar-text">Small-batch roasting calibrated for sophisticated European brewing methods.</p>
+        </div>
+      </div>
+
+      <!-- Signature Emblem Signoff -->
+      <div class="sins-philosophy__signoff">
+        <img src="{{ 'sins-coffee-emblem.png' | asset_url }}" alt="SIN'S COFFEE Seal" class="philosophy-emblem" width="80" height="80">
+        <span class="signoff-location">MAYFAIR, LONDON • BENGALURU, INDIA</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Philosophy",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow tag",
+      "default": "THE PRINCIPLES OF SIN’S COFFEE"
+    },
+    {
+      "type": "textarea",
+      "id": "copy",
+      "label": "Philosophy Statement",
+      "default": "Every detail matters. From carefully sourced Indian coffee to the final experience in your cup, our philosophy is rooted in quality, authenticity and refinement."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Philosophy",
+      "category": "Story"
+    }
+  ]
+}
+{% endschema %}
+

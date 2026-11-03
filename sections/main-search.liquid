@@ -1,0 +1,49 @@
+{% comment %}
+  SIN'S COFFEE - Main Search Section
+{% endcomment %}
+
+<section class="sins-search-page" data-section-id="{{ section.id }}">
+  <div class="sins-container">
+    
+    <div class="sins-search-page__header">
+      <span class="search-eyebrow">THE ATELIER ARCHIVE</span>
+      <h1 class="search-title">SEARCH RESULTS</h1>
+
+      <form action="/search" method="get" class="search-page-bar">
+        <input 
+          type="search" 
+          name="q" 
+          value="{{ search.terms | escape }}" 
+          placeholder="Search by origin, roast profile or notes..."
+          class="search-bar-input"
+        >
+        <button type="submit" class="search-bar-submit">SEARCH</button>
+      </form>
+    </div>
+
+    {%- if search.performed -%}
+      <div class="search-results-summary">
+        <p>Found <strong>{{ search.results_count }}</strong> results for “{{ search.terms }}”</p>
+      </div>
+
+      <div class="sins-collection-grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            <div class="sins-grid-col">
+              {% render 'product-card', product: item %}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Search Results",
+  "settings": []
+}
+{% endschema %}
+

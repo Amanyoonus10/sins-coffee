@@ -1,0 +1,257 @@
+{% comment %}
+  SIN'S COFFEE - Section 05: The Art of Coffee
+  Features fixed / still parallax background image while scrolling.
+{% endcomment %}
+
+<section 
+  class="sins-coffee-process" 
+  id="process" 
+  data-section-id="{{ section.id }}"
+  style="background-image: url('{{ section.settings.bg_image | default: 'process-bg.png' | asset_url }}');"
+>
+  <div class="sins-coffee-process__overlay"></div>
+  <div class="sins-container sins-coffee-process__inner">
+    
+    <!-- Editorial Headline -->
+    <div class="sins-coffee-process__header" data-reveal="fade-up">
+      <span class="sins-process-eyebrow">{{ section.settings.eyebrow | default: 'THE SACRED CRAFTSMANSHIP' }}</span>
+      <h2 class="sins-coffee-process__headline">
+        <span>EVERY BEAN</span>
+        <span class="italic-serif">HAS A STORY.</span>
+      </h2>
+      <p class="sins-coffee-process__subtext">
+        From the mist-draped hillsides of Karnataka to the discerning cups of London, each stage is performed with unhurried precision.
+      </p>
+    </div>
+
+    <!-- 5-Step Process Tabs / Timeline -->
+    <div class="sins-process-steps-nav" role="tablist">
+      <button type="button" class="sins-step-tab active" data-step="1" role="tab">
+        <span class="step-num">01</span>
+        <span class="step-name">SELECTION</span>
+      </button>
+      <div class="step-line"></div>
+      <button type="button" class="sins-step-tab" data-step="2" role="tab">
+        <span class="step-num">02</span>
+        <span class="step-name">ROASTING</span>
+      </button>
+      <div class="step-line"></div>
+      <button type="button" class="sins-step-tab" data-step="3" role="tab">
+        <span class="step-num">03</span>
+        <span class="step-name">GRINDING</span>
+      </button>
+      <div class="step-line"></div>
+      <button type="button" class="sins-step-tab" data-step="4" role="tab">
+        <span class="step-num">04</span>
+        <span class="step-name">BREWING</span>
+      </button>
+      <div class="step-line"></div>
+      <button type="button" class="sins-step-tab" data-step="5" role="tab">
+        <span class="step-num">05</span>
+        <span class="step-name">POURING</span>
+      </button>
+    </div>
+
+    <!-- Process Stages Display -->
+    <div class="sins-process-stage-viewport">
+      
+      <!-- Stage 01: Selection -->
+      <div class="sins-stage-panel active" data-stage="1">
+        <div class="sins-stage-grid">
+          <div class="sins-stage-media">
+            <img 
+              src="{{ section.settings.img_step_1 | default: 'process-01-selection.jpg' | asset_url }}" 
+              alt="Artisan Selection of Coffee Cherries"
+              class="sins-stage-img"
+              loading="lazy"
+              width="800"
+              height="600"
+            >
+            <div class="sins-stage-badge">01 / SELECTION</div>
+          </div>
+          <div class="sins-stage-info">
+            <span class="stage-tag">STAGE 01 • BABA BUDANGIRI HILLS</span>
+            <h3 class="stage-title">Hand-Harvested Shade Cherries</h3>
+            <p class="stage-description">
+              Our master pickers selectively harvest only optimum deep-purple cherries. High altitude shade decelerates ripening, accumulating rich sugars and intricate botanical nuances that define the signature SIN’S COFFEE profile.
+            </p>
+            <ul class="stage-bullets">
+              <li><strong>Altitude:</strong> 1,200m – 1,550m above sea level</li>
+              <li><strong>Shade Canopy:</strong> Indigenous Rosewood & Jackfruit</li>
+              <li><strong>Sorting:</strong> Density floatation & optical hand-culling</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 02: Roasting -->
+      <div class="sins-stage-panel" data-stage="2">
+        <div class="sins-stage-grid">
+          <div class="sins-stage-media">
+            <img 
+              src="{{ section.settings.img_step_2 | default: 'process-02-roasting.jpg' | asset_url }}" 
+              alt="Precision Micro-Batch Roasting"
+              class="sins-stage-img"
+              loading="lazy"
+              width="800"
+              height="600"
+            >
+            <div class="sins-stage-badge">02 / ROASTING</div>
+          </div>
+          <div class="sins-stage-info">
+            <span class="stage-tag">STAGE 02 • BRITISH ATELIER ROASTERY</span>
+            <h3 class="stage-title">Cast-Iron Drum Micro-Batches</h3>
+            <p class="stage-description">
+              In London, our head roasters monitor bean temperature and development time to the second. By tailoring individual roast curves to each micro-lot, we accentuate natural sweetness, deep cocoa undertones, and toasted spice notes without bitterness.
+            </p>
+            <ul class="stage-bullets">
+              <li><strong>Batch Size:</strong> Limited 12kg drums for uniform heat</li>
+              <li><strong>Profile:</strong> Slow caramelization of natural fructose</li>
+              <li><strong>Cooling:</strong> Rapid ambient air cooling preserves delicate volatile oils</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 03: Grinding -->
+      <div class="sins-stage-panel" data-stage="3">
+        <div class="sins-stage-grid">
+          <div class="sins-stage-media">
+            <img 
+              src="{{ section.settings.img_step_3 | default: 'process-03-grinding.jpg' | asset_url }}" 
+              alt="Diamond Burr Precision Grinding"
+              class="sins-stage-img"
+              loading="lazy"
+              width="800"
+              height="600"
+            >
+            <div class="sins-stage-badge">03 / GRINDING</div>
+          </div>
+          <div class="sins-stage-info">
+            <span class="stage-tag">STAGE 03 • MICRON PRECISION</span>
+            <h3 class="stage-title">Bimodal Particle Uniformity</h3>
+            <p class="stage-description">
+              Whether destined for an espresso machine, manual pour-over, or French press, each grind profile is calibrated down to the micron using flat titanium burrs to minimize friction heat and prevent micro-fines that muddle clarity.
+            </p>
+            <ul class="stage-bullets">
+              <li><strong>Burr Material:</strong> Titanium-coated hardened steel</li>
+              <li><strong>Grind Profiles:</strong> Whole Bean, Cafetière, Espresso, V60, Chemex</li>
+              <li><strong>Aroma Preservation:</strong> Ground fresh upon order placement</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 04: Brewing -->
+      <div class="sins-stage-panel" data-stage="4">
+        <div class="sins-stage-grid">
+          <div class="sins-stage-media">
+            <img 
+              src="{{ section.settings.img_step_4 | default: 'process-04-brewing.jpg' | asset_url }}" 
+              alt="Thermal Extraction and Brewing"
+              class="sins-stage-img"
+              loading="lazy"
+              width="800"
+              height="600"
+            >
+            <div class="sins-stage-badge">04 / BREWING</div>
+          </div>
+          <div class="sins-stage-info">
+            <span class="stage-tag">STAGE 04 • EXTRACTION SCIENCE</span>
+            <h3 class="stage-title">Balanced Thermal Extraction</h3>
+            <p class="stage-description">
+              Water temperature at precisely 93.5°C interacts with the coffee bed, dissolving vibrant aromatic acids first, followed by decadent cocoa compounds and lingering floral oils, achieving a perfect 19.5% extraction yield.
+            </p>
+            <ul class="stage-bullets">
+              <li><strong>Water Purity:</strong> Mineralized soft water (60-80 ppm)</li>
+              <li><strong>Ratio:</strong> 1:16 brew formula for harmonious balance</li>
+              <li><strong>Bloom:</strong> 45-second gentle degassing release</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 05: Pouring -->
+      <div class="sins-stage-panel" data-stage="5">
+        <div class="sins-stage-grid">
+          <div class="sins-stage-media">
+            <img 
+              src="{{ section.settings.img_step_5 | default: 'process-05-pouring.jpg' | asset_url }}" 
+              alt="Golden Crema and Velvet Pouring"
+              class="sins-stage-img"
+              loading="lazy"
+              width="800"
+              height="600"
+            >
+            <div class="sins-stage-badge">05 / POURING</div>
+          </div>
+          <div class="sins-stage-info">
+            <span class="stage-tag">STAGE 05 • THE MOMENT OF TRANSCENDENCE</span>
+            <h3 class="stage-title">Velvety Crema & Lingering Finish</h3>
+            <p class="stage-description">
+              The climax of the experience. Cascading into fine porcelain, crowned with dense, golden-hued tiger-stripe crema. An intoxicating bouquet fills the room, delivering a luxurious, full-bodied mouthfeel that lingers with distinction.
+            </p>
+            <ul class="stage-bullets">
+              <li><strong>Mouthfeel:</strong> Heavy, syrupy, velvet texture</li>
+              <li><strong>Crema:</strong> Dense hazelnut and gold marbling</li>
+              <li><strong>Aftertaste:</strong> Enduring notes of roasted cardamom and dark chocolate</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "The Art of Coffee",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Still Background Image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow tag",
+      "default": "THE SACRED CRAFTSMANSHIP"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_step_1",
+      "label": "Step 1: Selection Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_step_2",
+      "label": "Step 2: Roasting Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_step_3",
+      "label": "Step 3: Grinding Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_step_4",
+      "label": "Step 4: Brewing Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "img_step_5",
+      "label": "Step 5: Pouring Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "The Art of Coffee",
+      "category": "Story"
+    }
+  ]
+}
+{% endschema %}
+
