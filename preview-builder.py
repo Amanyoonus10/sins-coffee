@@ -60,6 +60,31 @@ def build_preview():
       background: var(--color-champagne-gold);
       font-weight: 600;
     }
+    @media screen and (max-width: 768px) {
+      .sins-preview-switcher {
+        width: calc(100vw - 1.5rem);
+        max-width: calc(100vw - 1.5rem);
+        bottom: 0.75rem;
+        padding: 0.35rem 0.6rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 0.4rem;
+        justify-content: flex-start;
+      }
+      .sins-preview-switcher::-webkit-scrollbar {
+        display: none;
+      }
+      .sins-preview-switcher span {
+        display: none;
+      }
+      .sins-preview-btn {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.65rem;
+        flex-shrink: 0;
+      }
+    }
     .page-view {
       display: none;
     }

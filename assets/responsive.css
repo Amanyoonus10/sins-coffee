@@ -1,21 +1,43 @@
 /* ==========================================================================
-   SIN'S COFFEE — LUXURY RESPONSIVE ART DIRECTION
-   Dedicated styling for Tablet, Mobile, and Ultra-wide screens
+   SIN'S COFFEE — ULTRA-LUXURY RESPONSIVE ART DIRECTION
+   Dedicated Master Styling for Ultra-Wide, Desktop, Tablet, and Mobile Screens
    ========================================================================== */
 
-/* Tablet & Smaller Desktops (<= 1100px) */
+/* --------------------------------------------------------------------------
+   GLOBAL VIEWPORT & BASE OVERFLOW CONTROL
+   -------------------------------------------------------------------------- */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* --------------------------------------------------------------------------
+   TABLET & SMALL DESKTOP (<= 1100px)
+   -------------------------------------------------------------------------- */
 @media screen and (max-width: 1100px) {
+  /* Navigation */
   .sins-header__nav {
     display: none;
   }
 
   .sins-header__mobile-toggle {
     display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
+  /* Grid Layouts */
   .sins-footer__main {
     grid-template-columns: 1fr 1fr;
-    gap: 2.5rem;
+    gap: 3rem;
   }
 
   .sins-footer__col--brand {
@@ -24,6 +46,7 @@
 
   .sins-tasting-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 
   .sins-tasting-card--wide {
@@ -31,114 +54,423 @@
   }
 
   .sins-philosophy__pillars {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
   }
 
   .sins-origin-stats {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .stat-box:nth-child(2) {
+    border-right: none;
+  }
+
+  .stat-box:nth-child(1),
+  .stat-box:nth-child(2) {
+    border-bottom: 1px solid rgba(198, 163, 107, 0.18);
+  }
 }
 
-/* Tablet & Mobile (<= 860px) */
+/* --------------------------------------------------------------------------
+   TABLET & MOBILE BREAKPOINT (<= 860px)
+   -------------------------------------------------------------------------- */
 @media screen and (max-width: 860px) {
   :root {
     --container-gutter: 1.25rem;
   }
 
+  /* CRITICAL: Mobile Background Parallax Fix
+     iOS Safari and Android WebKit struggle with background-attachment: fixed.
+     Switching to scroll delivers silky 60fps scrolling and sharp images. */
+  .sins-brand-intro,
+  .sins-coffee-process,
+  .sins-tasting-experience,
+  .sins-philosophy,
+  .sins-brand-statement {
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+
   /* Header */
   .sins-header {
-    padding: 1.1rem 0;
+    padding: 0.9rem 0;
   }
 
   .sins-header__logo {
-    max-height: 40px;
+    max-height: 38px;
+    width: auto;
   }
 
-  /* Hero Section */
+  .sins-header__mobile-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .sins-header__action-btn {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Section 01: Hero Section */
   .sins-hero {
-    min-height: 600px;
-    height: 92vh;
+    min-height: 100svh;
+    height: 100svh;
+    max-height: 850px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
   }
 
   .sins-hero__content-container {
-    padding-top: 2rem;
+    padding-top: 4.5rem;
+    padding-bottom: 3.5rem;
+    width: 100%;
+  }
+
+  .sins-hero__content {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .sins-hero__brand-pill {
+    max-width: 95%;
+    white-space: normal;
+    text-align: center;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 1.5rem;
   }
 
   .sins-hero__headline {
-    font-size: 2.75rem;
-    line-height: 1.1;
+    font-size: clamp(2.3rem, 8.5vw, 3.4rem);
+    line-height: 1.12;
+    margin-bottom: 1.25rem;
   }
 
   .sins-hero__subtext {
     font-size: 0.95rem;
-    margin-bottom: 2rem;
+    line-height: 1.65;
+    max-width: 90%;
+    margin: 0 auto 2rem auto;
   }
 
   .sins-hero__cta-group {
     flex-direction: column;
     width: 100%;
-    max-width: 340px;
-    gap: 1rem;
+    max-width: 320px;
+    margin: 0 auto;
+    gap: 0.85rem;
   }
 
   .sins-hero__cta-group .sins-btn {
     width: 100%;
-    padding: 1rem 1.5rem;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.95rem 1.5rem;
+    font-size: 0.72rem;
   }
 
-  /* Split screen brand intro */
+  .sins-hero__scroll-indicator {
+    bottom: 1.5rem;
+  }
+
+  @media (max-height: 650px) {
+    .sins-hero__scroll-indicator {
+      display: none;
+    }
+  }
+
+  /* Section 02: Brand Intro */
+  .sins-brand-intro {
+    padding: clamp(5rem, 12vw, 7rem) 0;
+  }
+
   .sins-brand-intro__grid {
     grid-template-columns: 1fr;
-    gap: 3.5rem;
+    gap: 3rem;
+  }
+
+  .sins-brand-intro__headline {
+    font-size: clamp(2.2rem, 7.5vw, 3.2rem);
+    line-height: 1.15;
+  }
+
+  .sins-brand-intro__lead {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .sins-brand-intro__visual-col {
+    position: relative;
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
   }
 
   .sins-image-card--primary {
     width: 100%;
+    aspect-ratio: 4/5;
   }
 
   .sins-image-card--floating {
-    width: 55%;
-    bottom: -8%;
-    right: 0;
+    width: 52%;
+    max-width: 220px;
+    bottom: -6%;
+    right: -2%;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.85);
   }
 
-  /* Origin Section */
+  .sins-brand-intro__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(198, 163, 107, 0.2);
+  }
+
+  .stat-item .stat-num {
+    font-size: 1.5rem;
+  }
+
+  .stat-item .stat-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* Section 03: Origin Story (Atelier Editorial Layout) */
+  .sins-origin-story {
+    padding: clamp(5rem, 12vw, 7.5rem) 0;
+  }
+
+  .sins-origin-story__header {
+    margin-bottom: 3.5rem;
+  }
+
+  .origin-eyebrow-pill {
+    max-width: 100%;
+    padding: 0.4rem 1rem;
+  }
+
+  .origin-eyebrow-pill .eyebrow-text {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+  }
+
+  .sins-origin-story__headline {
+    font-size: clamp(2.1rem, 7.5vw, 3.2rem);
+    line-height: 1.15;
+  }
+
+  .sins-origin-story__subhead {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  /* Mosaic Grid */
   .sins-origin-mosaic {
     grid-template-columns: 1fr;
     gap: 2rem;
+    margin-bottom: 3.5rem;
   }
 
   .sins-mosaic-card--large,
   .sins-mosaic-card--tall,
-  .sins-mosaic-card--wide {
+  .sins-mosaic-card--panorama {
     grid-column: 1 / -1;
-    grid-row: auto;
   }
 
+  .sins-mosaic-card__topbar {
+    padding: 0.9rem 1.25rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .card-index-pill {
+    font-size: 0.65rem;
+  }
+
+  .card-coord-pill {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+  }
+
+  .sins-mosaic-card--large .sins-mosaic-card__media,
   .sins-mosaic-card--tall .sins-mosaic-card__media {
     aspect-ratio: 16/10;
   }
 
-  .sins-origin-stats {
-    grid-template-columns: 1fr 1fr;
-    padding: 1.5rem;
-    gap: 1.5rem;
+  .sins-mosaic-card__caption {
+    padding: 1.75rem 1.25rem;
   }
 
-  /* Coffee Process 5-Step */
+  .caption-title {
+    font-size: 1.6rem;
+  }
+
+  .caption-desc {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .card-specs-row {
+    font-size: 0.64rem;
+    gap: 0.5rem;
+  }
+
+  /* Panorama Card Mobile */
+  .sins-panorama-grid {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .sins-panorama-media {
+    min-height: 240px;
+    height: 250px;
+  }
+
+  .panorama-tag-badge {
+    bottom: 1rem;
+    left: 1rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.6rem;
+  }
+
+  .sins-panorama-content {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .panorama-sensory-matrix {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    gap: 0.85rem;
+  }
+
+  .sensory-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .sensory-label {
+    font-size: 0.65rem;
+  }
+
+  .sensory-bar {
+    width: 100%;
+    height: 5px;
+  }
+
+  .sensory-value {
+    text-align: left;
+    font-size: 0.68rem;
+  }
+
+  /* Origin Stats Mobile */
+  .sins-origin-stats {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+
+  .stat-box {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(198, 163, 107, 0.18) !important;
+    padding: 2.25rem 1.5rem !important;
+  }
+
+  .stat-box:last-child {
+    border-bottom: none !important;
+  }
+
+  .stat-number {
+    font-size: 2.6rem !important;
+  }
+
+  /* Section 04: Signature Collection */
+  .sins-signature-collection {
+    padding: clamp(5rem, 12vw, 7rem) 0;
+  }
+
+  .sins-signature-collection__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .sins-collection-title {
+    font-size: clamp(2.2rem, 7.5vw, 3.2rem);
+  }
+
+  .sins-product-slider,
+  .sins-slider-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.25rem;
+    padding-bottom: 1.5rem;
+    margin-right: -1.25rem;
+    padding-right: 1.25rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .sins-product-slider::-webkit-scrollbar,
+  .sins-slider-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sins-product-card {
+    flex: 0 0 84vw;
+    max-width: 310px;
+    scroll-snap-align: center;
+  }
+
+  /* Section 05: Coffee Process */
+  .sins-coffee-process {
+    padding: clamp(5rem, 12vw, 7rem) 0;
+  }
+
+  .sins-coffee-process__headline {
+    font-size: clamp(2.1rem, 7.5vw, 3.2rem);
+    line-height: 1.15;
+  }
+
   .sins-process-steps-nav {
     display: flex;
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
     justify-content: flex-start;
-    padding-bottom: 1rem;
+    padding: 0.5rem 0.25rem 1.25rem 0.25rem;
+    gap: 0.65rem;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
     width: 100%;
   }
 
+  .sins-process-steps-nav::-webkit-scrollbar {
+    display: none;
+  }
+
   .sins-step-tab {
-    flex-shrink: 0;
-    padding: 0.6rem 1rem;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.68rem;
   }
 
   .sins-stage-grid {
@@ -146,66 +478,208 @@
     gap: 2rem;
   }
 
-  /* Tasting Matrix */
-  .sins-tasting-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .sins-tasting-card--wide {
-    grid-column: span 1;
-    padding: 2rem 1.5rem;
-  }
-
-  /* Instagram Grid */
-  .sins-insta-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
-  }
-
-  .sins-insta-card--tall {
-    grid-column: 1 / -1;
-    aspect-ratio: 16/11;
-  }
-
-  .sins-insta-card--wide {
-    grid-column: 1 / -1;
+  .sins-stage-media {
     aspect-ratio: 16/10;
   }
 
-  /* Footer Newsletter */
+  .sins-stage-content {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .stage-headline {
+    font-size: 1.75rem;
+  }
+
+  /* Section 06: Tasting Experience */
+  .sins-tasting-experience {
+    padding: clamp(5rem, 12vw, 7rem) 0;
+  }
+
+  .sins-tasting-experience__title {
+    font-size: clamp(2.1rem, 7.5vw, 3.2rem);
+    line-height: 1.15;
+  }
+
+  .sins-tasting-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .cupping-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .cupping-headline {
+    font-size: 1.75rem;
+  }
+
+  .sins-tasting-quote {
+    padding: 2rem 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .tasting-quote-text {
+    font-size: 1.15rem;
+    line-height: 1.65;
+  }
+
+  /* Section 07: Philosophy */
+  .sins-philosophy {
+    padding: clamp(5rem, 12vw, 7rem) 0;
+  }
+
+  .sins-philosophy__tag {
+    max-width: 100%;
+    gap: 1rem;
+  }
+
+  .sins-philosophy__tag .tag-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+  }
+
+  .sins-philosophy__headline {
+    font-size: clamp(2rem, 7.5vw, 3.2rem);
+    line-height: 1.15;
+  }
+
+  .sins-philosophy__body {
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 3rem;
+  }
+
+  .sins-philosophy__pillars {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .pillar-box {
+    padding: 2rem 1.5rem;
+  }
+
+  .philosophy-emblem {
+    width: 65px;
+    height: 65px;
+  }
+
+  .signoff-location {
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+  }
+
+  /* Section 08: Brand Statement */
+  .sins-brand-statement {
+    padding: clamp(5rem, 12vw, 7.5rem) 0;
+  }
+
+  .sins-statement-title {
+    font-size: clamp(2rem, 7.5vw, 3.2rem);
+    line-height: 1.18;
+  }
+
+  .sins-statement-lead {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  /* Section 09: Instagram Gallery */
+  .sins-instagram-gallery {
+    padding: clamp(4.5rem, 10vw, 6.5rem) 0;
+  }
+
+  .sins-insta-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .sins-insta-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .sins-insta-card--tall,
+  .sins-insta-card--wide {
+    grid-column: span 1;
+    aspect-ratio: 1/1;
+  }
+
+  /* Footer */
+  .sins-footer {
+    padding: 4.5rem 0 2rem 0;
+  }
+
   .sins-footer__newsletter {
     grid-template-columns: 1fr;
-    gap: 2rem;
-    padding-bottom: 3.5rem;
-    margin-bottom: 3.5rem;
+    gap: 1.75rem;
+    padding-bottom: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .newsletter-title {
+    font-size: 1.75rem;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.85rem;
+  }
+
+  .newsletter-form input {
+    width: 100%;
+    min-height: 48px;
+    border-radius: 4px;
+    padding: 0.9rem 1.25rem;
+  }
+
+  .newsletter-form .sins-btn {
+    width: 100%;
+    min-height: 48px;
+    border-radius: 4px;
+    justify-content: center;
   }
 
   .sins-footer__main {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
   }
 
   .sins-footer__bottom {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.25rem;
+    padding-top: 2rem;
   }
 
   /* PDP */
   .sins-pdp-layout {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
+  }
+
+  .sins-pdp-gallery-main {
+    aspect-ratio: 1/1;
+  }
+
+  .pdp-title {
+    font-size: 2.2rem;
   }
 
   /* Story Page */
   .sins-chapter-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .sins-story-chapter--reverse .chapter-media-col {
     order: 2;
   }
+
   .sins-story-chapter--reverse .chapter-text-col {
     order: 1;
   }
@@ -213,15 +687,16 @@
   /* Contact Page */
   .sins-contact-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .sins-contact-form-wrap {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.25rem;
   }
 
   .form-row {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   /* Collections */
@@ -240,25 +715,95 @@
     display: none;
   }
 
-  .sins-cart-table td {
+  .sins-cart-table tr {
     display: block;
-    padding: 0.75rem 0;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+    background: rgba(22, 21, 18, 0.6);
+    border: 1px solid var(--color-border-dark);
+    border-radius: 4px;
+  }
+
+  .sins-cart-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .sins-cart-table td:last-child {
+    border-bottom: none;
   }
 
   .sins-cart-table td.td-price::before {
-    content: "Price: ";
+    content: "Price";
     color: var(--color-muted-sand);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
   .sins-cart-table td.td-total::before {
-    content: "Total: ";
+    content: "Total";
     color: var(--color-muted-sand);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Cart Drawer Fullscreen on Mobile */
+  .sins-cart-drawer {
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+
+  .sins-cart-drawer__footer .sins-btn {
+    min-height: 52px;
   }
 }
 
-/* Mobile Navigation Drawer */
+/* --------------------------------------------------------------------------
+   SMALL MOBILE / NARROW PHONES (<= 480px)
+   -------------------------------------------------------------------------- */
+@media screen and (max-width: 480px) {
+  :root {
+    --container-gutter: 1rem;
+  }
+
+  .sins-hero__headline {
+    font-size: 2.25rem;
+  }
+
+  .sins-brand-intro__headline,
+  .sins-origin-story__headline,
+  .sins-coffee-process__headline,
+  .sins-tasting-experience__title,
+  .sins-philosophy__headline,
+  .sins-statement-title {
+    font-size: 2rem;
+  }
+
+  .sins-brand-intro__stats {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .sins-image-card--floating {
+    width: 60%;
+    bottom: -8%;
+    right: -2%;
+  }
+
+  .sins-insta-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE NAVIGATION DRAWER
+   -------------------------------------------------------------------------- */
 .sins-mobile-menu {
   position: fixed;
   inset: 0;
@@ -274,8 +819,9 @@
 .sins-mobile-menu__backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   opacity: 0;
   transition: opacity 0.4s ease;
 }
@@ -288,17 +834,19 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 85%;
+  width: 86vw;
   max-width: 360px;
   height: 100%;
-  background: #111111;
-  border-right: 1px solid var(--color-border-dark);
-  padding: 2rem;
+  background: #0E0D0B;
+  border-right: 1px solid rgba(198, 163, 107, 0.25);
+  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   transform: translateX(-100%);
   transition: transform 0.45s var(--ease-luxury);
-  box-shadow: 15px 0 40px rgba(0,0,0,0.9);
+  box-shadow: 20px 0 50px rgba(0,0,0,0.95);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sins-mobile-menu.active .sins-mobile-menu__panel {
@@ -310,20 +858,31 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--color-border-subtle);
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(198, 163, 107, 0.2);
 }
 
 .sins-mobile-menu__close {
   color: var(--color-text-light);
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
   padding: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .sins-mobile-menu__tagline {
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   letter-spacing: 0.22em;
   color: var(--color-champagne-gold);
   margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .sins-mobile-nav-list {
@@ -334,19 +893,22 @@
 
 .sins-mobile-link {
   font-family: var(--font-headline);
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   color: var(--color-text-light);
   display: block;
+  transition: all 0.3s ease;
+  padding: 0.4rem 0;
 }
 
-.sins-mobile-link:hover {
+.sins-mobile-link:hover,
+.sins-mobile-link:active {
   color: var(--color-champagne-gold);
   padding-left: 8px;
 }
 
 .sins-mobile-menu__footer {
   margin-top: auto;
-  border-top: 1px solid var(--color-border-subtle);
+  border-top: 1px solid rgba(198, 163, 107, 0.2);
   padding-top: 1.75rem;
   display: flex;
   flex-direction: column;
@@ -359,10 +921,11 @@
   letter-spacing: 0.2em;
   color: var(--color-muted-sand);
   margin-bottom: 0.25rem;
+  text-transform: uppercase;
 }
 
 .sins-mobile-contact a {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--color-champagne-light);
 }
 
@@ -372,9 +935,12 @@
   gap: 0.6rem;
   font-size: 0.82rem;
   color: var(--color-muted-sand);
+  min-height: 36px;
 }
 
-/* Reduced Motion Support (Accessibility) */
+/* --------------------------------------------------------------------------
+   REDUCED MOTION ACCESSIBILITY
+   -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -383,4 +949,3 @@
     scroll-behavior: auto !important;
   }
 }
-
