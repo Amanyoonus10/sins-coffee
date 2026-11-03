@@ -341,7 +341,7 @@ def build_preview():
         </div>
       </section>
 
-      <!-- Section 03: Origin Story -->
+      <!-- Section 03: Origin Story (Atelier Editorial Layout) -->
       <section class="sins-origin-story" id="origin">
         <div class="sins-origin-story__backdrop">
           <img src="../assets/plantation-western-ghats.jpg" alt="Western Ghats Mist" class="sins-origin-story__bg-img sins-parallax-bg" width="1920" height="1080">
@@ -349,71 +349,157 @@ def build_preview():
         </div>
         <div class="sins-container sins-origin-story__content">
           <div class="sins-origin-story__header" data-reveal="fade-up">
-            <span class="sins-origin-story__tag">TERROIR & PROVENANCE</span>
+            <div class="origin-eyebrow-pill">
+              <span class="eyebrow-dot">✦</span>
+              <span class="eyebrow-text">CHAPTER II • TERROIR & PROVENANCE</span>
+              <span class="eyebrow-dot">✦</span>
+            </div>
             <h2 class="sins-origin-story__headline">
               <span>ROOTED IN INDIA.</span>
-              <span class="italic-serif">CRAFTED FOR THE WORLD.</span>
+              <span class="gold-italic">CRAFTED FOR THE WORLD.</span>
             </h2>
             <p class="sins-origin-story__subhead">
-              High above the misty rainforest canopies of Karnataka’s Western Ghats — a UNESCO World Heritage biodiversity hotspot — our beans are hand-cultivated under two tiers of native shade trees.
+              High above the misty rainforest canopies of Karnataka’s Western Ghats — a UNESCO World Heritage biodiversity hotspot — our beans are hand-cultivated under two tiers of native shade trees and slow-cured with unhurried precision.
             </p>
           </div>
 
           <div class="sins-origin-mosaic">
+            <!-- Mosaic Item 1: Western Ghats Terroir -->
             <div class="sins-mosaic-card sins-mosaic-card--large" data-reveal="fade-up">
+              <div class="sins-mosaic-card__topbar">
+                <div class="card-index-pill">
+                  <span class="card-index-num">01</span>
+                  <span class="card-index-divider">/</span>
+                  <span class="card-index-label">TERROIR</span>
+                </div>
+                <div class="card-coord-pill">
+                  <span class="coord-icon">✦</span>
+                  <span class="coord-text">14° 12′ N • 1,450M ALTITUDE</span>
+                </div>
+              </div>
               <div class="sins-mosaic-card__media">
                 <img src="../assets/plantation-western-ghats.jpg" alt="Karnataka Mist Canopy" width="800" height="550">
+                <div class="sins-mosaic-card__media-glow"></div>
               </div>
               <div class="sins-mosaic-card__caption">
                 <span class="caption-region">BABA BUDANGIRI & CHIKMAGALUR</span>
                 <h3 class="caption-title">The Cradle of Indian Coffee</h3>
-                <p class="caption-desc">Legend recounts that in 1670, Sufi saint Baba Budan brought seven magical beans to these very slopes. Today, this altitude yields incomparable bean density and nuanced complexity.</p>
+                <div class="caption-gold-hairline"></div>
+                <p class="caption-desc">Legend recounts that in 1670, Sufi saint Baba Budan smuggled seven magical beans from Yemen to these very slopes. Today, this high altitude and mineral-dense volcanic soil yield incomparable bean density and nuanced botanical complexity.</p>
+                <div class="card-specs-row">
+                  <span class="spec-item"><strong class="spec-label">CANOPY:</strong> Fig, Rosewood & Silver Oak</span>
+                  <span class="spec-bullet">•</span>
+                  <span class="spec-item"><strong class="spec-label">SOIL:</strong> Volcanic Humus</span>
+                </div>
               </div>
             </div>
 
+            <!-- Mosaic Item 2: Selective Hand Harvest -->
             <div class="sins-mosaic-card sins-mosaic-card--tall" data-reveal="fade-up" data-delay="150">
+              <div class="sins-mosaic-card__topbar">
+                <div class="card-index-pill">
+                  <span class="card-index-num">02</span>
+                  <span class="card-index-divider">/</span>
+                  <span class="card-index-label">HARVEST</span>
+                </div>
+                <div class="card-coord-pill">
+                  <span class="coord-icon">✦</span>
+                  <span class="coord-text">OCTOBER — FEBRUARY • 100% HANDPICKED</span>
+                </div>
+              </div>
               <div class="sins-mosaic-card__media">
                 <img src="../assets/coffee-cherries-harvest.jpg" alt="Ruby Arabica Cherries" width="600" height="800">
+                <div class="sins-mosaic-card__media-glow"></div>
               </div>
               <div class="sins-mosaic-card__caption">
                 <span class="caption-region">OCTOBER — FEBRUARY HARVEST</span>
                 <h3 class="caption-title">Selective Ruby Picking</h3>
-                <p class="caption-desc">Only fully ripe, deep crimson cherries are gathered by generational estate pickers, preserving natural sugar concentration and delicate botanical aromatics.</p>
+                <div class="caption-gold-hairline"></div>
+                <p class="caption-desc">Only fully ripe, deep crimson cherries are gathered across successive passes by generational estate pickers, preserving peak natural Brix sugar concentration and delicate aromatic oils.</p>
+                <div class="card-specs-row">
+                  <span class="spec-item"><strong class="spec-label">METHOD:</strong> Triple-Pass Selective</span>
+                  <span class="spec-bullet">•</span>
+                  <span class="spec-item"><strong class="spec-label">YIELD:</strong> Top 2% Crop</span>
+                </div>
               </div>
             </div>
 
-            <div class="sins-mosaic-card sins-mosaic-card--wide" data-reveal="fade-up" data-delay="300">
-              <div class="sins-mosaic-card__media">
-                <img src="../assets/roasted-coffee-beans.jpg" alt="Monsooned Malabar Processing" width="750" height="500">
-              </div>
-              <div class="sins-mosaic-card__caption">
-                <span class="caption-region">ARABIAN SEA WIND CURATION</span>
-                <h3 class="caption-title">The Alchemy of Monsooning</h3>
-                <p class="caption-desc">Exposed to damp southwest monsoon winds on open brick yards, the green beans swell and mature to golden ivory, creating a world-renowned mellow acidity and heavy velvet body.</p>
+            <!-- Mosaic Item 3: Monsooned Malabar Panorama Feature -->
+            <div class="sins-mosaic-card sins-mosaic-card--panorama" data-reveal="fade-up" data-delay="250">
+              <div class="sins-panorama-grid">
+                <div class="sins-panorama-media">
+                  <img src="../assets/roasted-coffee-beans.jpg" alt="Monsooned Malabar Processing" width="900" height="600">
+                  <div class="sins-panorama-media-overlay"></div>
+                  <div class="panorama-tag-badge">
+                    <span class="badge-icon">⚓</span>
+                    <span>COASTAL MALABAR CURATION</span>
+                  </div>
+                </div>
+                <div class="sins-panorama-content">
+                  <div class="sins-mosaic-card__topbar" style="padding: 0 0 1.25rem 0; margin-bottom: 1.5rem; background: transparent;">
+                    <div class="card-index-pill">
+                      <span class="card-index-num">03</span>
+                      <span class="card-index-divider">/</span>
+                      <span class="card-index-label">ALCHEMY</span>
+                    </div>
+                    <div class="card-coord-pill">
+                      <span class="coord-icon">✦</span>
+                      <span class="coord-text">ARABIAN SEA WINDS</span>
+                    </div>
+                  </div>
+                  <span class="caption-region">ARABIAN SEA WIND CURATION</span>
+                  <h3 class="caption-title">The Alchemy of Monsooning</h3>
+                  <div class="caption-gold-hairline"></div>
+                  <p class="caption-desc">
+                    Exposed to damp southwest monsoon winds on open brick yards along the Malabar Coast for 12 weeks, the green beans swell to twice their original size and mature to a golden ivory hue. This centuries-old maritime curing process virtually eliminates sharp acidity, producing a legendary unctuous velvet body and intoxicating notes of toasted spice, caramelized jaggery, and dark cocoa.
+                  </p>
+                  <div class="panorama-sensory-matrix">
+                    <div class="sensory-item">
+                      <span class="sensory-label">NATURAL ACIDITY</span>
+                      <div class="sensory-bar"><span class="sensory-fill" style="width: 15%;"></span></div>
+                      <span class="sensory-value">Ultra Mellow (1.5/10)</span>
+                    </div>
+                    <div class="sensory-item">
+                      <span class="sensory-label">MOUTHFEEL BODY</span>
+                      <div class="sensory-bar"><span class="sensory-fill" style="width: 95%;"></span></div>
+                      <span class="sensory-value">Heavy Velvet (9.5/10)</span>
+                    </div>
+                    <div class="sensory-item">
+                      <span class="sensory-label">ROAST PROFILE</span>
+                      <div class="sensory-bar"><span class="sensory-fill" style="width: 78%;"></span></div>
+                      <span class="sensory-value">Medium-Dark Atelier (7.8/10)</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
+          <!-- Bottom Origin Milestone Counter -->
           <div class="sins-origin-stats" data-reveal="fade-up">
             <div class="stat-box">
+              <span class="stat-emblem">✦</span>
               <span class="stat-number">350+</span>
               <span class="stat-title">Years of Heritage</span>
-              <span class="stat-detail">Dating back to the earliest coffee voyages</span>
+              <span class="stat-detail">Dating back to the earliest royal Indian coffee voyages</span>
             </div>
             <div class="stat-box">
+              <span class="stat-emblem">✦</span>
               <span class="stat-number">100%</span>
               <span class="stat-title">Shade Grown</span>
-              <span class="stat-detail">Beneath fig, rosewood & silver oak trees</span>
+              <span class="stat-detail">Beneath native fig, rosewood & silver oak biodiversity canopy</span>
             </div>
             <div class="stat-box">
+              <span class="stat-emblem">✦</span>
               <span class="stat-number">Grade AAA</span>
               <span class="stat-title">Extra Bold Sieve 19</span>
-              <span class="stat-detail">Top 2% cherry density classification</span>
+              <span class="stat-detail">Top 2% cherry density classification with zero defect tolerance</span>
             </div>
             <div class="stat-box">
+              <span class="stat-emblem">✦</span>
               <span class="stat-number">Zero</span>
               <span class="stat-title">Compromise</span>
-              <span class="stat-detail">Small-batch roasted in our British atelier</span>
+              <span class="stat-detail">Small-batch cast-iron roasted in our British luxury atelier</span>
             </div>
           </div>
         </div>
