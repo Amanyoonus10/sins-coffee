@@ -806,8 +806,9 @@ def build_preview():
         </div>
       </section>
 
-      <!-- Section 07: Philosophy -->
-      <section class="sins-philosophy" id="philosophy">
+      <!-- Section 07: Philosophy (Fixed Still Background) -->
+      <section class="sins-philosophy" id="philosophy" style="background-image: url('../assets/philosophy-bg.png');">
+        <div class="sins-philosophy__overlay"></div>
         <div class="sins-container sins-philosophy__inner">
           <div class="sins-philosophy__content" data-reveal="fade-up">
             <div class="sins-philosophy__tag">

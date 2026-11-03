@@ -1,8 +1,15 @@
 {% comment %}
   SIN'S COFFEE - Section 07: Our Philosophy
+  Features fixed / still parallax background image while scrolling.
 {% endcomment %}
 
-<section class="sins-philosophy" id="philosophy" data-section-id="{{ section.id }}">
+<section 
+  class="sins-philosophy" 
+  id="philosophy" 
+  data-section-id="{{ section.id }}"
+  style="background-image: url('{{ section.settings.bg_image | default: 'philosophy-bg.png' | asset_url }}');"
+>
+  <div class="sins-philosophy__overlay"></div>
   <div class="sins-container sins-philosophy__inner">
     
     <div class="sins-philosophy__content" data-reveal="fade-up">
@@ -54,6 +61,11 @@
 {
   "name": "Brand Philosophy",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Still Background Image"
+    },
     {
       "type": "text",
       "id": "eyebrow",

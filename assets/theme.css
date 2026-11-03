@@ -2101,13 +2101,38 @@ ul, ol {
 }
 
 /* ==========================================================================
-   SECTION 07: OUR PHILOSOPHY
+   SECTION 07: OUR PHILOSOPHY (Fixed Still Background)
    ========================================================================== */
 
 .sins-philosophy {
-  padding: clamp(6rem, 12vw, 11rem) 0;
-  background-color: var(--color-matte-black);
+  position: relative;
+  min-height: 90vh;
+  padding: clamp(7rem, 12vw, 11rem) 0;
+  background-image: url('philosophy-bg.png');
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   text-align: center;
+  border-top: 1px solid rgba(198, 163, 107, 0.25);
+  border-bottom: 1px solid rgba(198, 163, 107, 0.25);
+  overflow: hidden;
+}
+
+.sins-philosophy__overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at center, rgba(11, 10, 9, 0.62) 0%, rgba(11, 10, 9, 0.8) 60%, rgba(6, 6, 6, 0.95) 100%),
+    linear-gradient(180deg, rgba(11, 10, 9, 0.92) 0%, rgba(11, 10, 9, 0.4) 35%, rgba(11, 10, 9, 0.45) 65%, rgba(11, 10, 9, 0.95) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sins-philosophy__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
 }
 
 .sins-philosophy__content {
@@ -2161,20 +2186,27 @@ ul, ol {
 
 .sins-philosophy__pillars {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 2.5rem;
   margin-bottom: 4.5rem;
 }
 
 .pillar-box {
-  padding: 2.5rem 1.75rem;
-  border: 1px solid var(--color-border-subtle);
-  background: rgba(22, 21, 18, 0.4);
-  transition: border-color 0.4s ease;
+  padding: 2.75rem 2rem;
+  border: 1px solid rgba(198, 163, 107, 0.28);
+  background: rgba(14, 13, 11, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 6px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: all 0.45s var(--ease-luxury);
 }
 
 .pillar-box:hover {
   border-color: var(--color-champagne-gold);
+  background: rgba(14, 13, 11, 0.82);
+  transform: translateY(-5px);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.8), 0 0 25px rgba(198, 163, 107, 0.15);
 }
 
 .pillar-symbol {
