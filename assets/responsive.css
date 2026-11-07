@@ -81,49 +81,64 @@ img, video {
   }
 
 /* --------------------------------------------------------------------------
-   CRITICAL: 9:16 HIGH-DEFINITION STILL / FIXED MOBILE BACKGROUND IMAGES
-   Swaps 16:9 desktop images with dedicated vertical 9:16 compositions
-   and keeps background images STILL / FIXED in place while scrolling.
+   CRITICAL: 9:16 HIGH-DEFINITION STILL / FIXED MOBILE BACKGROUND STAGE
+   Provides 100% razor-sharp, zero-blur STILL parallax on iOS Safari & Android
+   Bypasses the notorious WebKit document-height 12x zoom bug!
    -------------------------------------------------------------------------- */
 @media screen and (max-width: 991px), screen and (max-width: 1024px) and (orientation: portrait) {
+  .sins-mobile-still-bg {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    height: 100vh !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    background-size: cover !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    will-change: opacity, background-image;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+
+  /* Make the 5 parallax sections transparent on mobile so the still background shines through */
   .sins-brand-intro,
-  #brand-intro {
-    background-image: url('brand-intro-bg-mobile.jpg') !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center top !important;
-  }
-
+  #brand-intro,
   .sins-coffee-process,
-  #process {
-    background-image: url('process-bg-mobile.jpg') !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center top !important;
-  }
-
+  #process,
   .sins-tasting-experience,
-  #tasting {
-    background-image: url('tasting-bg-mobile.jpg') !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center top !important;
-  }
-
+  #tasting,
   .sins-philosophy,
-  #philosophy {
-    background-image: url('philosophy-bg-mobile.jpg') !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center center !important;
-  }
-
+  #philosophy,
   .sins-brand-statement,
   #statement {
-    background-image: url('brand-statement-bg-mobile.jpg') !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center bottom !important;
+    background-image: none !important;
+    background-color: transparent !important;
+    background-attachment: scroll !important; /* CRITICAL: Eliminates the iOS Safari 12x zoom bug! */
+    position: relative !important;
+    z-index: 1 !important;
+  }
+
+  /* Non-parallax sections have solid dark backgrounds that cleanly mask the still background */
+  .sins-hero,
+  .sins-collection,
+  .sins-origin-story,
+  .sins-scroll-video,
+  .sins-instagram-gallery,
+  .sins-footer {
+    position: relative !important;
+    z-index: 2 !important;
+    background-color: #0B0A09 !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .sins-mobile-still-bg {
+    display: none !important;
   }
 }
 
@@ -661,11 +676,7 @@ img, video {
     position: relative !important;
     min-height: auto !important;
     padding: clamp(3rem, 7vw, 4.5rem) 0 clamp(3.5rem, 8vw, 5rem) 0 !important;
-    background-image: url('tasting-bg-mobile.jpg') !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center top !important;
-    background-repeat: no-repeat !important;
+    background: transparent !important;
   }
 
   .sins-tasting-experience__overlay {
@@ -816,10 +827,7 @@ img, video {
   .sins-philosophy,
   #philosophy {
     padding: clamp(4rem, 10vw, 6rem) 0 !important;
-    background-image: url('philosophy-bg-mobile.jpg') !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center center !important;
+    background: transparent !important;
   }
 
   .sins-philosophy__tag {
@@ -883,11 +891,7 @@ img, video {
     flex-direction: column !important;
     align-items: center !important;
     justify-content: flex-start !important;
-    background-image: url('brand-statement-bg-mobile.jpg') !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-position: center bottom !important;
-    background-repeat: no-repeat !important;
+    background: transparent !important;
     overflow: hidden !important;
   }
 

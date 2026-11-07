@@ -283,5 +283,98 @@
     return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
   }
 
+  // 6. Mobile Viewport Still Parallax Controller (Zero-Blur, 120fps Hardware Accelerated)
+  function initParallax() {
+    const canvas = document.getElementById('mobile-still-bg');
+    if (!canvas) return;
+
+    const isShopify = typeof window.Shopify !== 'undefined';
+    let assetPath = '';
+    if (isShopify) {
+      assetPath = window.sinsThemeAssets || '';
+    } else {
+      assetPath = window.location.pathname.includes('/preview') ? '../assets/' : 'assets/';
+    }
+
+    const sectionBgs = {
+      'brand-intro': 'brand-intro-bg-mobile.jpg',
+      'process': 'process-bg-mobile.jpg',
+      'tasting': 'tasting-bg-mobile.jpg',
+      'philosophy': 'philosophy-bg-mobile.jpg',
+      'statement': 'brand-statement-bg-mobile.jpg'
+    };
+
+    // Preload mobile background images into memory immediately
+    Object.values(sectionBgs).forEach(img => {
+      const p = new Image();
+      p.src = assetPath + img;
+    });
+
+    let currentSection = '';
+
+    function updateBg(id) {
+      if (!sectionBgs[id] || currentSection === id) return;
+      currentSection = id;
+      canvas.style.backgroundImage = `url("${assetPath}${sectionBgs[id]}")`;
+      canvas.style.opacity = '1';
+    }
+
+    function checkActiveSection() {
+      if (window.innerWidth > 991) {
+        canvas.style.opacity = '0';
+        currentSection = '';
+        return;
+      }
+
+      const vh = window.innerHeight;
+      const opticalCenter = vh * 0.45;
+      let active = null;
+
+      for (const id of Object.keys(sectionBgs)) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= opticalCenter && rect.bottom >= opticalCenter) {
+            active = id;
+            break;
+          }
+        }
+      }
+
+      if (active) {
+        updateBg(active);
+      }
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (window.innerWidth > 991) return;
+        let highestEntry = null;
+        entries.forEach(entry => {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.05) {
+            if (!highestEntry || entry.intersectionRatio > highestEntry.intersectionRatio) {
+              highestEntry = entry;
+            }
+          }
+        });
+        if (highestEntry && highestEntry.target.id && sectionBgs[highestEntry.target.id]) {
+          updateBg(highestEntry.target.id);
+        }
+      }, {
+        rootMargin: '-5% 0px -5% 0px',
+        threshold: [0.05, 0.2, 0.4, 0.6]
+      });
+
+      Object.keys(sectionBgs).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    }
+
+    window.addEventListener('scroll', checkActiveSection, { passive: true });
+    window.addEventListener('resize', checkActiveSection, { passive: true });
+    checkActiveSection();
+  }
+
 })();
 

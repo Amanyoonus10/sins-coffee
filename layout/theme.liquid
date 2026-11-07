@@ -58,6 +58,9 @@
 
   <body class="sins-theme template-{{ template.name | handle }} {% if template.suffix %}template-suffix-{{ template.suffix | handle }}{% endif %}">
     
+    <!-- Fixed Viewport Still Parallax Canvas for Mobile & Tablet Portrait -->
+    <div class="sins-mobile-still-bg" id="mobile-still-bg" aria-hidden="true"></div>
+    
     <!-- Cinematic Fullscreen Video Intro (Plays before site starts) -->
     {% render 'cinematic-video-intro' %}
 
