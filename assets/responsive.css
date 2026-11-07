@@ -80,17 +80,49 @@ img, video {
     --container-gutter: 1.25rem;
   }
 
-  /* CRITICAL: Mobile Background Parallax Fix
-     iOS Safari and Android WebKit struggle with background-attachment: fixed.
-     Switching to scroll delivers silky 60fps scrolling and sharp images. */
+  /* --------------------------------------------------------------------------
+     CRITICAL: 9:16 HIGH-DEFINITION MOBILE BACKGROUND IMAGES
+     Swaps 16:9 desktop images with dedicated vertical 9:16 compositions
+     and enables silky 60fps mobile scrolling (background-attachment: scroll).
+     -------------------------------------------------------------------------- */
   .sins-brand-intro,
-  .sins-coffee-process,
-  .sins-tasting-experience,
-  .sins-philosophy,
-  .sins-brand-statement {
+  #brand-intro {
+    background-image: url('brand-intro-bg-mobile.jpg') !important;
     background-attachment: scroll !important;
     background-size: cover !important;
     background-position: center center !important;
+  }
+
+  .sins-coffee-process,
+  #process {
+    background-image: url('process-bg-mobile.jpg') !important;
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+
+  .sins-tasting-experience,
+  #tasting {
+    background-image: url('tasting-bg-mobile.jpg') !important;
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+
+  .sins-philosophy,
+  #philosophy {
+    background-image: url('philosophy-bg-mobile.jpg') !important;
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+
+  .sins-brand-statement,
+  #statement {
+    background-image: url('brand-statement-bg-mobile.jpg') !important;
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center bottom !important;
   }
 
   /* --------------------------------------------------------------------------

@@ -3,6 +3,14 @@
   Features fixed / still parallax background image while scrolling.
 {% endcomment %}
 
+<style>
+  @media screen and (max-width: 860px) {
+    #philosophy {
+      background-image: url('{{ section.settings.bg_image_mobile | default: 'philosophy-bg-mobile.jpg' | asset_url }}') !important;
+    }
+  }
+</style>
+
 <section 
   class="sins-philosophy" 
   id="philosophy" 
@@ -64,7 +72,12 @@
     {
       "type": "image_picker",
       "id": "bg_image",
-      "label": "Still Background Image"
+      "label": "Still Background Image (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image_mobile",
+      "label": "Still Background Image (Mobile 9:16)"
     },
     {
       "type": "text",
