@@ -4,7 +4,7 @@
 {% endcomment %}
 
 <style>
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 991px), screen and (max-width: 1024px) and (orientation: portrait) {
     #process {
       background-image: url('{{ section.settings.bg_image_mobile | default: 'process-bg-mobile.jpg' | asset_url }}') !important;
     }

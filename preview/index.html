@@ -12,8 +12,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="../assets/theme.css">
-  <link rel="stylesheet" href="../assets/responsive.css">
+  <link rel="stylesheet" href="../assets/theme.css?v=20261108c">
+  <link rel="stylesheet" href="../assets/responsive.css?v=20261108c">
+
+  <style>
+    @media screen and (max-width: 991px), screen and (max-width: 1024px) and (orientation: portrait) {
+      .sins-brand-intro, #brand-intro {
+        background-image: url('../assets/brand-intro-bg-mobile.jpg') !important;
+      }
+      .sins-coffee-process, #process {
+        background-image: url('../assets/process-bg-mobile.jpg') !important;
+      }
+      .sins-tasting-experience, #tasting {
+        background-image: url('../assets/tasting-bg-mobile.jpg') !important;
+      }
+      .sins-philosophy, #philosophy {
+        background-image: url('../assets/philosophy-bg-mobile.jpg') !important;
+      }
+      .sins-brand-statement, #statement {
+        background-image: url('../assets/brand-statement-bg-mobile.jpg') !important;
+      }
+    }
+  </style>
 
   <style>
     /* Demo Navigation Bar at Top for Preview Mode */
@@ -294,7 +314,7 @@
       </section>
 
       <!-- Section 02: Brand Intro (Still Background) -->
-      <section class="sins-brand-intro" id="brand-intro" style="background-image: url('../assets/brand-intro-bg.png');">
+      <section class="sins-brand-intro" id="brand-intro">
         <div class="sins-brand-intro__overlay"></div>
         <div class="sins-container sins-brand-intro__inner">
           <div class="sins-brand-intro__grid">
@@ -718,7 +738,7 @@
       </section>
 
       <!-- Section 05: The Art of Coffee (Fixed Still Background) -->
-      <section class="sins-coffee-process" id="process" style="background-image: url('../assets/process-bg.png');">
+      <section class="sins-coffee-process" id="process">
         <div class="sins-coffee-process__overlay"></div>
         <div class="sins-container sins-coffee-process__inner">
           <div class="sins-coffee-process__header" data-reveal="fade-up">
@@ -850,7 +870,7 @@
       </section>
 
       <!-- Section 06: A Taste of Distinction (Fixed Still Background - Warm Ivory) -->
-      <section class="sins-tasting-experience" id="tasting" style="background-image: url('../assets/tasting-bg.png');">
+      <section class="sins-tasting-experience" id="tasting">
         <div class="sins-tasting-experience__overlay"></div>
         <div class="sins-container sins-tasting-experience__inner">
           <div class="sins-tasting-experience__header" data-reveal="fade-up">
@@ -921,7 +941,7 @@
       </section>
 
       <!-- Section 07: Philosophy (Fixed Still Background) -->
-      <section class="sins-philosophy" id="philosophy" style="background-image: url('../assets/philosophy-bg.png');">
+      <section class="sins-philosophy" id="philosophy">
         <div class="sins-philosophy__overlay"></div>
         <div class="sins-container sins-philosophy__inner">
           <div class="sins-philosophy__content" data-reveal="fade-up">
@@ -963,7 +983,7 @@
       </section>
 
       <!-- Section 08: Brand Statement (Fixed Background) -->
-      <section class="sins-brand-statement" id="statement" style="background-image: url('../assets/brand-statement-bg.png');">
+      <section class="sins-brand-statement" id="statement">
         <div class="sins-brand-statement__overlay"></div>
         <div class="sins-container sins-brand-statement__inner">
           <div class="sins-brand-statement__content" data-reveal="scale-up">

@@ -4,7 +4,7 @@
 {% endcomment %}
 
 <style>
-  @media screen and (max-width: 860px) {
+  @media screen and (max-width: 991px), screen and (max-width: 1024px) and (orientation: portrait) {
     #tasting {
       background-image: url('{{ section.settings.bg_image_mobile | default: 'tasting-bg-mobile.jpg' | asset_url }}') !important;
     }
