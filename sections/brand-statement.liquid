@@ -7,6 +7,7 @@
   @media screen and (max-width: 991px), screen and (max-width: 1024px) and (orientation: portrait) {
     #statement {
       background-image: url('{{ section.settings.bg_image_mobile | default: 'brand-statement-bg-mobile.jpg' | asset_url }}') !important;
+      background-attachment: fixed !important;
     }
   }
 </style>

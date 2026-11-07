@@ -81,15 +81,15 @@ img, video {
   }
 
 /* --------------------------------------------------------------------------
-   CRITICAL: 9:16 HIGH-DEFINITION MOBILE & TABLET PORTRAIT BACKGROUND IMAGES
+   CRITICAL: 9:16 HIGH-DEFINITION STILL / FIXED MOBILE BACKGROUND IMAGES
    Swaps 16:9 desktop images with dedicated vertical 9:16 compositions
-   and enables silky 60fps mobile scrolling (background-attachment: scroll).
+   and keeps background images STILL / FIXED in place while scrolling.
    -------------------------------------------------------------------------- */
 @media screen and (max-width: 991px), screen and (max-width: 1024px) and (orientation: portrait) {
   .sins-brand-intro,
   #brand-intro {
     background-image: url('brand-intro-bg-mobile.jpg') !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center top !important;
   }
@@ -97,7 +97,7 @@ img, video {
   .sins-coffee-process,
   #process {
     background-image: url('process-bg-mobile.jpg') !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center top !important;
   }
@@ -105,7 +105,7 @@ img, video {
   .sins-tasting-experience,
   #tasting {
     background-image: url('tasting-bg-mobile.jpg') !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center top !important;
   }
@@ -113,7 +113,7 @@ img, video {
   .sins-philosophy,
   #philosophy {
     background-image: url('philosophy-bg-mobile.jpg') !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center center !important;
   }
@@ -121,7 +121,7 @@ img, video {
   .sins-brand-statement,
   #statement {
     background-image: url('brand-statement-bg-mobile.jpg') !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center bottom !important;
   }
@@ -662,7 +662,7 @@ img, video {
     min-height: auto !important;
     padding: clamp(3rem, 7vw, 4.5rem) 0 clamp(3.5rem, 8vw, 5rem) 0 !important;
     background-image: url('tasting-bg-mobile.jpg') !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center top !important;
     background-repeat: no-repeat !important;
@@ -817,7 +817,7 @@ img, video {
   #philosophy {
     padding: clamp(4rem, 10vw, 6rem) 0 !important;
     background-image: url('philosophy-bg-mobile.jpg') !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center center !important;
   }
@@ -884,7 +884,7 @@ img, video {
     align-items: center !important;
     justify-content: flex-start !important;
     background-image: url('brand-statement-bg-mobile.jpg') !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
     background-size: cover !important;
     background-position: center bottom !important;
     background-repeat: no-repeat !important;

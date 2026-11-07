@@ -17,25 +17,30 @@ def build_preview():
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="../assets/theme.css?v=20261108c">
-  <link rel="stylesheet" href="../assets/responsive.css?v=20261108c">
+  <link rel="stylesheet" href="../assets/theme.css?v=20261108d">
+  <link rel="stylesheet" href="../assets/responsive.css?v=20261108d">
 
   <style>
     @media screen and (max-width: 991px), screen and (max-width: 1024px) and (orientation: portrait) {
       .sins-brand-intro, #brand-intro {
         background-image: url('../assets/brand-intro-bg-mobile.jpg') !important;
+        background-attachment: fixed !important;
       }
       .sins-coffee-process, #process {
         background-image: url('../assets/process-bg-mobile.jpg') !important;
+        background-attachment: fixed !important;
       }
       .sins-tasting-experience, #tasting {
         background-image: url('../assets/tasting-bg-mobile.jpg') !important;
+        background-attachment: fixed !important;
       }
       .sins-philosophy, #philosophy {
         background-image: url('../assets/philosophy-bg-mobile.jpg') !important;
+        background-attachment: fixed !important;
       }
       .sins-brand-statement, #statement {
         background-image: url('../assets/brand-statement-bg-mobile.jpg') !important;
+        background-attachment: fixed !important;
       }
     }
   </style>
